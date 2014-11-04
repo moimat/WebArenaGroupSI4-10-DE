@@ -1,2 +1,4 @@
 Se déplacer
-Attaquer
+Attaquerfrapper
+toucher
+
