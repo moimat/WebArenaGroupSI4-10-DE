@@ -53,5 +53,7 @@ function doMove($fighterId, $direction)
         $this->save();
         return true;
     }
+    
+    // coucou
 
 }
