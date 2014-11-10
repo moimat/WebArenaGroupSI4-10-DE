@@ -10,6 +10,7 @@ App::uses('AppController', 'Controller');
 class ArenaController extends AppController
 {
 
+    public $uses = array('Player', 'Fighter', 'Event');
     /**
      * index method : first page
      *
@@ -27,17 +28,19 @@ class ArenaController extends AppController
     
     public function character()
     {
-        
+        $this->set('raw',$this->Fighter->findById(1));
     }
     
     public function diary()
     {
-        
+        $this->set('raw',$this->Event->find());
     }
     
     public function sight()
     {
-        
+        if ($this->request->is('post'))       
+{            pr($this->request->data);        }
+        $this->set('raw',$this->Fighter->find('all'));  
     }
 
 }
