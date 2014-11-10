@@ -55,5 +55,5 @@ function doMove($fighterId, $direction)
     }
     
     // coucou
-
+    // c'est Cesc
 }
