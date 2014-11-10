@@ -53,7 +53,4 @@ function doMove($fighterId, $direction)
         $this->save();
         return true;
     }
-    
-    // coucou
-    // c'est Cesc
 }
