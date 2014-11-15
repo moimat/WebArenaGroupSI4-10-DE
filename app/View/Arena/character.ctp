@@ -6,3 +6,8 @@ echo $this->Form->input('id',array('options' => array('1'=>'1','2'=>'2'), 'defau
 echo $this->Form->end('view character');
 ?>
 
+<?php
+echo $this->Form->create('lvlup');
+echo $this->Form->input('id',array('options' => array('1'=>'1','2'=>'2'), 'default' => '1'));
+echo $this->Form->end('level up');
+?>

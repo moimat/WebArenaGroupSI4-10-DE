@@ -54,6 +54,13 @@ function doMove($fighterId, $direction)
         return true;
     }
     
+    function lvlUP($fighterId)
+    {
+        $datas = $this->read(null, $fighterId);
+        $this->set('level', $datas['Fighter']['level'] + 1);
+        $this->save();
+    }
+    
   function chooseAvatar($fighterId){
       
   }
