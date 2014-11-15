@@ -42,6 +42,7 @@ class ArenaController extends AppController
     {
         if ($this->request->is('post'))       
 {            pr($this->request->data);        }
+        $this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
         $this->set('raw',$this->Fighter->find('all'));  
     }
 
