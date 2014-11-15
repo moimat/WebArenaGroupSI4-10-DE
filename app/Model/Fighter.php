@@ -53,4 +53,8 @@ function doMove($fighterId, $direction)
         $this->save();
         return true;
     }
+    
+  function chooseAvatar($fighterId){
+      
+  }
 }

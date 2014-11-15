@@ -28,6 +28,8 @@ class ArenaController extends AppController
     
     public function character()
     {
+        if ($this->request->is('post'))       
+        {pr($this->request->data);}
         $this->set('raw',$this->Fighter->findById(1));
     }
     
