@@ -44,15 +44,16 @@ class ArenaController extends AppController
     public function diary()
     {
         $this->set('raw',$this->Event->find());
-    }
+    }   
     
     public function sight()
     {
         if ($this->request->is('post'))       
-{            pr($this->request->data);        }
+{            pr($this->request->data);}
         $this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
+        $this->Fighter->doAttack(1, $this->request->data['Fighteratk']['direction']);
         $this->set('raw',$this->Fighter->find('all'));  
-    }
+    }   
 
 }
 ?>

@@ -34,7 +34,6 @@ function doMove($fighterId, $direction)
     {
         // récupérer la position et fixer l'id de travail
         $datas = $this->read(null, $fighterId);
-
         //@todo empêcher le joueur de sortir des limites du terrain
         //@todo empêcher le joueur de se déplacer sur une case occupée
         // falre la modif
@@ -61,6 +60,39 @@ function doMove($fighterId, $direction)
         $this->save();
     }
     
+    function doAttack($fighterId, $direction)
+    {
+        // récupérer la position et fixer l'id de travail
+        $joueur = $this->read(null, $fighterId);
+        $cible = $this->read(null, 2);
+        // Selon la direction chercher un fighter dans sa position+vue
+        if ($direction == 'north' && $cible['Fighter']['coordinate_y']==$joueur['Fighter']['coordinate_y'] 
+                && $cible['Fighter']['coordinate_x']==$joueur['Fighter']['coordinate_x']+1 ){
+            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
+        }
+            
+        elseif ($direction == 'south' && $joueur['Fighter']['coordinate_y']==$cible['Fighter']['coordinate_y'] 
+             && $cible['Fighter']['coordinate_x']==$joueur['Fighter']['coordinate_x']-1 ){
+            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
+        }
+            
+        elseif ($direction == 'west' && $joueur['Fighter']['coordinate_x']==$cible['Fighter']['coordinate_x'] 
+              && $cible['Fighter']['coordinate_y']==$joueur['Fighter']['coordinate_y']-1 ){
+            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
+        }
+            
+        elseif ($direction == 'eastt' && $joueur['Fighter']['coordinate_x']==$cible['Fighter']['coordinate_x'] 
+            && $cible['Fighter']['coordinate_y']==$joueur['Fighter']['coordinate_y']+1 ){
+            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
+        }
+            
+        else
+            return false;
+
+        // sauver la modif
+        $this->save();
+        return true;
+    }
   function chooseAvatar($fighterId){
       
   }
