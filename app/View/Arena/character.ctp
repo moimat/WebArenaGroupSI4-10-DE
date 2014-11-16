@@ -19,4 +19,9 @@ echo $this->Form->input('Avatar',array('type'=>'file'));
 echo $this->Form->end('Upload image');
 ?>
 
+<?php
+echo $this->Form->create('createchar');
+echo $this->Form->input('name');
+echo $this->Form->end('Create Character');
+?>
 

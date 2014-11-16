@@ -61,7 +61,7 @@ public function doMove($fighterId, $direction)
     }
     
 
-    function doAttack($fighterId, $direction)
+    public function doAttack($fighterId, $direction)
     {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
@@ -111,4 +111,31 @@ public function doMove($fighterId, $direction)
         echo "Sorry, there was an error uploading your file.";
     }
   }
+  
+  public function createCharacter($newName)
+    {       
+        // Give new Id to row
+        $id= $this->find('count');
+        $id++;
+
+
+        $data = array(
+            'id'=> $id,
+            'name' => $newName,
+            'coordinate_x' => 1,
+            'coordinate_y' => 1,
+            'level' => 1,
+            'xp' => 0,
+            'skill_sight' => 1,
+            'skill_strength' => 1,
+            'skill_health' => 3,
+            'current_health' => 3,
+                );
+
+        // prepare the model for adding a new entry
+        $this->create();
+
+        // save the data
+        $this->save($data);
+    }
 }
