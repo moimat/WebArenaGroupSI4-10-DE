@@ -33,12 +33,23 @@ class ArenaController extends AppController
             if(isset($this->request->data['viewchar']))
             {
                 $this->set('raw',$this->Fighter->findById($this->request->data['viewchar']['id']));
+                $id=$this->request->data['viewchar']['id'];
             }
             if(isset($this->request->data['lvlup']))
             {
                 $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
             }
+            
+            if(isset($this->request->data['Upload']))
+            {
+                $this->Fighter->fileUpload($this->request->data['Upload']['id']);
+            }
+            
         }
+        
+   
+            
+
     }
     
     public function diary()

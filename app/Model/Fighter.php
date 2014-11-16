@@ -30,7 +30,7 @@ class Fighter extends AppModel {
 
    );
     
-function doMove($fighterId, $direction)
+public function doMove($fighterId, $direction)
     {
         // récupérer la position et fixer l'id de travail
         $datas = $this->read(null, $fighterId);
@@ -53,13 +53,14 @@ function doMove($fighterId, $direction)
         return true;
     }
     
-    function lvlUP($fighterId)
+    public function lvlUp($fighterId)
     {
         $datas = $this->read(null, $fighterId);
         $this->set('level', $datas['Fighter']['level'] + 1);
         $this->save();
     }
     
+
     function doAttack($fighterId, $direction)
     {
         // récupérer la position et fixer l'id de travail
@@ -93,7 +94,21 @@ function doMove($fighterId, $direction)
         $this->save();
         return true;
     }
-  function chooseAvatar($fighterId){
-      
+    
+  public function fileUpload($id){
+
+            $repertoire = "img/Avatars/";
+           
+            
+            
+             $image = $repertoire . 'avatar-' . $id . '.jpg' ;
+            
+ 
+            print_r ($_FILES['data']['tmp_name']['Upload']['Avatar']);
+    if (move_uploaded_file($_FILES['data']['tmp_name']['Upload']['Avatar'], WWW_ROOT.$image)) {
+        echo "The file ". basename( $_FILES["data"]["name"]['Upload']['Avatar']). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file.";
+    }
   }
 }
