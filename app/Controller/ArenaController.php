@@ -60,9 +60,16 @@ class ArenaController extends AppController
     public function sight()
     {
         if ($this->request->is('post'))       
-{            pr($this->request->data);}
-        $this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
-        $this->Fighter->doAttack(1, $this->request->data['Fighteratk']['direction']);
+{            pr($this->request->data);
+             if(isset($this->request->data['Fightermove']))
+             {    
+             $this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
+             }
+             if(isset($this->request->data['Fighteratk']))
+             {    
+             $this->Fighter->doAttack(1, $this->request->data['Fighteratk']['direction']);
+             }
+}
         $this->set('raw',$this->Fighter->find('all'));  
     }   
 
