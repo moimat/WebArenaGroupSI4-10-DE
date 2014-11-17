@@ -69,12 +69,12 @@ class ArenaController extends AppController
 {            pr($this->request->data);
              if(isset($this->request->data['Fightermove']))
              {    
-             $this->Fighter->doMove(1, $this->request->data['Fightermove']['direction']);
+             $this->Fighter->doMove($this->request->data['Fightermove']['id'], $this->request->data['Fightermove']['direction']);
              $this->Session->setFlash('Un déplacement a été réalisé');
              }
              if(isset($this->request->data['Fighteratk']))
              {    
-             $this->Fighter->doAttack(1, $this->request->data['Fighteratk']['direction']);
+             $this->Fighter->doAttack($this->request->data['Fighteratk']['id'], $this->request->data['Fighteratk']['direction']);
              $this->Session->setFlash('Une attaque a été réalisée.');
              }
 }
