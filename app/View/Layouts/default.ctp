@@ -28,9 +28,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<?php
 		echo $this->Html->meta('icon');
 
-		//echo $this->Html->css('cake.generic');
-                $this->Html->css('webarena');
-
+		echo $this->Html->css('cake.generic');
+                //echo $this->Html->css('webarena');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
