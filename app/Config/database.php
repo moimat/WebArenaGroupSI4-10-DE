@@ -6,8 +6,8 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '291293',
-		'database' => 'WebArena',
+		'password' => '',
+		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
