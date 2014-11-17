@@ -130,6 +130,8 @@ public function doMove($fighterId, $direction)
             'skill_strength' => 1,
             'skill_health' => 3,
             'current_health' => 3,
+            'next_action_time' => '0000-00-00 00:00:00',
+            'guild_id' => NULL
                 );
 
         // prepare the model for adding a new entry
