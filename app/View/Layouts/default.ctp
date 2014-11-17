@@ -22,7 +22,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
+		
 		<?php echo $this->fetch('title'); ?>
 	</title>
 	<?php
@@ -38,7 +38,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php 
+                        echo $this->Html->link('Accueil ', '/');
+                        echo $this->Html->link('Vision ', array('controller' => 'Arena', 'action' => 'sight')); 
+                        echo $this->Html->link('Personnage ', array('controller' => 'Arena', 'action' => 'character'));
+                        echo $this->Html->link('Journal ', array('controller' => 'Arena', 'action' => 'diary'));
+                        echo $this->Html->link('Se Connecter ', array('controller' => 'Arena', 'action' => 'login'));
+                        ?></h1>
 		</div>
 		<div id="content">
 
@@ -54,6 +60,13 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 				);
 			?>
 			<p>
+                            Projet WebArena Group SI4-10-DE<br>
+                            <br>
+                            BOUCOU Matthieu<br>
+                            EL KORJI Youssef<br>
+                            GRIERE Nicolas<br>
+                            LY Pascal<br>
+                            <br>
 				<?php echo $cakeVersion; ?>
 			</p>
 		</div>

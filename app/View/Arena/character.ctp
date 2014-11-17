@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'Character');?>
 <?php if(isset($this->request->data['viewchar'])) pr($raw); ?>
 
 <?php

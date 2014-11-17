@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'Sight');?>
 <?php pr($raw); ?>
 <?php
 echo $this->Form->create('Fighteratk');
