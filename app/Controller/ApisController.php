@@ -15,6 +15,16 @@ class ApisController extends AppController
          $this->layout = 'ajax';
          $this->set('datas', $this->Fighter->findById($id));
      } 
+     
+     public function domove($id=1){
+         $this->layout = 'ajax';
+         $this->set('datas', $this->Fighter->findById($id));
+     }
+     
+     public function doattack($id=1){
+         $this->layout = 'ajax';
+         $this->set('datas', $this->Fighter->findById($id));
+     }
 }
 ?>
 
