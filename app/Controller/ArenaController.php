@@ -47,13 +47,8 @@ class ArenaController extends AppController
             if(isset($this->request->data['createchar']))
             {
                 $this->Fighter->createCharacter($this->request->data['createchar']['name']);
-            }
-            
+            }        
         }
-        
-   
-            
-
     }
     
     public function diary()
