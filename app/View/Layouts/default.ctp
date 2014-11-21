@@ -27,60 +27,55 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('bootstrap.min.css');
-                echo $this->Html->css('cake.generic');
+                echo $this->Html->css('bootstrap.css');
+                echo $this->Html->css('bootstrap.css.map');
+                echo $this->Html->css('bootstrap-theme.css');
+                echo $this->Html->css('bootstrap-theme.css.map');
+                echo $this->Html->css('bootstrap-theme.min.css');
                 echo $this->Html->css('webarena');
+                
+                echo $this->Html->script('bootstrap.min.js');
+                echo $this->Html->script('bootstrap.js');
+                echo $this->Html->script('npm.js');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
 </head>
 <body>
+             <div id="header">
+                <!-- Static navbar -->
+                <nav class="navbar navbar-default navbar-static-top" role="navigation">
 
-                            <!-- Static navbar -->
-                            <nav class="navbar navbar-default navbar-static-top" role="navigation">
-
-                                <div class="container">
-                                    <div class="navbar-header">
-                                        <a class="navbar-brand" href="#">
-                                            WebArena Home
-                                        </a>
-                                    </div>
-                                    <div id="navbar" class="navbar-collapse collapse">
-                                        <ul class="nav navbar-nav">
-                                            <li class="active">
-                                                <a href="#">
-                                                    Home
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#about">
-                                                    Vision
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#contact">Personnage</a>
-                                            </li>
-                                            <li>
-                                                <a href="#contact">Journal</a>
-                                            </li>
-                                            <li>
-                                                <a href="#contact">Se Connecter </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </nav>
-                            <!--
-                            <?php 
-                                echo $this->Html->link('Accueil ', '/');
-                                echo $this->Html->link('Vision ', array('controller' => 'Arena', 'action' => 'sight')); 
-                                echo $this->Html->link('Personnage ', array('controller' => 'Arena', 'action' => 'character'));
-                                echo $this->Html->link('Journal ', array('controller' => 'Arena', 'action' => 'diary'));
-                                echo $this->Html->link('Se Connecter ', array('controller' => 'Arena', 'action' => 'login'));
-                            ?>
-                            -->
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">
+                                WebArena Home
+                            </a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active">                             
+                                    <?php echo $this->Html->link('Accueil ', '/');?>                                              
+                                </li>
+                                <li>
+                                    <?php echo $this->Html->link('Vision ', array('controller' => 'Arena', 'action' => 'sight'));?>
+                                </li>
+                                <li>
+                                    <?php echo $this->Html->link('Personnage ', array('controller' => 'Arena', 'action' => 'character'));?>
+                                </li>
+                                <li>
+                                    <?php echo $this->Html->link('Journal ', array('controller' => 'Arena', 'action' => 'diary'));?>
+                                </li>
+                                <li>
+                                    <?php echo $this->Html->link('Se Connecter ', array('controller' => 'Arena', 'action' => 'login'));?>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                </div>
 
 		<div id="content">
 
