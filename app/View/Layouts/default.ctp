@@ -46,11 +46,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <body>
              <div id="header">
                 <!-- Static navbar -->
-                <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 
                     <div class="container">
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand">
+                                <span class="glyphicon glyphicon-globe"></span>
                                 WebArena Home
                             </a>
                         </div>
@@ -85,6 +86,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
             
 		<div id="footer">
+                    <div class="container">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
@@ -101,8 +103,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <br>
 				<?php echo $cakeVersion; ?>
 			</p>
+                    </div>
 		</div>
-	</div>
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 </html>
