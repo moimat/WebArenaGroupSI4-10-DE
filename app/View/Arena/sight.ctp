@@ -7,7 +7,7 @@
         ?>		<th>
         <?php			// -------------------------
                                 // DONNEES A AFFICHER dans la cellule
-                                echo $j; // CONTENU de la CELLULE (exemple)
+                                echo $i; // CONTENU de la CELLULE (exemple)
                                 // -------------------------
         ?>		</th>
         <?php	} // end for
