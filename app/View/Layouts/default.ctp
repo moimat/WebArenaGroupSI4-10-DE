@@ -52,26 +52,26 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                         <div class="navbar-header">
                             <a class="navbar-brand">
                                 <span class="glyphicon glyphicon-globe"></span>
-                                WebArena Home
+                                WebArena
                             </a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active">                             
-                                    <?php echo $this->Html->link('Accueil ', '/');?>                                              
+                                <li class="active">
+                                    <?php echo $this->Html->link('<span></span> Accueil', '/',array('class' => 'glyphicon glyphicon-home','escape' => false));?>                                             
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link('Vision ', array('controller' => 'Arena', 'action' => 'sight'));?>
+                                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Vision </i>', array('controller' => 'Arena', 'action' => 'sight'),array('escape'=>false));?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link('Personnage ', array('controller' => 'Arena', 'action' => 'character'));?>
+                                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"> Personnage </i>', array('controller' => 'Arena', 'action' => 'character'),array('escape'=>false));?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link('Journal ', array('controller' => 'Arena', 'action' => 'diary'));?>
+                                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Journal </i>', array('controller' => 'Arena', 'action' => 'diary'),array('escape'=>false));?>
                                 </li>
                                 <li>
-                                    <?php echo $this->Html->link('Se Connecter ', array('controller' => 'Arena', 'action' => 'login'));?>
-                                </li>
+                                    <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Se Connecter </i>', array('controller' => 'Arena', 'action' => 'login'),array('escape'=>false));?>
+                                </li>                               
                             </ul>
                         </div>
                     </div>
