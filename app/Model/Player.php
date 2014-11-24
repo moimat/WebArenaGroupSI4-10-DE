@@ -16,10 +16,14 @@ class Player extends AppModel{
     //put your code here
     public function newPlayer($email, $password)
     {
+        if($this->find('first', array('conditions' => array('email' => $email))))
+        {echo "mail deja existant";}
+        else
+        {
         $data = array(
             'email'=> $email,
             'password'=>$password,);
         $this->create();
-        $this->save($data);
+        $this->save($data);}
     }
 }
