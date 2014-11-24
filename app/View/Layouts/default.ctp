@@ -69,7 +69,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Journal </i>', array('controller' => 'Arena', 'action' => 'diary'), array('escape' => false)); ?>
                             </li>
                             <li>
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Se Connecter </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Connexion </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
                             </li>                               
                         </ul>
                     </div>
