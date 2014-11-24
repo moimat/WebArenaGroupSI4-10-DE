@@ -106,3 +106,8 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+define("BORDER_WEST", 0);
+define("BORDER_EAST", 15);
+define("BORDER_NORTH", 0);
+define("BORDER_SOUTH", 10);

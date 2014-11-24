@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <?php		// pour chaque colonne (de la ligne)
-                        for ($j=0; $j<15; $j++) 
+                        for ($i=BORDER_WEST; $i<BORDER_EAST; $i++) 
                         { 
         ?>		<th>
         <?php			// -------------------------
@@ -18,12 +18,12 @@
     <tbody>
     <?php
             // pour chaque ligne
-            for ($i=0; $i<10; $i++) 
+            for ($j=BORDER_NORTH; $j<BORDER_SOUTH; $j++) 
             { 
     ?>
             <tr>
     <?php		// pour chaque colonne (de la ligne)
-                    for ($j=0; $j<15; $j++) 
+                    for ($i=BORDER_WEST; $i<BORDER_EAST; $i++) 
                     { 
     ?>		<td>
     <?php			// -------------------------
