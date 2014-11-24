@@ -22,7 +22,7 @@ echo $this->Form->end(array('label'=>'Upload image','div'=>false, 'class'=>'btn 
 
 <?php
 echo $this->Form->create('createchar',array('class'=>'form_inline','role'=>'form'));
-echo $this->Form->input('id', array('label' => 'id','class'=>'form-control'));
+echo $this->Form->input('name', array('label' => 'name','class'=>'form-control'));
 echo $this->Form->end(array('label'=>'Create Character','div'=>false, 'class'=>'btn btn-primary'));
 ?>
 

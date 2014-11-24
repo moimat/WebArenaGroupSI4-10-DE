@@ -11,3 +11,45 @@ echo $this->Form->input('direction',array('class'=>'form-control','options' => a
 echo $this->Form->input('id', array('label' => 'id','class'=>'form-control'));
 echo $this->Form->end(array('label'=>'Move','div'=>false, 'class'=>'btn btn-primary')); 
 ?>
+
+<table class= "table table-striped table-bordered">
+    <thead>
+        <tr>
+            <?php		// pour chaque colonne (de la ligne)
+                        for ($j=1; $j<=15; $j++) 
+                        { 
+        ?>		<th>
+        <?php			// -------------------------
+                                // DONNEES A AFFICHER dans la cellule
+                                echo $j; // CONTENU de la CELLULE (exemple)
+                                // -------------------------
+        ?>		</th>
+        <?php	} // end for
+        ?>
+        </tr>
+    </thead>
+    
+    <tbody>
+    <?php
+            // pour chaque ligne
+            for ($i=1; $i<=10; $i++) 
+            { 
+    ?>
+            <tr>
+    <?php		// pour chaque colonne (de la ligne)
+                    for ($j=1; $j<=15; $j++) 
+                    { 
+    ?>		<td>
+    <?php			// -------------------------
+                            // DONNEES A AFFICHER dans la cellule
+                            echo 'ligne '. $i .', colonne '. $j; // CONTENU de la CELLULE (exemple)
+                            // -------------------------
+    ?>		</td>
+    <?php	} // end for
+    ?>
+            </tr>
+    <?php
+            } // end for
+    ?>
+    </tbody>
+</table>
