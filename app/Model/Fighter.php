@@ -66,6 +66,9 @@ public function doMove($fighterId, $direction)
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
         $cible = $this->read(null, 2);
+        $posx=$joueur['Fighter']['coordinate_x'];
+        $posy=$joueur['Fighter']['coordinate_y'];
+        
         // Selon la direction chercher un fighter dans sa position+vue
         if ($direction == 'north' && $cible['Fighter']['coordinate_y']==$joueur['Fighter']['coordinate_y'] 
                 && $cible['Fighter']['coordinate_x']==$joueur['Fighter']['coordinate_x']+1 ){

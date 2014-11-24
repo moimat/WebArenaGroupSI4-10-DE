@@ -86,7 +86,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		</div>
             
 		<div id="footer">
-                    <div class="container">
+                    <div class="navbar navbar-inverse">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
 					'http://www.cakephp.org/',
@@ -105,6 +105,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			</p>
                     </div>
 		</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php// echo $this->element('sql_dump'); ?>
 </body>
 </html>
