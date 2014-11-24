@@ -12,6 +12,7 @@
  * @author Youssef
  */
 App::uses('AppModel', 'Model');
+App::uses('Security', 'Utility');
 class Player extends AppModel{
     //put your code here
     public function newPlayer($email, $password)
@@ -20,9 +21,10 @@ class Player extends AppModel{
         {echo "mail deja existant";}
         else
         {
+        $newpassword=Security::hash($password,'sha1',true);
         $data = array(
             'email'=> $email,
-            'password'=>$password,);
+            'password'=>$newpassword,);
         $this->create();
         $this->save($data);}
     }
