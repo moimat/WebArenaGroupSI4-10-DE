@@ -31,7 +31,11 @@ class ArenaController extends AppController
             }
             if(isset($this->request->data['connexion']))
             {
-                $this->Player->connexion($this->request->data['connexion']['email'],$this->request->data['connexion']['password']);
+                if($this->Player->connexion($this->request->data['connexion']['email'],$this->request->data['connexion']['password']))
+                {
+                    //$this->Session->write('connected',id);
+                    //echo $this->Session->write('connected',id);
+                }
             }
         } 
     }
