@@ -25,8 +25,15 @@ class ArenaController extends AppController
     {
         if($this->request->is('post'))
         {
-            $this->Player->newPlayer($this->request->data['login']['email'],$this->request->data['login']['password']);
-        }
+            if(isset($this->request->data['login']))
+            {
+                $this->Player->newPlayer($this->request->data['login']['email'],$this->request->data['login']['password']);       
+            }
+            if(isset($this->request->data['connexion']))
+            {
+                $this->Player->connexion($this->request->data['connexion']['email'],$this->request->data['connexion']['password']);
+            }
+        } 
     }
     
     public function character()
