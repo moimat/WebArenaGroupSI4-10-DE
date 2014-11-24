@@ -1,32 +1,23 @@
 <table class= "table table-striped table-bordered">
     <thead>
         <tr>
-            <?php		// pour chaque colonne (de la ligne)
+            <?php
                         for ($i=BORDER_WEST; $i<BORDER_EAST; $i++) 
                         { 
-        ?>		<th>
-        <?php			// -------------------------
-                                // DONNEES A AFFICHER dans la cellule
-                                echo $i; // CONTENU de la CELLULE (exemple)
-                                // -------------------------
-        ?>		</th>
-        <?php	} // end for
+                            echo '<th>'.$i.'</th>';    
+                        }
         ?>
         </tr>
     </thead>
     
     <tbody>
     <?php
-            // pour chaque ligne
             for ($j=BORDER_NORTH; $j<BORDER_SOUTH; $j++) 
             { 
-    ?>
-            <tr>
-    <?php		// pour chaque colonne (de la ligne)
+                     echo '<tr>';
                     for ($i=BORDER_WEST; $i<BORDER_EAST; $i++) 
                     { 
-    ?>		<td>
-    <?php			// -------------------------
+                             echo '<td>';                
                             // DONNEES A AFFICHER dans la cellule
                             foreach ($raw as $key => $value) {
                                 if($raw[$key]['Fighter']['coordinate_x']==$i && $raw[$key]['Fighter']['coordinate_y']==$j){
@@ -35,13 +26,10 @@
                                     //echo 'ligne '. $i .', colonne '. $j; // CONTENU de la CELLULE (exemple)
                                 } 
                             }
-                            // -------------------------
-    ?>		</td>
-    <?php	} // end for
-    ?>
-            </tr>
-    <?php
-            } // end for
+                            echo '</td>';
+                    }                   
+                    echo '</tr>';
+            }
     ?>
     </tbody>
 </table>
