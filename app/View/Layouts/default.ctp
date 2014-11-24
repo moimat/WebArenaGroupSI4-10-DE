@@ -85,12 +85,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
 
         <div id="footer">
-            <div class="navbar navbar-inverse">
-                <?php
-                echo $this->Html->link(
-                        $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-                );
-                ?>
+            <div class="navbar navbar-inverse navbar-fixed-bottom ">
                 <div class="container">
                     <div class="navbar-header">
                         <a class="navbar-brand">
@@ -113,7 +108,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                 <?php echo $this->Html->link('<span></span> LY Pascal', 'mailto:ly@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
                             </li>
                             <li>
-                                <?php echo $cakeVersion; ?>
+                                <?php
+                                echo $this->Html->link(
+                                        $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
+                                );
+                                ?>
                             </li>
                         </ul>
 

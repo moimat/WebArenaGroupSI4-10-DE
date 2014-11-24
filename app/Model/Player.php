@@ -28,4 +28,14 @@ class Player extends AppModel{
         $this->create();
         $this->save($data);}
     }
+    public function connexion($email, $password)
+    {
+        $newpassword=Security::hash($password,'sha1',true);
+        if($this->find('first', array('conditions' => array('email' => $email,'password'=>$newpassword))))
+        {
+            
+            echo "Vous êtes connécté !!";
+            return true;
+        }else {echo "connexion échouée !!";return false;}
+    }
 }

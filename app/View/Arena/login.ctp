@@ -7,7 +7,14 @@ Récupérer son mot de passe
 echo $this->Form->create('login',array('class'=>'form_inline','role'=>'form'));
 echo $this->Form->input('email', array('label' => 'email','class'=>'form-control'));
 echo $this->Form->input('password', array('label' => 'password','class'=>'form-control'));
-echo $this->Form->end(array('label'=>'send','div'=>false, 'class'=>'btn btn-primary'));
+echo $this->Form->end(array('label'=>'sinscrir','div'=>false, 'class'=>'btn btn-primary'));
+?>
+
+<?php
+echo $this->Form->create('connexion',array('class'=>'form_inline','role'=>'form'));
+echo $this->Form->input('email', array('label' => 'email','class'=>'form-control'));
+echo $this->Form->input('password', array('label' => 'password','class'=>'form-control'));
+echo $this->Form->end(array('label'=>'se connecter','div'=>false, 'class'=>'btn btn-primary'));
 ?>
 
 
