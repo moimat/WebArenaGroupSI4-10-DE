@@ -38,13 +38,13 @@ public function doMove($fighterId, $direction)
         //@todo empêcher le joueur de se déplacer sur une case occupée
         // falre la modif
         if ($direction == 'north')
-            $this->set('coordinate_x', $datas['Fighter']['coordinate_x'] + 1);
-        elseif ($direction == 'south')
-            $this->set('coordinate_x', $datas['Fighter']['coordinate_x'] - 1);
-        elseif ($direction == 'east')
-            $this->set('coordinate_y', $datas['Fighter']['coordinate_y'] + 1);
-        elseif ($direction == 'west')
             $this->set('coordinate_y', $datas['Fighter']['coordinate_y'] - 1);
+        elseif ($direction == 'south')
+            $this->set('coordinate_y', $datas['Fighter']['coordinate_y'] + 1);
+        elseif ($direction == 'east')
+            $this->set('coordinate_x', $datas['Fighter']['coordinate_x'] + 1);
+        elseif ($direction == 'west')
+            $this->set('coordinate_x', $datas['Fighter']['coordinate_x'] - 1);
         else
             return false;
 
@@ -85,7 +85,7 @@ public function doMove($fighterId, $direction)
             $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
         }
             
-        elseif ($direction == 'eastt' && $joueur['Fighter']['coordinate_x']==$cible['Fighter']['coordinate_x'] 
+        elseif ($direction == 'east' && $joueur['Fighter']['coordinate_x']==$cible['Fighter']['coordinate_x'] 
             && $cible['Fighter']['coordinate_y']==$joueur['Fighter']['coordinate_y']+1 ){
             $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);     
         }

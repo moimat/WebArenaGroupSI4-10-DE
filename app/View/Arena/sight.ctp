@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <?php		// pour chaque colonne (de la ligne)
-                        for ($j=1; $j<=15; $j++) 
+                        for ($j=0; $j<15; $j++) 
                         { 
         ?>		<th>
         <?php			// -------------------------
@@ -18,17 +18,23 @@
     <tbody>
     <?php
             // pour chaque ligne
-            for ($i=1; $i<=10; $i++) 
+            for ($i=0; $i<10; $i++) 
             { 
     ?>
             <tr>
     <?php		// pour chaque colonne (de la ligne)
-                    for ($j=1; $j<=15; $j++) 
+                    for ($j=0; $j<15; $j++) 
                     { 
     ?>		<td>
     <?php			// -------------------------
                             // DONNEES A AFFICHER dans la cellule
-                            echo 'ligne '. $i .', colonne '. $j; // CONTENU de la CELLULE (exemple)
+                            foreach ($raw as $key => $value) {
+                                if($raw[$key]['Fighter']['coordinate_x']==$i && $raw[$key]['Fighter']['coordinate_y']==$j){
+                                    echo $raw[$key]['Fighter']['name'];
+                                }else{
+                                    //echo 'ligne '. $i .', colonne '. $j; // CONTENU de la CELLULE (exemple)
+                                } 
+                            }
                             // -------------------------
     ?>		</td>
     <?php	} // end for
