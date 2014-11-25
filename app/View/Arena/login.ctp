@@ -4,9 +4,11 @@ Se connecter
 Récupérer son mot de passe
 
 <?php
+
 echo $this->Form->create('login',array('class'=>'form_inline','role'=>'form'));
 echo $this->Form->input('email', array('label' => 'email','class'=>'form-control'));
 echo $this->Form->input('password', array('label' => 'password','class'=>'form-control'));
+
 echo $this->Form->end(array('label'=>'sinscrir','div'=>false, 'class'=>'btn btn-primary'));
 ?>
 
@@ -15,10 +17,11 @@ echo $this->Form->create('connexion',array('class'=>'form_inline','role'=>'form'
 echo $this->Form->input('email', array('label' => 'email','class'=>'form-control'));
 echo $this->Form->input('password', array('label' => 'password','class'=>'form-control'));
 echo $this->Form->end(array('label'=>'se connecter','div'=>false, 'class'=>'btn btn-primary'));
+
 ?>
 
 
-<form class="form-horizontal" role="form">
+<form name="deco" class="form-horizontal" role="form">
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">

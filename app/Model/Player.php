@@ -9,6 +9,7 @@
 /**
  * Description of Player
  *
+<<<<<<< Updated upstream
  * @author Youssef
  */
 App::uses('AppModel', 'Model');
@@ -27,6 +28,7 @@ class Player extends AppModel{
             'password'=>$newpassword,);
         $this->create();
         $this->save($data);}
+
     }
     public function connexion($email, $password)
     {
@@ -34,8 +36,9 @@ class Player extends AppModel{
         if($this->find('first', array('conditions' => array('email' => $email,'password'=>$newpassword))))
         {
             
-            echo "Vous êtes connécté !!";
-            return true;
-        }else {echo "connexion échouée !!";return false;}
+            echo "Vous êtes connecté !!";
+            
+            return array('success'=> true,'id'=> $this->field('id',array('email'=>$email)) );
+        }else {echo "connexion échouée !!";return array ('success'=>false);}
     }
 }

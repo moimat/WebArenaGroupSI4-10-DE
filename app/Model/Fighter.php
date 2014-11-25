@@ -107,7 +107,6 @@ public function doMove($fighterId, $direction)
              $image = $repertoire . 'avatar-' . $id . '.jpg' ;
             
  
-            print_r ($_FILES['data']['tmp_name']['Upload']['Avatar']);
     if (move_uploaded_file($_FILES['data']['tmp_name']['Upload']['Avatar'], WWW_ROOT.$image)) {
         echo "The file ". basename( $_FILES["data"]["name"]['Upload']['Avatar']). " has been uploaded.";
     } else {
