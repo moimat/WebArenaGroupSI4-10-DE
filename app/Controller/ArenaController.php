@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  */
 class ArenaController extends AppController {
 
-    public $uses = array('Player', 'Fighter', 'Event');
+    public $uses = array('Player', 'Fighter', 'Event', 'Surrounding');
 
     /**
      * index method : first page
@@ -75,6 +75,7 @@ class ArenaController extends AppController {
         // Construct arena
         
         $this->set('raw', $this->Fighter->find('all'));
+        $this->set('surroundings', $this->Surrounding->find('all'));
         
     }
 
