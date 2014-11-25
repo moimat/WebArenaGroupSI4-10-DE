@@ -90,7 +90,7 @@ class ArenaController extends AppController {
         }
         
         // Construct arena
-        
+        $this->Surrounding->createArena();
         $this->set('raw', $this->Fighter->find('all'));
         $this->set('surroundings', $this->Surrounding->find('all'));
         
