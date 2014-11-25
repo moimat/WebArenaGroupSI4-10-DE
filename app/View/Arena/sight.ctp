@@ -21,7 +21,7 @@
                             // DONNEES A AFFICHER dans la cellule
                             foreach ($raw as $key => $value) {
                                 if($raw[$key]['Fighter']['coordinate_x']==$i && $raw[$key]['Fighter']['coordinate_y']==$j){
-                                    echo $raw[$key]['Fighter']['name'];
+                                    echo '<span class="glyphicon glyphicon-user"></span> '.$raw[$key]['Fighter']['name'];
                                 }else{
                                     //echo 'ligne '. $i .', colonne '. $j; // CONTENU de la CELLULE (exemple)
                                 } 

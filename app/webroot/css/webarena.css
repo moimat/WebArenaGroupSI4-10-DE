@@ -4,7 +4,12 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 17 nov. 2014, 18:22:26
-    Author     : Youssef
+    Created on : 25 nov. 2014, 10:08:26
+    Author     : Nicolas
 */
 
+#content{
+    margin-left:auto;
+    margin-right:auto;
+    width:90%;
+}

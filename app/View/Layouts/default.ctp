@@ -109,17 +109,15 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             </li>
                             <li>
                                 <?php
-                                echo $this->Html->link(
-                                        $this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')), 'http://www.cakephp.org/', array('target' => '_blank', 'escape' => false, 'id' => 'cake-powered')
-                                );
+                                echo $this->Html->link($this->Html->image('github-icon.png', array('width' => '24', 'height' => '24')). __(' Repository Log'), 'https://github.com/moimat/WebArenaGroupSI4-10-DE/commits/master', array('escape' => false));
                                 ?>
                             </li>
-                        </ul>
 
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-<?php // echo $this->element('sql_dump');  ?>
+        <?php // echo $this->element('sql_dump');   ?>
     </body>
 </html>
