@@ -29,5 +29,9 @@ class Surrounding extends AppModel {
         // save the data
         $this->save($data);
     }
+    
+    public function createArena() {
+        
+    }
 
 }
