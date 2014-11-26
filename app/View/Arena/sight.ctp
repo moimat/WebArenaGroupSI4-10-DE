@@ -1,4 +1,4 @@
-<table class= "table table-striped table-bordered">
+<table class= "table table-striped table-bordered fixed">
     <thead>
         <tr>
             <?php
@@ -15,27 +15,59 @@
             echo '<tr>';
             for ($i = BORDER_WEST; $i < BORDER_EAST; $i++) {
                 // Initialise cell
-                $element='';
-                
-                // DONNEES A AFFICHER dans la cellule
-                foreach ($raw as $key => $value) {
-                    if ($raw[$key]['Fighter']['coordinate_x'] == $i && $raw[$key]['Fighter']['coordinate_y'] == $j) {
-                        $element='<span class="glyphicon glyphicon-user"></span> ' . $raw[$key]['Fighter']['name'];
-                    }
+                $element = '';
+                $classDisplay = '';
+                $distanceX = 0;
+                $distanceY = 0;
+
+                // Afficher Combattants
+                //foreach ($raw as $key => $value) {
+                if ($raw[0]['Fighter']['coordinate_x'] == $i && $raw[0]['Fighter']['coordinate_y'] == $j) {
+                    $element = FIGHTER_CELL . $raw[0]['Fighter']['name'];
                 }
+
+                /*
+                 * Griser cases pas à portée de vue du combattant
+                 */
+
+                // Calcul distance x
+                if ($raw[0]['Fighter']['coordinate_x'] > $i) {
+                    $distanceX = $raw[0]['Fighter']['coordinate_x'] - $i;
+                } else {
+                    $distanceX = $i - $raw[0]['Fighter']['coordinate_x'];
+                }
+
+                // Calcul distance y
+                if ($raw[0]['Fighter']['coordinate_y'] > $j) {
+                    $distanceY = $raw[0]['Fighter']['coordinate_y'] - $j;
+                } else {
+                    $distanceY = $j - $raw[0]['Fighter']['coordinate_y'];
+                }
+
+                // Griser si la caractéristique de vue est inférieur à la distance de la case
+                if (($distanceX + $distanceY) > $raw[0]['Fighter']['skill_sight']) {
+                    $classDisplay = HIDDEN_CELL;
+                } else {
+                    $classDisplay = VISIBLE_CELL;
+                }
+                //}
+                // Afficher Obstacles
                 foreach ($surroundings as $key => $value) {
                     if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
-                        if($surroundings[$key]['Surrounding']['type']=='colonne')
-                        $element='<span class="glyphicon glyphicon-tower"></span>';
-                        
-                        elseif($surroundings[$key]['Surrounding']['type']=='piege')
-                        $element='<span class="glyphicon glyphicon-remove-sign"></span>';
-                        
-                        elseif($surroundings[$key]['Surrounding']['type']=='monstre')
-                        $element='<span class="glyphicon glyphicon-certificate"></span>';
+                        if ($classDisplay == VISIBLE_CELL) {
+                            if ($surroundings[$key]['Surrounding']['type'] == 'colonne')
+                                $element = COLUMN_CELL;
+
+                            elseif ($surroundings[$key]['Surrounding']['type'] == 'piege')
+                                $element = TRAP_CELL;
+
+                            elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre')
+                                $element = MONSTER_CELL;
+                        }
                     }
                 }
-                $displayElement='<td>'.$element.'</td>';
+
+                $displayElement = '<td ' . $classDisplay . '>' . $element . '</td>';
                 echo $displayElement;
             }
             echo '</tr>';

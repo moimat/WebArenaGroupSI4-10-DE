@@ -114,15 +114,14 @@ public function doMove($fighterId, $direction)
     }
   }
   
-  public function createCharacter($newName)
+  public function createCharacter($idPlayer,$newName)
     {       
         // Give new Id to row
         $id= $this->find('count');
         $id++;
 
-
         $data = array(
-            'id'=> $id,
+            'id'=> $idPlayer,
             'name' => $newName,
             'coordinate_x' => 1,
             'coordinate_y' => 1,
