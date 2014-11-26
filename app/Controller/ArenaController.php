@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * Main controller of our small application
@@ -32,6 +33,11 @@ class ArenaController extends AppController {
         if ($this->request->is('post')) {
             if (isset($this->request->data['login'])) {
                 $this->Player->newPlayer($this->request->data['login']['email'], $this->request->data['login']['password']);
+                $Email = new CakeEmail('gmail');
+                $Email->from(array('mat.boucon@gmail.com' => 'WebArena'));
+                $Email->to($this->request->data['login']['email']);
+                $Email->subject('Inscription WebArena');
+                $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena !');
 
             }
             if (isset($this->request->data['connexion'])) {
