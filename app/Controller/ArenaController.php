@@ -21,28 +21,36 @@ class ArenaController extends AppController {
         $this->set('myname', "Matthieu Boucon");
     }
     
-   /*public function beforeFilter(){
-       
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')  $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-    }*/
+   public function beforeFilter()
+   {
+       if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
+       {
+           $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
+       }
+       else
+       {
+            echo "success variable status :";
+            echo $this->Session->read('Connected');
+       }
+   }
 
     public function login() {
         
         if ($this->request->is('post')) {
-            if (isset($this->request->data['login'])) {
-                $this->Player->newPlayer($this->request->data['login']['email'], $this->request->data['login']['password']);
+            if (isset($this->request->data['inscription'])) {
+                $this->Player->newPlayer($this->request->data['inscription']['email'], $this->request->data['inscription']['password']);
 
             }
             if (isset($this->request->data['connexion'])) {
-                $success=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
-                if ($success['success']) {
-                    $this->Session->write('Connected',$success['success']);
-                    echo $success['id'];
-                    
+                $id=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
+                if ($id) {
+                    $this->Session->write('Connected',$id);
+                    echo $id;  
                 }
             }
             if (isset($this->request->data['deco'])){
                 $this->Session->delete('Connected');
+                echo "déconécté";
             }
         }
 

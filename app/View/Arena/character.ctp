@@ -1,3 +1,5 @@
+<?php $this->assign('title', 'Character');?>
+
 <h1>WebArena Character </h1>
 
 <div class="container">
