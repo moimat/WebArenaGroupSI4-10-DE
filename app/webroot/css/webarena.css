@@ -18,6 +18,9 @@ h1{
     width:90%;
 }
 
+.btn-group{
+    margin-left:5%;
+}
 table.fixed {
     table-layout:fixed; 
 }

@@ -78,7 +78,7 @@
 
 <?php
 echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));?>
+echo $this->Form->label('Move:');?>
 <div class="btn-group">
     <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
         <span class="glyphicon glyphicon-arrow-left"> west</span> 
@@ -94,11 +94,23 @@ echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'))
     </button>
 </div>
 <?php echo $this->Form->end();
+
 echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->input('direction', array('class' => 'form-control', 'options' => array('north' => 'north', 'east' => 'east', 'south' => 'south', 'west' => 'west'), 'default' => 'east'));
-echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
-echo $this->Form->end(array('label' => 'Attack', 'div' => false, 'class' => 'btn btn-primary'));
-?>
+echo $this->Form->label('Attack:');?>
+<div class="btn-group">
+    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="west">
+        <span class="glyphicon glyphicon-arrow-left"> west</span> 
+    </button>
+    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="east">
+        <span class="glyphicon glyphicon-arrow-right"> east</span> 
+    </button>
+    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=north>
+        <span class="glyphicon glyphicon-arrow-up"> north</span> 
+    </button>
+    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=south>
+        <span class="glyphicon glyphicon-arrow-down"> south</span> 
+    </button>
+</div>
 
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($raw); ?>
