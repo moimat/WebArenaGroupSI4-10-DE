@@ -10,6 +10,7 @@ App::uses('AppController', 'Controller');
 class ArenaController extends AppController {
 
     public $uses = array('Player', 'Fighter', 'Event', 'Surrounding');
+    public $components = array( 'Session' );
 
     /**
      * index method : first page
@@ -21,10 +22,10 @@ class ArenaController extends AppController {
         $this->set('myname', "Matthieu Boucon");
     }
     
-   /*public function beforeFilter(){
+   public function beforeFilter(){
        
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')  $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-    }*/
+        if (!$this->Session->check('Connected') AND $this->request->params['action'] != 'login')  $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
+    }
 
     public function login() {
         
@@ -34,15 +35,25 @@ class ArenaController extends AppController {
 
             }
             if (isset($this->request->data['connexion'])) {
-                $success=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
+                
+                if($this->Session->check('Connected')) {
+                    if($this->Session->delete('Connected'))echo 'vous êtes déconnecté';
+                }
+                    
+                else{
+                    $success=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
                 if ($success['success']) {
-                    $this->Session->write('Connected',$success['success']);
-                    echo $success['id'];
+                    
+                    $this->Session->write('Connected',$success['id']);
+                    echo $this->Session->read('Connected');
+                   
                     
                 }
-            }
+                }
+            } 
             if (isset($this->request->data['deco'])){
                 $this->Session->delete('Connected');
+                
             }
         }
 

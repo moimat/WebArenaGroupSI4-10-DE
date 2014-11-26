@@ -9,7 +9,6 @@
 /**
  * Description of Player
  *
-<<<<<<< Updated upstream
  * @author Youssef
  */
 App::uses('AppModel', 'Model');
