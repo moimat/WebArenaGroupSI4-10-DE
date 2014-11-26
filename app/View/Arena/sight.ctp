@@ -50,7 +50,7 @@
                 } else {
                     $classDisplay = VISIBLE_CELL;
                 }
-                
+
                 // Afficher Obstacles
                 foreach ($surroundings as $key => $value) {
                     if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
@@ -78,10 +78,22 @@
 
 <?php
 echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->input('direction', array('class' => 'form-control', 'options' => array('north' => 'north', 'east' => 'east', 'south' => 'south', 'west' => 'west'), 'default' => 'east'));
-echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
-echo $this->Form->end(array('label' => 'Move', 'div' => false, 'class' => 'btn btn-primary'));
-
+echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));?>
+<div class="btn-group">
+    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
+        <span class="glyphicon glyphicon-arrow-left"> west</span> 
+    </button>
+    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="east">
+        <span class="glyphicon glyphicon-arrow-right"> east</span> 
+    </button>
+    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=north>
+        <span class="glyphicon glyphicon-arrow-up"> north</span> 
+    </button>
+    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=south>
+        <span class="glyphicon glyphicon-arrow-down"> south</span> 
+    </button>
+</div>
+<?php echo $this->Form->end();
 echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
 echo $this->Form->input('direction', array('class' => 'form-control', 'options' => array('north' => 'north', 'east' => 'east', 'south' => 'south', 'west' => 'west'), 'default' => 'east'));
 echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
