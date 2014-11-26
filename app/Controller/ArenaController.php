@@ -69,8 +69,7 @@ class ArenaController extends AppController {
     }
 
     public function diary() {
-        
-        $this->set('raw', $this->Event->find());
+        $this->set('events', $this->Event->find('all'));
     }
 
     public function sight() {
@@ -80,18 +79,20 @@ class ArenaController extends AppController {
         if ($this->request->is('post')) {
             pr($this->request->data);
             if (isset($this->request->data['Fightermove'])) {
-                $this->Fighter->doMove($this->request->data['Fightermove']['id'], $this->request->data['Fightermove']['direction']);
+                $eventArray=$this->Fighter->doMove($this->request->data['Fightermove']['id'], $this->request->data['Fightermove']['direction']);
+                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash('Un déplacement a été réalisé');
             }
             if (isset($this->request->data['Fighteratk'])) {
-                $this->Fighter->doAttack($this->request->data['Fighteratk']['id'], $this->request->data['Fighteratk']['direction']);
+                $eventArray=$this->Fighter->doAttack($this->request->data['Fighteratk']['id'], $this->request->data['Fighteratk']['direction']);
+                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash('Une attaque a été réalisée.');
             }
         }
         
         // Construct arena
         $this->Surrounding->createArena();
-        $this->set('raw', $this->Fighter->find('all'));
+        $this->set('raw', $this->Fighter->findById(1));
         $this->set('surroundings', $this->Surrounding->find('all'));
         
     }

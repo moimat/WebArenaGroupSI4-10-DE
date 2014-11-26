@@ -1,3 +1,5 @@
+<h1>WebArena Character </h1>
+
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-4 column">
