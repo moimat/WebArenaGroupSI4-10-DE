@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'Character'); ?>
 <h1>WebArena Character </h1>
 
 <div class="container">
@@ -6,7 +7,7 @@
             <h2>
                 Player
             </h2>
-            <div>
+<div>
                 <span class="label label-default">ID</span>
                     <?php
                     if (isset($this->request->data['viewchar'])) {
@@ -20,6 +21,18 @@
                         echo $raw['Fighter']['name'];
                     }?>
             </div>
+                <div>
+                <?php 
+                if (isset($this->request->data['viewchar'])) {
+                    $id=$raw['Fighter']['id'];
+                    echo $this->Html->image('Avatars/avatar-' . $id . '.jpg', array('alt' => 'CakePHP'));
+                    }?>
+                                </div>
+        </div>
+        <div class="col-md-4 column">
+            <h2>
+                Caractéristiques
+            </h2>
             <div>
                 <span class="label label-success">Level</span>
                 <?php
@@ -48,11 +61,6 @@
                         echo $raw['Fighter']['current_health'];
                     }?>
             </div>
-        </div>
-        <div class="col-md-4 column">
-            <h2>
-                Experience
-            </h2>
             <div class="progress">
                 <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                     <?php
@@ -85,7 +93,6 @@
     </div>
 </div>
 
-<?php $this->assign('title', 'Character'); ?>
 <?php
 if (isset($this->request->data['viewchar'])) {
     pr($raw);
