@@ -62,28 +62,27 @@
                     // Boucle surroundings
                     foreach ($surroundings as $key => $value) {
                         // Si on est a une case du combattant
-                        if ($surroundings[$key]['Surrounding']['coordinate_x'] + 1 == $currentFighter['Fighter']['coordinate_x']) {
+                        if ((($surroundings[$key]['Surrounding']['coordinate_x'] + 1) == $i) && ($surroundings[$key]['Surrounding']['coordinate_y'] == $j)) {
                             $surroundingNextCell = true;
-                        }
-                        if ($surroundings[$key]['Surrounding']['coordinate_x'] - 1 == $currentFighter['Fighter']['coordinate_x']) {
+                        } elseif ((($surroundings[$key]['Surrounding']['coordinate_x'] - 1) == $i) && ($surroundings[$key]['Surrounding']['coordinate_y'] == $j)) {
                             $surroundingNextCell = true;
-                        }
-                        if ($surroundings[$key]['Surrounding']['coordinate_y'] + 1 == $currentFighter['Fighter']['coordinate_x']) {
+                        } elseif ((($surroundings[$key]['Surrounding']['coordinate_y'] + 1) == $j) && ($surroundings[$key]['Surrounding']['coordinate_x'] == $i)) {
                             $surroundingNextCell = true;
-                        }
-                        if ($surroundings[$key]['Surrounding']['coordinate_y'] - 1 == $currentFighter['Fighter']['coordinate_x']) {
+                        } elseif ((($surroundings[$key]['Surrounding']['coordinate_y'] - 1) == $j) && ($surroundings[$key]['Surrounding']['coordinate_x'] == $i)) {
                             $surroundingNextCell = true;
+                        } else {
+                            $surroundingNextCell = false;
                         }
 
                         // Si surrounding trouvé, tester son type
                         if ($surroundingNextCell) {
                             // Alerter pieges invisibles
                             if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
-                                echo 'invisible obstacle';
+                                $element = $element.WARNING_CELL.'Brise suspecte';
                             }
                             // Alerter monstre invisible
                             if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
-                                
+                                $element = $element.WARNING_CELL.'Puanteur';
                             }
                         }
                     }
@@ -108,10 +107,10 @@
     </tbody>
 </table>
 
-<?php
-echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->label('Move:');
-?>
+        <?php
+        echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
+        echo $this->Form->label('Move:');
+        ?>
 <div class="btn-group">
     <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
         <span class="glyphicon glyphicon-arrow-left"> west</span> 

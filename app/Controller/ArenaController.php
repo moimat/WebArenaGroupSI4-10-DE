@@ -23,24 +23,20 @@ class ArenaController extends AppController {
         $this->set('myname', "Matthieu Boucon");
     }
 
-    public function beforeFilter()
-   {
-       if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
-       {
-           $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-       }
-       else
-       {
+    public function beforeFilter() {
+        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
+            $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
+        } else {
             echo "success variable status :";
             echo $this->Session->read('Connected');
-       }
-   }
+        }
+    }
 
     public function login() {
 
         if ($this->request->is('post')) {
             if (isset($this->request->data['login'])) {
-                $pwd=substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$' ) , 0 , 10 );
+                $pwd = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$'), 0, 10);
                 echo $pwd;
                 $this->Player->newPlayer($this->request->data['login']['email'], $this->request->data['login']['password']);
                 $Email = new CakeEmail('gmail');
@@ -50,14 +46,14 @@ class ArenaController extends AppController {
                 $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena !');
             }
             if (isset($this->request->data['connexion'])) {
-                $id=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
+                $id = $this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
                 if ($id) {
-                    $this->Session->write('Connected',$id);
-                    echo $id;  
+                    $this->Session->write('Connected', $id);
+                    echo $id;
                     $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
-            if (isset($this->request->data['deco'])){
+            if (isset($this->request->data['deco'])) {
                 $this->Session->delete('Connected');
                 //$this->Session->destroy();
                 echo "déconécté";
@@ -94,6 +90,11 @@ class ArenaController extends AppController {
         $components = array('Session');
         $idTest = 1;
 
+        if ($this->Session->check('arenaCreated') == FALSE) {
+            $this->Surrounding->createArena();
+            $this->Session->write('arenaCreated', TRUE);
+        }
+
         if ($this->request->is('post')) {
             pr($this->request->data);
             if (isset($this->request->data['Fightermove'])) {
@@ -118,4 +119,5 @@ class ArenaController extends AppController {
         $this->set('currentFighter', $this->Fighter->findById($idTest));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
+
 }
