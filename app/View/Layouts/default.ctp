@@ -33,7 +33,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css('bootstrap-theme.css.map');
         echo $this->Html->css('bootstrap-theme.min.css');
         echo $this->Html->css('webarena');
-
+        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
         echo $this->Html->script('bootstrap.min.js');
         echo $this->Html->script('bootstrap.js');
         echo $this->Html->script('npm.js');
@@ -56,7 +56,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active">
+                            <li>
                                 <?php echo $this->Html->link('<span></span> Accueil', '/', array('class' => 'glyphicon glyphicon-home', 'escape' => false)); ?>                                             
                             </li>
                             <li>
