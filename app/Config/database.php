@@ -6,7 +6,7 @@ class DATABASE_CONFIG {
 		'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '291293',
+		'password' => '',
 		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',

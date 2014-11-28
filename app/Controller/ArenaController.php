@@ -23,11 +23,18 @@ class ArenaController extends AppController {
         $this->set('myname', "Matthieu Boucon");
     }
 
-    public function beforeFilter() {
-
-        if (!$this->Session->check('Connected') AND $this->request->params['action'] != 'login')
-            $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-    }
+    public function beforeFilter()
+   {
+       if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
+       {
+           $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
+       }
+       else
+       {
+            echo "success variable status :";
+            echo $this->Session->read('Connected');
+       }
+   }
 
     public function login() {
 
@@ -43,23 +50,16 @@ class ArenaController extends AppController {
                 $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena !');
             }
             if (isset($this->request->data['connexion'])) {
-
-                if ($this->Session->check('Connected')) {
-                    if ($this->Session->delete('Connected'))
-                        echo 'vous êtes déconnecté';
-                }
-
-                else {
-                    $success = $this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
-                    if ($success['success']) {
-
-                        $this->Session->write('Connected', $success['id']);
-                        echo $this->Session->read('Connected');
-                    }
+                $id=$this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
+                if ($id) {
+                    $this->Session->write('Connected',$id);
+                    echo $id;  
                 }
             }
-            if (isset($this->request->data['deco'])) {
+            if (isset($this->request->data['deco'])){
                 $this->Session->delete('Connected');
+                //$this->Session->destroy();
+                echo "déconécté";
             }
         }
     }

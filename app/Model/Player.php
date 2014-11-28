@@ -37,7 +37,7 @@ class Player extends AppModel{
             
             echo "Vous êtes connecté !!";
             
-            return array('success'=> true,'id'=> $this->field('id',array('email'=>$email)) );
-        }else {echo "connexion échouée !!";return array ('success'=>false);}
+            return $this->field('id',array('email'=>$email));
+        }else {echo "connexion échouée !!";return false;}
     }
 }
