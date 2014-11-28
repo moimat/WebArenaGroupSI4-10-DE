@@ -33,6 +33,8 @@ class ArenaController extends AppController {
 
         if ($this->request->is('post')) {
             if (isset($this->request->data['login'])) {
+                $pwd=substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$' ) , 0 , 10 );
+                echo $pwd;
                 $this->Player->newPlayer($this->request->data['login']['email'], $this->request->data['login']['password']);
                 $Email = new CakeEmail('gmail');
                 $Email->from(array('mat.boucon@gmail.com' => 'WebArena'));
