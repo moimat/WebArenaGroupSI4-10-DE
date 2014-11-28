@@ -26,40 +26,54 @@ class Fighter extends AppModel {
     public function doMove($fighterId, $direction) {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
+        $posx=0;
+        $posy=0;
         //@todo empêcher le joueur de sortir des limites du terrain
         //@todo empêcher le joueur de se déplacer sur une case occupée
         // falre la modif
         if ($direction == 'north') {
-            $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
-            $posx = $joueur['Fighter']['coordinate_x'];
-            $posy = $joueur['Fighter']['coordinate_y'];
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH) {
+                $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
+                $posx = $joueur['Fighter']['coordinate_x'];
+                $posy = $joueur['Fighter']['coordinate_y'];
+            }
         } elseif ($direction == 'south') {
-            $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
-            $posx = $joueur['Fighter']['coordinate_x'];
-            $posy = $joueur['Fighter']['coordinate_y'];
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH) {
+                $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
+                $posx = $joueur['Fighter']['coordinate_x'];
+                $posy = $joueur['Fighter']['coordinate_y'];
+            }
         } elseif ($direction == 'east') {
-            $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
-            $posx = $joueur['Fighter']['coordinate_x'];
-            $posy = $joueur['Fighter']['coordinate_y'];
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_EAST) {
+                $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
+                $posx = $joueur['Fighter']['coordinate_x'];
+                $posy = $joueur['Fighter']['coordinate_y'];
+            }
         } elseif ($direction == 'west') {
-            $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
-            $posx = $joueur['Fighter']['coordinate_x'];
-            $posy = $joueur['Fighter']['coordinate_y'];
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_WEST) {
+                $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
+                $posx = $joueur['Fighter']['coordinate_x'];
+                $posy = $joueur['Fighter']['coordinate_y'];
+            }
         }
 
-        $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $joueur['Fighter']['name'] . ' se déplace en: ' . $posx . ':' . $posy;
+        if ($posx != 0 && $posy != 0) {
+            $dateNow = date("Y-m-d H:i:s");
+            $nameEvent = $joueur['Fighter']['name'] . ' se déplace en: ' . $posx . ':' . $posy;
 
-        $eventArray = array(
-            "coordinate_x" => $posx,
-            "coordinate_y" => $posy,
-            "date" => $dateNow,
-            "name" => $nameEvent);
+            $eventArray = array(
+                "coordinate_x" => $posx,
+                "coordinate_y" => $posy,
+                "date" => $dateNow,
+                "name" => $nameEvent);
 
-        // sauver la modif
-        $this->save();
+            // sauver la modif
+            $this->save();
 
-        return $eventArray;
+            return $eventArray;
+        } else {
+            return false;
+        }
     }
 
     public function lvlUp($fighterId) {

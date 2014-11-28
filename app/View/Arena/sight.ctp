@@ -20,53 +20,85 @@
                 $classDisplay = '';
                 $distanceX = 0;
                 $distanceY = 0;
-
-                // Afficher Combattants
-                if ($raw['Fighter']['coordinate_x'] == $i && $raw['Fighter']['coordinate_y'] == $j) {
-                    $element = FIGHTER_CELL . $raw['Fighter']['name'];
-                }
+                $surroundingNextCell = false;
 
                 /*
                  * Griser cases pas à portée de vue du combattant
                  */
 
                 // Calcul distance x
-                if ($raw['Fighter']['coordinate_x'] > $i) {
-                    $distanceX = $raw['Fighter']['coordinate_x'] - $i;
+                if ($currentFighter['Fighter']['coordinate_x'] > $i) {
+                    $distanceX = $currentFighter['Fighter']['coordinate_x'] - $i;
                 } else {
-                    $distanceX = $i - $raw['Fighter']['coordinate_x'];
+                    $distanceX = $i - $currentFighter['Fighter']['coordinate_x'];
                 }
 
                 // Calcul distance y
-                if ($raw['Fighter']['coordinate_y'] > $j) {
-                    $distanceY = $raw['Fighter']['coordinate_y'] - $j;
+                if ($currentFighter['Fighter']['coordinate_y'] > $j) {
+                    $distanceY = $currentFighter['Fighter']['coordinate_y'] - $j;
                 } else {
-                    $distanceY = $j - $raw['Fighter']['coordinate_y'];
+                    $distanceY = $j - $currentFighter['Fighter']['coordinate_y'];
                 }
 
                 // Griser si la caractéristique de vue est inférieur à la distance de la case
-                if (($distanceX + $distanceY) > $raw['Fighter']['skill_sight']) {
+                if (($distanceX + $distanceY) > $currentFighter['Fighter']['skill_sight']) {
                     $classDisplay = HIDDEN_CELL;
                 } else {
                     $classDisplay = VISIBLE_CELL;
                 }
 
-                // Afficher Obstacles
-                foreach ($surroundings as $key => $value) {
-                    if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
-                        if ($classDisplay == VISIBLE_CELL) {
-                            if ($surroundings[$key]['Surrounding']['type'] == 'colonne')
-                                $element = COLUMN_CELL;
-
-                            elseif ($surroundings[$key]['Surrounding']['type'] == 'piege')
-                                $element = TRAP_CELL;
-
-                            elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre')
-                                $element = MONSTER_CELL;
+                // Afficher combattants
+                foreach ($fighters as $key => $value) {
+                    if ($classDisplay == VISIBLE_CELL) {
+                        if ($fighters[$key]['Fighter']['coordinate_x'] == $i && $fighters[$key]['Fighter']['coordinate_y'] == $j) {
+                            $element = FIGHTER_CELL . $fighters[$key]['Fighter']['name'];
                         }
                     }
                 }
 
+                // Si case joueur (combattant actuel)
+                if ($currentFighter['Fighter']['coordinate_x'] == $i && $currentFighter['Fighter']['coordinate_y'] == $j) {
+
+                    // Boucle surroundings
+                    foreach ($surroundings as $key => $value) {
+                        // Si on est a une case du combattant
+                        if ($surroundings[$key]['Surrounding']['coordinate_x'] + 1 == $currentFighter['Fighter']['coordinate_x']) {
+                            $surroundingNextCell = true;
+                        }
+                        if ($surroundings[$key]['Surrounding']['coordinate_x'] - 1 == $currentFighter['Fighter']['coordinate_x']) {
+                            $surroundingNextCell = true;
+                        }
+                        if ($surroundings[$key]['Surrounding']['coordinate_y'] + 1 == $currentFighter['Fighter']['coordinate_x']) {
+                            $surroundingNextCell = true;
+                        }
+                        if ($surroundings[$key]['Surrounding']['coordinate_y'] - 1 == $currentFighter['Fighter']['coordinate_x']) {
+                            $surroundingNextCell = true;
+                        }
+
+                        // Si surrounding trouvé, tester son type
+                        if ($surroundingNextCell) {
+                            // Alerter pieges invisibles
+                            if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
+                                echo 'invisible obstacle';
+                            }
+                            // Alerter monstre invisible
+                            if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
+                                
+                            }
+                        }
+                    }
+                }
+                // Représentation obstacles sur le terrain
+                foreach ($surroundings as $key => $value) {
+                    // Afficher tour
+                    if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
+                        if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
+                            if ($classDisplay == VISIBLE_CELL) {
+                                $element = COLUMN_CELL;
+                            }
+                        }
+                    }
+                }
                 $displayElement = '<td ' . $classDisplay . '>' . $element . '</td>';
                 echo $displayElement;
             }
@@ -78,7 +110,8 @@
 
 <?php
 echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->label('Move:');?>
+echo $this->Form->label('Move:');
+?>
 <div class="btn-group">
     <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
         <span class="glyphicon glyphicon-arrow-left"> west</span> 
@@ -93,10 +126,12 @@ echo $this->Form->label('Move:');?>
         <span class="glyphicon glyphicon-arrow-down"> south</span> 
     </button>
 </div>
-<?php echo $this->Form->end();
+<?php
+echo $this->Form->end();
 
 echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->label('Attack:');?>
+echo $this->Form->label('Attack:');
+?>
 <div class="btn-group">
     <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="west">
         <span class="glyphicon glyphicon-arrow-left"> west</span> 
@@ -113,4 +148,4 @@ echo $this->Form->label('Attack:');?>
 </div>
 
 <?php $this->assign('title', 'Sight'); ?>
-<?php pr($raw); ?>
+<?php pr($currentFighter); ?>
