@@ -54,6 +54,7 @@ class ArenaController extends AppController {
                 if ($id) {
                     $this->Session->write('Connected',$id);
                     echo $id;  
+                    $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
             if (isset($this->request->data['deco'])){
