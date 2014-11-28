@@ -114,7 +114,8 @@ class ArenaController extends AppController {
 
         // Construct arena
         $this->Surrounding->createArena();
-        $this->set('raw', $this->Fighter->findById($idTest));
+        $this->set('fighters', $this->Fighter->find('all'));
+        $this->set('currentFighter', $this->Fighter->findById($idTest));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
 }
