@@ -98,13 +98,17 @@ class ArenaController extends AppController {
             pr($this->request->data);
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($idTest, $this->request->data['Fightermove']['direction']);
-                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
-                $this->Session->setFlash('Un déplacement a été réalisé');
+                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
+                    $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                    $this->Session->setFlash('Un déplacement a été réalisé');
+                }
             }
             if (isset($this->request->data['Fighteratk'])) {
                 $eventArray = $this->Fighter->doAttack($idTest, $this->request->data['Fighteratk']['direction']);
-                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
-                $this->Session->setFlash('Une attaque a été réalisée.');
+                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
+                    $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                    $this->Session->setFlash('Une attaque a été réalisée.');
+                }
             }
         }
 
@@ -113,5 +117,4 @@ class ArenaController extends AppController {
         $this->set('raw', $this->Fighter->findById($idTest));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
-
 }
