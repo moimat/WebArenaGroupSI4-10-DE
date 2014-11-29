@@ -91,7 +91,10 @@ class ArenaController extends AppController {
             
             if (isset($this->request->data['enter'])) {
                 $id=$this->request->data['enter']['id'];
-                pr($id);
+                if($id){
+                    $this->Session->write('Enter', $id);
+                    $this->redirect(array('controller' => 'Arena', 'action' => 'sight'));
+                }
                 
             }
 
@@ -110,8 +113,7 @@ class ArenaController extends AppController {
 
     public function sight() {
         
-        $components = array('Session');
-        $idTest = 1;
+        $idTest = $this->Session->read('Enter');
         $arenaArray=$this->Surrounding->createArena();
             $this->set('arena', $arenaArray);
         // Construct arena

@@ -26,7 +26,6 @@ foreach ($raw as $key => $value) {
             </div>
             <div>";
         $id = strval($raw[$key]['Fighter']['id']);
-        
         echo $this->Html->image('Avatars/avatar-' . $id . '.jpg', array('alt' => 'CakePHP','width' => '30%', 'height' => '20%'));
         echo"
             </div>
