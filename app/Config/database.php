@@ -1,13 +1,25 @@
 <?php
 class DATABASE_CONFIG {
 
-	public $default = array(
+	/* réglage site web
+         * public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
 		'host' => 'matmattfphbdd.mysql.db',
 		'login' => 'matmattfphbdd',
 		'password' => 's8uGv8XdgTxh',
 		'database' => 'matmattfphbdd',
+		'prefix' => '',
+		//'encoding' => 'utf8',
+	);*/
+    public $default = array(
+                'datasource' => 'Database/Mysql',
+                'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => '',
+		'password' => '291293',
+		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);

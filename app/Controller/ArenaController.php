@@ -37,12 +37,12 @@ class ArenaController extends AppController {
             if (isset($this->request->data['login'])) {
                 $pwd = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$'), 0, 10);
                 echo $pwd;
-                $this->Player->newPlayer($this->request->data['login']['email'], $this->request->data['login']['password']);
+                $this->Player->newPlayer($this->request->data['login']['email'], $pwd);
                 $Email = new CakeEmail('gmail');
                 $Email->from(array('mat.boucon@gmail.com' => 'WebArena'));
                 $Email->to($this->request->data['login']['email']);
                 $Email->subject('Inscription WebArena');
-                $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena !');
+                $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena ! Votre mot de passe est :'.$pwd);
             }
             if (isset($this->request->data['connexion'])) {
                 $id = $this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
