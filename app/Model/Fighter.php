@@ -158,13 +158,14 @@ class Fighter extends AppModel {
         }
     }
 
-    public function createCharacter($idPlayer, $newName) {
+    public function createCharacter($idchar, $newName, $playerID) {
         // Give new Id to row
         $id = $this->find('count');
         $id++;
 
         $data = array(
-            'id' => $idPlayer,
+            'id' => $idchar,
+            'player_id' => $playerID,
             'name' => $newName,
             'coordinate_x' => 1,
             'coordinate_y' => 1,
@@ -183,6 +184,16 @@ class Fighter extends AppModel {
 
         // save the data
         $this->save($data);
+    }
+    
+    public function viewAllChars($playerID)
+    {
+        $allChars = $this->find('all', array('conditions' => array('Fighter.player_id' => $playerID)));
+        /*foreach($allChars as $key => $value)
+        {
+            echo $allChars[$key]['Fighter']['name'];
+        }*/
+        return $allChars;
     }
 
 }

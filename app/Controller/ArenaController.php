@@ -65,8 +65,9 @@ class ArenaController extends AppController {
 
         if ($this->request->is('post')) {
             if (isset($this->request->data['viewchar'])) {
-                $this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
-                $id = $this->request->data['viewchar']['id'];
+                $this->set('raw',$this->Fighter->viewAllChars($this->Session->read('Connected')));
+                //$this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
+                //$id = $this->request->data['viewchar']['id'];
             }
             if (isset($this->request->data['lvlup'])) {
                 $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
@@ -76,7 +77,7 @@ class ArenaController extends AppController {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
             }
             if (isset($this->request->data['createchar'])) {
-                $this->Fighter->createCharacter($this->request->data['createchar']['name']);
+                $this->Fighter->createCharacter($this->request->data['createchar']['id'],$this->request->data['createchar']['name'],$this->Session->read('Connected'));
             }
         }
     }
