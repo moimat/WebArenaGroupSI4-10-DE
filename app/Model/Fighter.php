@@ -116,8 +116,12 @@ class Fighter extends AppModel {
                 $success=NULL;
                 if ($rand>$seuil){
                     $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
+                    $this->save();
                     pr('attaque reussie');
                     $success='succès';
+                    $joueur = $this->read(null, $fighterId);
+                    $this->set('xp', $joueur['Fighter']['xp']+1);
+                    pr('Xp augmentée');
                 }
                 else{
                     pr('attaque échouée');
@@ -125,7 +129,7 @@ class Fighter extends AppModel {
                 }
             }    
         }
-                // Create corresponding Event        
+        // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
         $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
 
@@ -134,7 +138,6 @@ class Fighter extends AppModel {
             "coordinate_y" => $posy,
             "date" => $dateNow,
             "name" => $nameEvent);
-        
         // sauver la modif
         $this->save();
         $cible_after=$this->read(null,$idcible);
@@ -146,10 +149,7 @@ class Fighter extends AppModel {
 
         $repertoire = "img/Avatars/";
 
-
-
         $image = $repertoire . 'avatar-' . $id . '.jpg';
-
 
         if (move_uploaded_file($_FILES['data']['tmp_name']['Upload']['Avatar'], WWW_ROOT . $image)) {
             echo "The file " . basename($_FILES["data"]["name"]['Upload']['Avatar']) . " has been uploaded.";
@@ -174,7 +174,7 @@ class Fighter extends AppModel {
             'skill_sight' => 1,
             'skill_strength' => 1,
             'skill_health' => 3,
-            'current_health' => 3,
+            'current_health' => 3,  
             'next_action_time' => '0000-00-00 00:00:00',
             'guild_id' => NULL
         );
