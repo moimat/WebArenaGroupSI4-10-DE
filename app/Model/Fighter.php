@@ -158,13 +158,13 @@ class Fighter extends AppModel {
         }
     }
 
-    public function createCharacter($idchar, $newName, $playerID) {
+    public function createCharacter($newName, $playerID) {
         // Give new Id to row
         $id = $this->find('count');
         $id++;
 
         $data = array(
-            'id' => $idchar,
+            'id' => $id,
             'player_id' => $playerID,
             'name' => $newName,
             'coordinate_x' => -1,

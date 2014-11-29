@@ -18,7 +18,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'password' => '291293',
+		'password' => '',
 		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',

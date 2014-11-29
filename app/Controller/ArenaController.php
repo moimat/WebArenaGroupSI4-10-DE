@@ -87,7 +87,7 @@ class ArenaController extends AppController {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
             }
             if (isset($this->request->data['createchar'])) {
-                $this->Fighter->createCharacter($this->request->data['createchar']['id'],$this->request->data['createchar']['name'],$this->Session->read('Connected'));
+                $this->Fighter->createCharacter($this->request->data['createchar']['name'],$this->Session->read('Connected'));
             }
         }
     }
