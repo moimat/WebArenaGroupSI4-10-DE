@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/View/Arena/sight.ctp</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Config/core.php</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Model/Fighter.php</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Model/Player.php</file>
             <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Controller/ArenaController.php</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/.htaccess</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/View/Arena/login.ctp</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Config/email.php</file>
-            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/View/Arena/recover.ctp</file>
+            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/View/Arena/sight.ctp</file>
+            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Model/Player.php</file>
             <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Config/database.php</file>
+            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/View/Arena/login.ctp</file>
+            <file>file:/Applications/MAMP/htdocs/WebArenaGroupSI4-10-DE/app/Model/Surrounding.php</file>
         </group>
     </open-files>
 </project-private>
