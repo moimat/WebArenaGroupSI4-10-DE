@@ -105,9 +105,29 @@ class Fighter extends AppModel {
             $posx_cible=$posx-1;
             $posy_cible=$posy;
         }
-        // Create corresponding Event        
+        
+        foreach ($liste as $key => $value) {
+            if($liste[$key]['Fighter']['coordinate_x']==$posx_cible && $liste[$key]['Fighter']['coordinate_y']==$posy_cible){
+                $idcible=$liste[$key]['Fighter']['id'];
+                $cible=$this->read(null,$idcible);
+                pr($cible);
+                $rand=rand(1,20);
+                $seuil=$cible['Fighter']['level']-$joueur['Fighter']['level']+10;
+                $success=NULL;
+                if ($rand>$seuil){
+                    $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
+                    pr('attaque reussie');
+                    $success='succès';
+                }
+                else{
+                    pr('attaque échouée');
+                    $success='echec';
+                }
+            }    
+        }
+                // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $joueur['Fighter']['name'] . ' attaque en: ' . $posx_cible . ':' . $posy_cible;
+        $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
 
         $eventArray = array(
             "coordinate_x" => $posx,
@@ -115,14 +135,6 @@ class Fighter extends AppModel {
             "date" => $dateNow,
             "name" => $nameEvent);
         
-        foreach ($liste as $key => $value) {
-            if($liste[$key]['Fighter']['coordinate_x']==$posx_cible && $liste[$key]['Fighter']['coordinate_y']==$posy_cible){
-                $idcible=$liste[$key]['Fighter']['id'];
-                $cible=$this->read(null,$idcible);
-                pr($cible);
-                $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-            }    
-        }
         // sauver la modif
         $this->save();
         $cible_after=$this->read(null,$idcible);
