@@ -85,33 +85,48 @@ class Fighter extends AppModel {
     public function doAttack($fighterId, $direction) {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
-        $cible = $this->read(null, 2);
+        $liste=$this->find('all');
         $posx = $joueur['Fighter']['coordinate_x'];
         $posy = $joueur['Fighter']['coordinate_y'];
-
+        
+        if($direction=='north'){
+            $posx_cible=$posx;
+            $posy_cible=$posy-1;
+        }
+        if($direction=='south'){
+            $posx_cible=$posx;
+            $posy_cible=$posy+1;
+        }
+        if($direction=='east'){
+            $posx_cible=$posx+1;
+            $posy_cible=$posy;
+        }
+        if($direction=='west'){
+            $posx_cible=$posx-1;
+            $posy_cible=$posy;
+        }
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $joueur['Fighter']['name'] . ' attaque en: ' . $posx . ':' . $posy;
+        $nameEvent = $joueur['Fighter']['name'] . ' attaque en: ' . $posx_cible . ':' . $posy_cible;
 
         $eventArray = array(
             "coordinate_x" => $posx,
             "coordinate_y" => $posy,
             "date" => $dateNow,
             "name" => $nameEvent);
-
-        // Selon la direction chercher un fighter dans sa position+vue
-        if ($direction == 'north' && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] && $cible['Fighter']['coordinate_x'] == $joueur['Fighter']['coordinate_x'] + 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'south' && $joueur['Fighter']['coordinate_y'] == $cible['Fighter']['coordinate_y'] && $cible['Fighter']['coordinate_x'] == $joueur['Fighter']['coordinate_x'] - 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'west' && $joueur['Fighter']['coordinate_x'] == $cible['Fighter']['coordinate_x'] && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] - 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'east' && $joueur['Fighter']['coordinate_x'] == $cible['Fighter']['coordinate_x'] && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] + 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
+        
+        foreach ($liste as $key => $value) {
+            if($liste[$key]['Fighter']['coordinate_x']==$posx_cible && $liste[$key]['Fighter']['coordinate_y']==$posy_cible){
+                $idcible=$liste[$key]['Fighter']['id'];
+                $cible=$this->read(null,$idcible);
+                pr($cible);
+                $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
+            }    
         }
-
         // sauver la modif
         $this->save();
+        $cible_after=$this->read(null,$idcible);
+                pr($cible_after);
         return $eventArray;
     }
 

@@ -17,29 +17,6 @@
         <![endif]-->
         <!-- Custom styles for this template -->
         <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
-        <?php
-        echo $this->Html->meta('icon');
-        echo $this->Html->css('bootstrap.min.css');
-        echo $this->Html->css('bootstrap.css');
-        echo $this->Html->css('bootstrap.css.map');
-        echo $this->Html->css('bootstrap-theme.css');
-        echo $this->Html->css('bootstrap-theme.css.map');
-        echo $this->Html->css('bootstrap-theme.min.css');
-        echo $this->Html->css('webarena');
-
-        echo $this->Html->script('bootstrap.min.js');
-        echo $this->Html->script('bootstrap.js');
-        echo $this->Html->script('jquery-latest-js');
-        echo $this->Html->script('npm.js');
-        echo $this->fetch('meta');
-        echo $this->fetch('css');
-        echo $this->fetch('script');
-        echo $this->Html->script('bootstrap');
-
-        echo $this->Html->script('bootstrap.min');
-        echo $this->Js->writeBuffer();
-        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
-        ?>
     </head>
     <!-- NAVBAR
     ================================================== -->
@@ -120,6 +97,7 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
+        
 
 
 

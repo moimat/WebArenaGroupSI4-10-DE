@@ -33,8 +33,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css('bootstrap-theme.css.map');
         echo $this->Html->css('bootstrap-theme.min.css');
         echo $this->Html->css('webarena');
-        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
         echo $this->Html->script('bootstrap.min.js');
+        echo $this->Html->script('jquery.min.js');
+        echo $this->Html->script('docs.min.js');
+        echo $this->Html->script('ie10-viewport-bug-workaround.js');
+        echo $this->Html->script('ie-emulation-modes-warning.js');    
         echo $this->Html->script('bootstrap.js');
         echo $this->Html->script('npm.js');
         echo $this->fetch('meta');
