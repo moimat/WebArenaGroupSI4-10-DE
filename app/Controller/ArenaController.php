@@ -12,6 +12,16 @@ class ArenaController extends AppController {
 
     public $uses = array('Player', 'Fighter', 'Event', 'Surrounding');
     public $components = array('Session');
+    
+    /**
+ * Helpers
+ *
+ * @var array
+ */
+    public $helpers = array(
+        'DataTable.DataTable',
+    );
+
 
     /**
      * index method : first page
