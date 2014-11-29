@@ -71,7 +71,7 @@ class Fighter extends AppModel {
         {
             if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST
                 && empty($this->find('first',array('conditions' => 
-                array('coordinate_x'=>$joueur['Fighter']['coordinate_x'],
+                array('coordinate_x'=>$joueur['Fighter']['coordinate_x']-1,
                       'coordinate_y'=>$joueur['Fighter']['coordinate_y']))))==true)
             {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
