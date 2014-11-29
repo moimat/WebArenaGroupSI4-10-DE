@@ -106,8 +106,10 @@ class ArenaController extends AppController {
     }
 
     public function sight() {
-
         $idTest = $this->Session->read('Enter');
+        if(!isset($idTest)){
+            $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
+        }
 
         if ($this->request->is('post')) {
             pr($this->request->data);
@@ -116,6 +118,10 @@ class ArenaController extends AppController {
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash('Un déplacement a été réalisé');
+                }
+                if ($eventArray["fighterMove"]==FALSE) {
+                    $this->Session->write('Enter', NULL);
+                    $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
             if (isset($this->request->data['Fighteratk'])) {
