@@ -17,29 +17,6 @@
         <![endif]-->
         <!-- Custom styles for this template -->
         <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
-        <?php
-        echo $this->Html->meta('icon');
-        echo $this->Html->css('bootstrap.min.css');
-        echo $this->Html->css('bootstrap.css');
-        echo $this->Html->css('bootstrap.css.map');
-        echo $this->Html->css('bootstrap-theme.css');
-        echo $this->Html->css('bootstrap-theme.css.map');
-        echo $this->Html->css('bootstrap-theme.min.css');
-        echo $this->Html->css('webarena');
-
-        echo $this->Html->script('bootstrap.min.js');
-        echo $this->Html->script('bootstrap.js');
-        echo $this->Html->script('jquery-latest-js');
-        echo $this->Html->script('npm.js');
-        echo $this->fetch('meta');
-        echo $this->fetch('css');
-        echo $this->fetch('script');
-        echo $this->Html->script('bootstrap');
-
-        echo $this->Html->script('bootstrap.min');
-        echo $this->Js->writeBuffer();
-        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
-        ?>
     </head>
     <!-- NAVBAR
     ================================================== -->
@@ -82,7 +59,7 @@
                 </div>
             </div>
             <a href="#carousel" class="left carousel-control" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-chevron-left" aria-h   idden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
             <a href="#carousel" class="right carousel-control" role="button" data-slide="next">
@@ -120,8 +97,11 @@
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-
-
-
-
-        <div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 15px; height: 15px; z-index: 999999999;" title="" data-original-title="Copy to clipboard">      <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="global-zeroclipboard-flash-bridge" width="100%" height="100%">         <param name="movie" value="/assets/flash/ZeroClipboard.swf?noCache=1417173475539">         <param name="allowScriptAccess" value="sameDomain">         <param name="scale" value="exactfit">         <param name="loop" value="false">         <param name="menu" value="false">         <param name="quality" value="best">         <param name="bgcolor" value="#ffffff">         <param name="wmode" value="transparent">         <param name="flashvars" value="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com">         <embed src="/assets/flash/ZeroClipboard.swf?noCache=1417173475539" loop="false" menu="false" quality="best" bgcolor="#ffffff" width="100%" height="100%" name="global-zeroclipboard-flash-bridge" allowscriptaccess="sameDomain" allowfullscreen="false" type="application/x-shockwave-flash" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" flashvars="trustedOrigins=getbootstrap.com%2C%2F%2Fgetbootstrap.com%2Chttp%3A%2F%2Fgetbootstrap.com" scale="exactfit">                </object></div><svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs></defs><text x="0" y="23" style="font-weight:bold;font-size:23pt;font-family:Arial, Helvetica, Open Sans, sans-serif;dominant-baseline:middle">500x500</text></svg></body></html>
+        <?php
+        echo $this->Html->script('docs.min'); 
+        echo $this->Html->script('jquery.min');
+        echo $this->Html->script('bootstrap.min');
+        ?>
+        
+</body>
+</html>

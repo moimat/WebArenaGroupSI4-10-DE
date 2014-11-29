@@ -85,33 +85,63 @@ class Fighter extends AppModel {
     public function doAttack($fighterId, $direction) {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
-        $cible = $this->read(null, 2);
+        $liste=$this->find('all');
         $posx = $joueur['Fighter']['coordinate_x'];
         $posy = $joueur['Fighter']['coordinate_y'];
-
+        
+        if($direction=='north'){
+            $posx_cible=$posx;
+            $posy_cible=$posy-1;
+        }
+        if($direction=='south'){
+            $posx_cible=$posx;
+            $posy_cible=$posy+1;
+        }
+        if($direction=='east'){
+            $posx_cible=$posx+1;
+            $posy_cible=$posy;
+        }
+        if($direction=='west'){
+            $posx_cible=$posx-1;
+            $posy_cible=$posy;
+        }
+        
+        foreach ($liste as $key => $value) {
+            if($liste[$key]['Fighter']['coordinate_x']==$posx_cible && $liste[$key]['Fighter']['coordinate_y']==$posy_cible){
+                $idcible=$liste[$key]['Fighter']['id'];
+                $cible=$this->read(null,$idcible);
+                pr($cible);
+                $rand=rand(1,20);
+                $seuil=$cible['Fighter']['level']-$joueur['Fighter']['level']+10;
+                $success=NULL;
+                if ($rand>$seuil){
+                    $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
+                    $this->save();
+                    pr('attaque reussie');
+                    $success='succès';
+                    $joueur = $this->read(null, $fighterId);
+                    $this->set('xp', $joueur['Fighter']['xp']+1);
+                    pr('Xp augmentée');
+                }
+                else{
+                    pr('attaque échouée');
+                    $success='echec';
+                }
+            }    
+        }
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $joueur['Fighter']['name'] . ' attaque en: ' . $posx . ':' . $posy;
+        $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
 
         $eventArray = array(
             "coordinate_x" => $posx,
             "coordinate_y" => $posy,
             "date" => $dateNow,
             "name" => $nameEvent);
-
-        // Selon la direction chercher un fighter dans sa position+vue
-        if ($direction == 'north' && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] && $cible['Fighter']['coordinate_x'] == $joueur['Fighter']['coordinate_x'] + 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'south' && $joueur['Fighter']['coordinate_y'] == $cible['Fighter']['coordinate_y'] && $cible['Fighter']['coordinate_x'] == $joueur['Fighter']['coordinate_x'] - 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'west' && $joueur['Fighter']['coordinate_x'] == $cible['Fighter']['coordinate_x'] && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] - 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        } elseif ($direction == 'east' && $joueur['Fighter']['coordinate_x'] == $cible['Fighter']['coordinate_x'] && $cible['Fighter']['coordinate_y'] == $joueur['Fighter']['coordinate_y'] + 1) {
-            $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-        }
-
         // sauver la modif
         $this->save();
+        $cible_after=$this->read(null,$idcible);
+                pr($cible_after);
         return $eventArray;
     }
 
@@ -119,10 +149,7 @@ class Fighter extends AppModel {
 
         $repertoire = "img/Avatars/";
 
-
-
         $image = $repertoire . 'avatar-' . $id . '.jpg';
-
 
         if (move_uploaded_file($_FILES['data']['tmp_name']['Upload']['Avatar'], WWW_ROOT . $image)) {
             echo "The file " . basename($_FILES["data"]["name"]['Upload']['Avatar']) . " has been uploaded.";
@@ -131,13 +158,14 @@ class Fighter extends AppModel {
         }
     }
 
-    public function createCharacter($idPlayer, $newName) {
+    public function createCharacter($idchar, $newName, $playerID) {
         // Give new Id to row
         $id = $this->find('count');
         $id++;
 
         $data = array(
-            'id' => $idPlayer,
+            'id' => $idchar,
+            'player_id' => $playerID,
             'name' => $newName,
             'coordinate_x' => 1,
             'coordinate_y' => 1,
@@ -146,7 +174,7 @@ class Fighter extends AppModel {
             'skill_sight' => 1,
             'skill_strength' => 1,
             'skill_health' => 3,
-            'current_health' => 3,
+            'current_health' => 3,  
             'next_action_time' => '0000-00-00 00:00:00',
             'guild_id' => NULL
         );
@@ -156,6 +184,16 @@ class Fighter extends AppModel {
 
         // save the data
         $this->save($data);
+    }
+    
+    public function viewAllChars($playerID)
+    {
+        $allChars = $this->find('all', array('conditions' => array('Fighter.player_id' => $playerID)));
+        /*foreach($allChars as $key => $value)
+        {
+            echo $allChars[$key]['Fighter']['name'];
+        }*/
+        return $allChars;
     }
 
 }
