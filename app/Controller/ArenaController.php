@@ -34,11 +34,21 @@ class ArenaController extends AppController {
     }
 
     public function beforeFilter() {
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
+        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
+        {
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-        } else {
+        }
+        else
+        {
             echo "success variable status :";
             echo $this->Session->read('Connected');
+        }
+        if (isset($this->request->data['deco']))
+        {
+            $this->Session->delete('Connected');
+            //$this->Session->destroy();
+            echo "déconécté";
+            $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         }
     }
 
@@ -63,22 +73,18 @@ class ArenaController extends AppController {
                     $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
-            if (isset($this->request->data['deco'])) {
-                $this->Session->delete('Connected');
-                //$this->Session->destroy();
-                echo "déconécté";
-            }
+            
         }
     }
 
     public function character() {
 
         if ($this->request->is('post')) {
-            if (isset($this->request->data['viewchar'])) {
+            //if (isset($this->request->data['viewchar'])) {
                 $this->set('raw',$this->Fighter->viewAllChars($this->Session->read('Connected')));
                 //$this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
                 //$id = $this->request->data['viewchar']['id'];
-            }
+            //}
             if (isset($this->request->data['lvlup'])) {
                 $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
             }
