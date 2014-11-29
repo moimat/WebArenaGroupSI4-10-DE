@@ -216,8 +216,35 @@ class Fighter extends AppModel {
         return $allChars;
     }
 
-    public function initialiseFighters($arena) {
-        $fighters = $this->find('all');
+    public function initialiseFighter($fighterId) {
+        
+        $surrounding = ClassRegistry::init('Surrounding');
+
+        $surroundings = $surrounding->find('all');
+        // Find current fighter
+        $this->read(null, $fighterId);
+        $arenaArray = array();
+
+        // Boucle surroundings
+        foreach ($surroundings as $key => $value) {
+            // Get array of surroundings positions
+            $posX = $surroundings[$key]['Surrounding']['coordinate_x'];
+            $posY = $surroundings[$key]['Surrounding']['coordinate_y'];
+            $element = array($posX, $posY);
+            array_push($arenaArray, $element);
+        }
+
+        // Generate non conflicting random positions of fighters
+        do {
+            $randCoordX = rand(BORDER_WEST, BORDER_EAST);
+            $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH);
+            $elementToAdd = array($randCoordX, $randCoordY);
+        } while (in_array($elementToAdd, $arenaArray));
+
+        // save fighter positions
+        $this->set('coordinate_x', $randCoordX);
+        $this->set('coordinate_y', $randCoordY);
+        $this->save();
     }
 
 }

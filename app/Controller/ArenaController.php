@@ -12,16 +12,15 @@ class ArenaController extends AppController {
 
     public $uses = array('Player', 'Fighter', 'Event', 'Surrounding');
     public $components = array('Session');
-    
+
     /**
- * Helpers
- *
- * @var array
- */
+     * Helpers
+     *
+     * @var array
+     */
     public $helpers = array(
         'DataTable.DataTable',
     );
-
 
     /**
      * index method : first page
@@ -34,17 +33,13 @@ class ArenaController extends AppController {
     }
 
     public function beforeFilter() {
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
-        {
+        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-        }
-        else
-        {
+        } else {
             echo "success variable status :";
             echo $this->Session->read('Connected');
         }
-        if (isset($this->request->data['deco']))
-        {
+        if (isset($this->request->data['deco'])) {
             $this->Session->delete('Connected');
             //$this->Session->destroy();
             echo "déconécté";
@@ -63,7 +58,7 @@ class ArenaController extends AppController {
                 $Email->from(array('mat.boucon@gmail.com' => 'WebArena'));
                 $Email->to($this->request->data['login']['email']);
                 $Email->subject('Inscription WebArena');
-                $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena ! Votre mot de passe est :'.$pwd);
+                $Email->send('Félicitations vous venez de vous inscrire au jeu WebArena ! Votre mot de passe est :' . $pwd);
             }
             if (isset($this->request->data['connexion'])) {
                 $id = $this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
@@ -73,7 +68,6 @@ class ArenaController extends AppController {
                     $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
-            
         }
     }
 
@@ -81,28 +75,28 @@ class ArenaController extends AppController {
 
         if ($this->request->is('post')) {
             //if (isset($this->request->data['viewchar'])) {
-                $this->set('raw',$this->Fighter->viewAllChars($this->Session->read('Connected')));
-                //$this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
-                //$id = $this->request->data['viewchar']['id'];
+            $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
+            //$this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
+            //$id = $this->request->data['viewchar']['id'];
             //}
             if (isset($this->request->data['lvlup'])) {
                 $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
             }
-            
+
             if (isset($this->request->data['enter'])) {
-                $id=$this->request->data['enter']['id'];
-                if($id){
+                $id = $this->request->data['enter']['id'];
+                if ($id) {
                     $this->Session->write('Enter', $id);
+                    $this->Fighter->initialiseFighter($id);
                     $this->redirect(array('controller' => 'Arena', 'action' => 'sight'));
                 }
-                
             }
 
             if (isset($this->request->data['Upload'])) {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
             }
             if (isset($this->request->data['createchar'])) {
-                $this->Fighter->createCharacter($this->request->data['createchar']['name'],$this->Session->read('Connected'));
+                $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));
             }
         }
     }
@@ -112,16 +106,8 @@ class ArenaController extends AppController {
     }
 
     public function sight() {
-        
+
         $idTest = $this->Session->read('Enter');
-        $arenaArray=$this->Surrounding->createArena();
-            $this->set('arena', $arenaArray);
-        // Construct arena
-        if ($this->Session->check('arenaCreated') == FALSE) {
-            
-            // $this->Fighter->createFighters($arenaArray,$this->Fighter->find('all'));
-            $this->Session->write('arenaCreated', TRUE);
-        }
 
         if ($this->request->is('post')) {
             pr($this->request->data);
