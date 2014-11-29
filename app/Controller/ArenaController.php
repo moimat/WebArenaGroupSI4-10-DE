@@ -87,13 +87,14 @@ class ArenaController extends AppController {
     }
 
     public function sight() {
-
+        
         $components = array('Session');
         $idTest = 1;
 
         // Construct arena
         if ($this->Session->check('arenaCreated') == FALSE) {
-            $this->Surrounding->createArena();
+            $arenaArray=$this->Surrounding->createArena();
+            $this->Fighter->createFighters($arenaArray,$this->Fighter->find('all'));
             $this->Session->write('arenaCreated', TRUE);
         }
 
