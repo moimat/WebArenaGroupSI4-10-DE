@@ -145,6 +145,6 @@ echo $this->Form->label('Attack:');
         <span class="glyphicon glyphicon-arrow-down"> south</span> 
     </button>
 </div>
-
+<?php echo $this->Form->end();?>
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($currentFighter); ?>

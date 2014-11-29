@@ -91,6 +91,7 @@ class ArenaController extends AppController {
         $components = array('Session');
         $idTest = 1;
 
+        // Construct arena
         if ($this->Session->check('arenaCreated') == FALSE) {
             $this->Surrounding->createArena();
             $this->Session->write('arenaCreated', TRUE);
@@ -114,8 +115,6 @@ class ArenaController extends AppController {
             }
         }
 
-        // Construct arena
-        $this->Surrounding->createArena();
         $this->set('fighters', $this->Fighter->find('all'));
         $this->set('currentFighter', $this->Fighter->findById($idTest));
         $this->set('surroundings', $this->Surrounding->find('all'));

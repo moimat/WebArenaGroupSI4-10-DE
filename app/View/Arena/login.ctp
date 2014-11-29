@@ -19,38 +19,8 @@ echo $this->Form->end(array('label'=>'se connecter','div'=>false, 'class'=>'btn 
 ?>
 
 <?php
-echo $this->Form->create('deco',array('class'=>'form_inline formClass','role'=>'form'));
-echo $this->Form->input('password', array('label' => 'confirmer mot de passe','class'=>'form-control'));
-echo $this->Form->end(array('label'=>'se deconnecter','div'=>false, 'class'=>'btn btn-primary'));
-?>
-
-
-<form name="deco" class="form-horizontal" role="form">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
-</form>
-
+echo $this->Form->create('deco',array('class'=>'form_inline formClass','role'=>'form'));?>
+<button class="btn btn-alert" controller="Arena" action="login" type=direction name=data[deco] value="deco">
+        <span class="glyphicon glyphicon-log-out"> Déconnection</span> 
+</button>
+<?php echo $this->Form->end();?>
