@@ -33,10 +33,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css('bootstrap-theme.css.map');
         echo $this->Html->css('bootstrap-theme.min.css');
         echo $this->Html->css('webarena');
-        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js');
-        echo $this->Html->script('bootstrap.min.js');
-        echo $this->Html->script('bootstrap.js');
-        echo $this->Html->script('npm.js');
+        echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min');
+        echo $this->Html->script('bootstrap.min');
+        echo $this->Html->script('bootstrap');
+        echo $this->Html->script('npm');
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
@@ -59,16 +59,16 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <li>
                                 <?php echo $this->Html->link('<span></span> Accueil', '/', array('class' => 'glyphicon glyphicon-home', 'escape' => false)); ?>                                             
                             </li>
-                            <li>
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='sight') )?'active' :'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Vision </i>', array('controller' => 'Arena', 'action' => 'sight'), array('escape' => false)); ?>
                             </li>
-                            <li>
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='character') )?'active' :'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"> Personnage </i>', array('controller' => 'Arena', 'action' => 'character'), array('escape' => false)); ?>
                             </li>
-                            <li>
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='diary') )?'active' :'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Journal </i>', array('controller' => 'Arena', 'action' => 'diary'), array('escape' => false)); ?>
                             </li>
-                            <li>
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='login') )?'active' :'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Connexion </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
                             </li>                               
                         </ul>
