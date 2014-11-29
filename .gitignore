@@ -29,3 +29,5 @@ Thumbs.db
 app/Config/database.php
 app/Config/database.php
 app/Controller/ArenaController.php
+app/webroot/img/Avatars/avatar-12.jpg
+app/webroot/img/Avatars/avatar-555.jpg
