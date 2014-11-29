@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <?php
-            for ($i = BORDER_WEST; $i < BORDER_EAST; $i++) {
+            for ($i = BORDER_WEST; $i <= BORDER_EAST; $i++) {
                 echo '<th>' . $i . '</th>';
             }
             ?>
@@ -12,9 +12,9 @@
 
     <tbody>
         <?php
-        for ($j = BORDER_NORTH; $j < BORDER_SOUTH; $j++) {
+        for ($j = BORDER_NORTH; $j <= BORDER_SOUTH; $j++) {
             echo '<tr>';
-            for ($i = BORDER_WEST; $i < BORDER_EAST; $i++) {
+            for ($i = BORDER_WEST; $i <= BORDER_EAST; $i++) {
                 // Initialise cell
                 $element = '';
                 $classDisplay = '';
@@ -78,11 +78,11 @@
                         if ($surroundingNextCell) {
                             // Alerter pieges invisibles
                             if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
-                                $element = $element.WARNING_CELL.'Brise suspecte';
+                                $element = $element . WARNING_CELL . 'Brise suspecte';
                             }
                             // Alerter monstre invisible
                             if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
-                                $element = $element.WARNING_CELL.'Puanteur';
+                                $element = $element . WARNING_CELL . 'Puanteur';
                             }
                         }
                     }
@@ -90,10 +90,16 @@
                 // Représentation obstacles sur le terrain
                 foreach ($surroundings as $key => $value) {
                     // Afficher tour
-                    if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
-                        if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
-                            if ($classDisplay == VISIBLE_CELL) {
+                    if ($surroundings[$key]['Surrounding']['coordinate_x'] == $i && $surroundings[$key]['Surrounding']['coordinate_y'] == $j) {
+                        if ($classDisplay == VISIBLE_CELL) {
+                            if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
                                 $element = COLUMN_CELL;
+                            }
+                            if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
+                                $element = MONSTER_CELL;
+                            }
+                            if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
+                                $element = TRAP_CELL;
                             }
                         }
                     }
@@ -107,10 +113,10 @@
     </tbody>
 </table>
 
-        <?php
-        echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-        echo $this->Form->label('Move:');
-        ?>
+<?php
+echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
+echo $this->Form->label('Move:');
+?>
 <div class="btn-group">
     <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
         <span class="glyphicon glyphicon-arrow-left"> west</span> 
@@ -145,6 +151,6 @@ echo $this->Form->label('Attack:');
         <span class="glyphicon glyphicon-arrow-down"> south</span> 
     </button>
 </div>
-<?php echo $this->Form->end();?>
+<?php echo $this->Form->end(); ?>
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($currentFighter); ?>

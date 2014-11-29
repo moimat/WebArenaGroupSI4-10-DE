@@ -110,12 +110,14 @@ CakeLog::config('error', array(
 /*
  *¨PHP CONSTANTS
  */
-define("BORDER_WEST", 0);
+define("BORDER_WEST", 1);
 define("BORDER_EAST", 15);
-define("BORDER_NORTH", 0);
+define("BORDER_NORTH", 1);
 define("BORDER_SOUTH", 10);
 define("VISIBLE_CELL", 'class = success');
 define("HIDDEN_CELL", 'class = error');
 define("FIGHTER_CELL", '<span class="glyphicon glyphicon-user"></span>');
 define("COLUMN_CELL", '<span class="glyphicon glyphicon-tower"></span>');
 define("WARNING_CELL", '<span class="glyphicon glyphicon-warning-sign"></span>');
+define("TRAP_CELL", '<span class="glyphicon glyphicon-remove-sign"></span>');
+define("MONSTER_CELL", '<span class="glyphicon glyphicon-certificate"></span>');

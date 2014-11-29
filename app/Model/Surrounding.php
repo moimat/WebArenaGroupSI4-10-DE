@@ -9,10 +9,7 @@
 
 class Surrounding extends AppModel {
 
-    private function createSurrounding($type, $randCoordX, $randCoordY) {
-        // Give new Id to row
-        $id = $this->find('count');
-        $id++;
+    private function createSurrounding($id, $type, $randCoordX, $randCoordY) {
 
         $data = array(
             'id' => $id,
@@ -30,30 +27,43 @@ class Surrounding extends AppModel {
 
     public function createArena() {
 
+        // arena array
+        $arenaArray = array();
+
         // Delete previous datatable surroundings
         $this->deleteAll(array('1 = 1'));
 
         // Repopulate surroundings datatable
-        for ($i = 0; $i < 45; $i++) {
-
-            // Generate random positions of surroundings
-            $randCoordX = rand(BORDER_WEST, BORDER_EAST);
-            $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH);
+        for ($id = 1; $id <= 45; $id++) {
+            
+            // Generate non conflicting random positions of surroundings
+            do {
+                $randCoordX = rand(BORDER_WEST, BORDER_EAST-1);
+                $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH-1);
+                $elementToAdd = array($randCoordX, $randCoordY);
+            } while (in_array($elementToAdd, $arenaArray));
+            
+            // add surrounding positions to array
+            array_push($arenaArray, $elementToAdd);
 
             // Create one column for every 10 cells
-            if ($i < 15) {
-                $this->createSurrounding('colonne', $randCoordX, $randCoordY);
+            if (($id % 3) == 0) {
+                $type = 'colonne';
             }
 
             // Create one invisible monster for every 10 cells
-            if ($i >= 15 && $i < 30) {
-                $this->createSurrounding('monstre', $randCoordX, $randCoordY);
+            elseif (($id % 3) == 1) {
+                $type = 'monstre';
             }
 
             // Create one invisible trap for every 10 cells
-            if ($i >= 30) {
-                $this->createSurrounding('piege', $randCoordX, $randCoordY);
+            else {
+                $type = 'piege';
             }
+            
+            // add surrounding element with type to database
+            $this->createSurrounding($id, $type, $randCoordX, $randCoordY); 
         }
     }
+
 }

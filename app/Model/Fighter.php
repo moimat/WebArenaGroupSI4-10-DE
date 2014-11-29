@@ -35,24 +35,24 @@ class Fighter extends AppModel {
             if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y'];
+                $posy = $joueur['Fighter']['coordinate_y']-1;
             }
         } elseif ($direction == 'south') {
             if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y'];
+                $posy = $joueur['Fighter']['coordinate_y']+1;
             }
         } elseif ($direction == 'east') {
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_EAST) {
+            if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
-                $posx = $joueur['Fighter']['coordinate_x'];
+                $posx = $joueur['Fighter']['coordinate_x']+1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
         } elseif ($direction == 'west') {
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_WEST) {
+            if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
-                $posx = $joueur['Fighter']['coordinate_x'];
+                $posx = $joueur['Fighter']['coordinate_x']-1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
         }
