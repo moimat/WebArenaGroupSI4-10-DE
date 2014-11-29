@@ -59,18 +59,23 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <li>
                                 <?php echo $this->Html->link('<span></span> Accueil', '/', array('class' => 'glyphicon glyphicon-home', 'escape' => false)); ?>                                             
                             </li>
-                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='sight') )?'active' :'inactive' ?>">
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'sight') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Vision </i>', array('controller' => 'Arena', 'action' => 'sight'), array('escape' => false)); ?>
                             </li>
-                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='character') )?'active' :'inactive' ?>">
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'character') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"> Personnage </i>', array('controller' => 'Arena', 'action' => 'character'), array('escape' => false)); ?>
                             </li>
-                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='diary') )?'active' :'inactive' ?>">
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'diary') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Journal </i>', array('controller' => 'Arena', 'action' => 'diary'), array('escape' => false)); ?>
                             </li>
-                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action']=='login') )?'active' :'inactive' ?>">
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'login') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Connexion </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
-                            </li>                               
+                            </li>
+                            <li><?php echo $this->Form->create('deco', array('class' => 'form_inline formClass', 'role' => 'form')); ?>
+                                <button class="btn btn-danger" controller="Arena" action="login" type=direction name=data[deco] value="deco">
+                                    <span class="glyphicon glyphicon-log-out"> Déconnexion</span> 
+                                </button>
+                                <?php echo $this->Form->end(); ?></li>
                         </ul>
                     </div>
                 </div>
@@ -109,7 +114,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             </li>
                             <li>
                                 <?php
-                                echo $this->Html->link($this->Html->image('github-icon.png', array('width' => '24', 'height' => '24')). __(' Repository Log'), 'https://github.com/moimat/WebArenaGroupSI4-10-DE/commits/master', array('escape' => false));
+                                echo $this->Html->link($this->Html->image('github-icon.png', array('width' => '24', 'height' => '24')) . __(' Repository Log'), 'https://github.com/moimat/WebArenaGroupSI4-10-DE/commits/master', array('escape' => false));
                                 ?>
                             </li>
 
@@ -118,6 +123,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 </div>
             </div>
         </div>
-        <?php // echo $this->element('sql_dump');   ?>
+        <?php // echo $this->element('sql_dump');    ?>
     </body>
 </html>

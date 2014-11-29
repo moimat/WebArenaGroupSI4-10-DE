@@ -17,10 +17,3 @@ echo $this->Form->input('password', array('label' => 'password','class'=>'form-c
 echo $this->Form->button('mot de passe oublié?', array('label' => 'password','class'=>'btn btn-danger'));
 echo $this->Form->end(array('label'=>'se connecter','div'=>false, 'class'=>'btn btn-primary'));
 ?>
-
-<?php
-echo $this->Form->create('deco',array('class'=>'form_inline formClass','role'=>'form'));?>
-<button class="btn btn-alert" controller="Arena" action="login" type=direction name=data[deco] value="deco">
-        <span class="glyphicon glyphicon-log-out"> Déconnection</span> 
-</button>
-<?php echo $this->Form->end();?>
