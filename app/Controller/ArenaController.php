@@ -33,6 +33,7 @@ class ArenaController extends AppController {
     }
 
     public function login() {
+
         if ($this->request->is('post')) {
             if (isset($this->request->data['login'])) {
                 $pwd = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$'), 0, 10);
@@ -46,17 +47,16 @@ class ArenaController extends AppController {
             }
             if (isset($this->request->data['connexion'])) {
                 $id = $this->Player->connexion($this->request->data['connexion']['email'], $this->request->data['connexion']['password']);
-                
                 if ($id) {
                     $this->Session->write('Connected', $id);
-                    
+                    echo $id;
                     $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
                 }
             }
             if (isset($this->request->data['deco'])) {
-                //$this->Session->delete('Connected');
+                $this->Session->delete('Connected');
                 //$this->Session->destroy();
-                echo "déconnecté";
+                echo "déconécté";
             }
         }
     }

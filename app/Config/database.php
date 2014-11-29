@@ -5,10 +5,10 @@ class DATABASE_CONFIG {
          * public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'matmattfphbdd.mysql.db',
-		'login' => 'matmattfphbdd',
-		'password' => 's8uGv8XdgTxh',
-		'database' => 'matmattfphbdd',
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => '',
+		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);*/
