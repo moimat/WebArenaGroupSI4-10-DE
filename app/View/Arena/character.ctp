@@ -82,8 +82,10 @@ echo"
                 Actions
             </h2>";
 echo $this->Form->create('viewchar', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
-echo $this->Form->end(array('label' => 'View Character', 'div' => false, 'class' => 'btn btn-primary'));
+//echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));?>
+<button class="btn btn-info" controller="Arena" action="character" type=view name=data[viewchar][view] value="ok">View All Characters
+</button><?php
+echo $this->Form->end();//array('label' => 'View Character', 'div' => false, 'class' => 'btn btn-primary'));
 
 echo $this->Form->create('Upload', array('type' => 'file', 'class' => 'form_inline formClass', 'role' => 'form'));
 echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
