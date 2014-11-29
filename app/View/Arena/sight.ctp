@@ -94,11 +94,9 @@
                         if ($classDisplay == VISIBLE_CELL) {
                             if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
                                 $element = COLUMN_CELL;
-                            }
-                            if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
+                            } elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
                                 $element = MONSTER_CELL;
-                            }
-                            if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
+                            } elseif ($surroundings[$key]['Surrounding']['type'] == 'piege') {
                                 $element = TRAP_CELL;
                             }
                         }

@@ -26,8 +26,8 @@ class Fighter extends AppModel {
     public function doMove($fighterId, $direction) {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
-        $posx=0;
-        $posy=0;
+        $posx = 0;
+        $posy = 0;
         //@todo empêcher le joueur de sortir des limites du terrain
         //@todo empêcher le joueur de se déplacer sur une case occupée
         // falre la modif
@@ -35,24 +35,24 @@ class Fighter extends AppModel {
             if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y']-1;
+                $posy = $joueur['Fighter']['coordinate_y'] - 1;
             }
         } elseif ($direction == 'south') {
             if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y']+1;
+                $posy = $joueur['Fighter']['coordinate_y'] + 1;
             }
         } elseif ($direction == 'east') {
             if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
-                $posx = $joueur['Fighter']['coordinate_x']+1;
+                $posx = $joueur['Fighter']['coordinate_x'] + 1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
         } elseif ($direction == 'west') {
             if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
-                $posx = $joueur['Fighter']['coordinate_x']-1;
+                $posx = $joueur['Fighter']['coordinate_x'] - 1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
         }
@@ -85,49 +85,48 @@ class Fighter extends AppModel {
     public function doAttack($fighterId, $direction) {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
-        $liste=$this->find('all');
+        $liste = $this->find('all');
         $posx = $joueur['Fighter']['coordinate_x'];
         $posy = $joueur['Fighter']['coordinate_y'];
-        
-        if($direction=='north'){
-            $posx_cible=$posx;
-            $posy_cible=$posy-1;
+
+        if ($direction == 'north') {
+            $posx_cible = $posx;
+            $posy_cible = $posy - 1;
         }
-        if($direction=='south'){
-            $posx_cible=$posx;
-            $posy_cible=$posy+1;
+        if ($direction == 'south') {
+            $posx_cible = $posx;
+            $posy_cible = $posy + 1;
         }
-        if($direction=='east'){
-            $posx_cible=$posx+1;
-            $posy_cible=$posy;
+        if ($direction == 'east') {
+            $posx_cible = $posx + 1;
+            $posy_cible = $posy;
         }
-        if($direction=='west'){
-            $posx_cible=$posx-1;
-            $posy_cible=$posy;
+        if ($direction == 'west') {
+            $posx_cible = $posx - 1;
+            $posy_cible = $posy;
         }
-        
+
         foreach ($liste as $key => $value) {
-            if($liste[$key]['Fighter']['coordinate_x']==$posx_cible && $liste[$key]['Fighter']['coordinate_y']==$posy_cible){
-                $idcible=$liste[$key]['Fighter']['id'];
-                $cible=$this->read(null,$idcible);
+            if ($liste[$key]['Fighter']['coordinate_x'] == $posx_cible && $liste[$key]['Fighter']['coordinate_y'] == $posy_cible) {
+                $idcible = $liste[$key]['Fighter']['id'];
+                $cible = $this->read(null, $idcible);
                 pr($cible);
-                $rand=rand(1,20);
-                $seuil=$cible['Fighter']['level']-$joueur['Fighter']['level']+10;
-                $success=NULL;
-                if ($rand>$seuil){
+                $rand = rand(1, 20);
+                $seuil = $cible['Fighter']['level'] - $joueur['Fighter']['level'] + 10;
+                $success = NULL;
+                if ($rand > $seuil) {
                     $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
                     $this->save();
                     pr('attaque reussie');
-                    $success='succès';
+                    $success = 'succès';
                     $joueur = $this->read(null, $fighterId);
-                    $this->set('xp', $joueur['Fighter']['xp']+1);
+                    $this->set('xp', $joueur['Fighter']['xp'] + 1);
                     pr('Xp augmentée');
-                }
-                else{
+                } else {
                     pr('attaque échouée');
-                    $success='echec';
+                    $success = 'echec';
                 }
-            }    
+            }
         }
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
@@ -140,8 +139,8 @@ class Fighter extends AppModel {
             "name" => $nameEvent);
         // sauver la modif
         $this->save();
-        $cible_after=$this->read(null,$idcible);
-                pr($cible_after);
+        $cible_after = $this->read(null, $idcible);
+        pr($cible_after);
         return $eventArray;
     }
 
@@ -174,7 +173,7 @@ class Fighter extends AppModel {
             'skill_sight' => 1,
             'skill_strength' => 1,
             'skill_health' => 3,
-            'current_health' => 3,  
+            'current_health' => 3,
             'next_action_time' => '0000-00-00 00:00:00',
             'guild_id' => NULL
         );
@@ -185,15 +184,18 @@ class Fighter extends AppModel {
         // save the data
         $this->save($data);
     }
-    
-    public function viewAllChars($playerID)
-    {
+
+    public function viewAllChars($playerID) {
         $allChars = $this->find('all', array('conditions' => array('Fighter.player_id' => $playerID)));
-        /*foreach($allChars as $key => $value)
-        {
-            echo $allChars[$key]['Fighter']['name'];
-        }*/
+        /* foreach($allChars as $key => $value)
+          {
+          echo $allChars[$key]['Fighter']['name'];
+          } */
         return $allChars;
+    }
+
+    public function initialiseFighters($arena) {
+        $fighters = $this->find('all');
     }
 
 }

@@ -36,36 +36,30 @@ class Surrounding extends AppModel {
         // Repopulate surroundings datatable
         for ($id = 1; $id <= 45; $id++) {
 
-            // Create one column for every 10 cells
+            // Create appropriate surrounding
             if (($id % 3) == 0) {
-                $type = 'colonne';
-            }
-
-            // Create one invisible monster for every 10 cells
-            elseif (($id % 3) == 1) {
-                $type = 'monstre';
-            }
-
-            // Create one invisible trap for every 10 cells
-            else {
-                $type = 'piege';
+                $type = 'colonne'; // Create one column for every 10 cells
+            } elseif (($id % 3) == 1) {
+                $type = 'monstre'; // Create one invisible monster for every 10 cells
+            } else {
+                $type = 'piege'; // Create one invisible trap for every 10 cells
             }
             
-              // Generate non conflicting random positions of surroundings
+             // Generate non conflicting random positions of surroundings
             do {
-                $randCoordX = rand(BORDER_WEST, BORDER_EAST-1);
-                $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH-1);
-                $elementToAdd = array($id, $type, $randCoordX, $randCoordY);
+                $randCoordX = rand(BORDER_WEST, BORDER_EAST);
+                $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH);
+                $elementToAdd = array($randCoordX, $randCoordY);
             } while (in_array($elementToAdd, $arenaArray));
+            
             
             // add surrounding positions to array
             array_push($arenaArray, $elementToAdd);
-            
+
             // add surrounding element with type to database
-            $this->createSurrounding($id, $type, $randCoordX, $randCoordY); 
+            $this->createSurrounding($id, $type, $randCoordX, $randCoordY);
         }
-        
+
         return $arenaArray;
     }
-
 }
