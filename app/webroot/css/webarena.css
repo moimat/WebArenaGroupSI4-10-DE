@@ -50,3 +50,11 @@ table.fixed td {
 .table-hover tbody tr:hover > td.error {
     background-color: #ebcccc !important;
 }
+
+#tool{
+    float:right;
+}
+
+#refresh{
+    float:right;
+}

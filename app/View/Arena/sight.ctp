@@ -1,10 +1,4 @@
 <h1>WebArena Game Board</h1>
-<?php echo $this->Form->create('Refresh', array('class' => 'form_inline formClass', 'role' => 'form'));
-?>
-<button class="btn btn-success" controller="Arena" action="sight" type=direction name=data[Refresh] value="refresh">
-    <span class="glyphicon glyphicon-refresh"> Refresh Arena</span> 
-</button>
-<?php echo $this->Form->end(); ?>
 <table class= "table table-striped table-bordered fixed">
     <thead>
         <tr>
@@ -140,6 +134,13 @@
     </tbody>
 </table>
 
+<?php echo $this->Form->end();?>
+<?php echo $this->Form->create('PickUp', array('class' => 'form_inline formClass', 'role' => 'form'));?>
+<button id="tool" class="btn btn-primary" controller="Arena" action="sight" type=direction name=data[PickUp] value="refresh">
+    <span class="glyphicon glyphicon-gift"> Pick Tool</span> 
+</button>
+<?php echo $this->Form->end(); ?>
+
 <?php
 echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
 echo $this->Form->label('Move:');
@@ -158,9 +159,15 @@ echo $this->Form->label('Move:');
         <span class="glyphicon glyphicon-arrow-down"> South</span> 
     </button>
 </div>
-<?php
-echo $this->Form->end();
 
+<?php echo $this->Form->create('Refresh', array('class' => 'form_inline formClass', 'role' => 'form'));
+?>
+<button id="refresh" class="btn btn-success" controller="Arena" action="sight" type=direction name=data[Refresh] value="refresh">
+    <span class="glyphicon glyphicon-refresh"> Refresh Arena</span> 
+</button>
+<?php echo $this->Form->end(); ?>
+
+<?php
 echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
 echo $this->Form->label('Attack:');
 ?>
@@ -179,5 +186,6 @@ echo $this->Form->label('Attack:');
     </button>
 </div>
 <?php echo $this->Form->end(); ?>
+
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($currentFighter); ?>
