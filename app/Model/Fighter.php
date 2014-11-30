@@ -68,14 +68,14 @@ class Fighter extends AppModel {
         // Si le déplacement est possible
         if ($posx != 0 && $posy != 0) {
             $fighterMove = TRUE;
-            $fighterDeath=FALSE;
+            $fighterDeath = FALSE;
             $surrounding = ClassRegistry::init('Surrounding');
             $surroundings = $surrounding->find('all');
             $surroundingArray = array();
 
             // Pour chaque obstacle environnant
             foreach ($surroundings as $key => $value) {
-                
+
                 // Regarder sa position
                 $posSurroundingX = $surroundings[$key]['Surrounding']['coordinate_x'];
                 $posSurroundingY = $surroundings[$key]['Surrounding']['coordinate_y'];
@@ -85,20 +85,20 @@ class Fighter extends AppModel {
                     // Regarder si il s'agit d'un piege
                     if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
                         $fighterMove = FALSE;
-                        $fighterDeath=TRUE;
+                        $fighterDeath = TRUE;
                         $this->killCharacter($fighterId);
                         $nameEvent = $joueur['Fighter']['name'] . ' tué par piège en: ' . $posx . ':' . $posy;
                     }
                     // Regarder s'il s'agit d'un monstre
                     elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
                         $fighterMove = FALSE;
-                        $fighterDeath=TRUE;
+                        $fighterDeath = TRUE;
                         $this->killCharacter($fighterId);
                         $nameEvent = $joueur['Fighter']['name'] . ' tué par monstre en: ' . $posx . ':' . $posy;
                     }
                     // S'il s'agit d'une colonne
-                    else{
-                        $fighterMove=FALSE;
+                    else {
+                        $fighterMove = FALSE;
                         $nameEvent = $joueur['Fighter']['name'] . ' est bloqué par une colonne en: ' . $posx . ':' . $posy;
                     }
                 }
@@ -117,7 +117,7 @@ class Fighter extends AppModel {
                 "name" => $nameEvent,
                 "fighterMove" => $fighterMove,
                 "fighterDeath" => $fighterDeath
-                    );
+            );
 
             // sauver le déplacement du perso
             if ($fighterMove == TRUE) {
@@ -133,7 +133,24 @@ class Fighter extends AppModel {
     public function lvlUp($fighterId) {
         $datas = $this->read(null, $fighterId);
         $this->set('level', $datas['Fighter']['level'] + 1);
+        $level = $datas['Fighter']['level'] + 1;
+        $name = $datas['Fighter']['name'];
+        $posx = $datas['Fighter']['coordinate_x'];
+        $posy = $datas['Fighter']['coordinate_y'];
+
+        // Create corresponding Event        
+        $dateNow = date("Y-m-d H:i:s");
+        $nameEvent = 'Personnage ' . $name . ' est maintenant niveau ' . $level;
+
+        $eventArray = array(
+            "coordinate_x" => $posx,
+            "coordinate_y" => $posy,
+            "date" => $dateNow,
+            "name" => $nameEvent);
+
         $this->save();
+
+        return $eventArray;
     }
 
     public function doAttack($fighterId, $direction) {
@@ -169,10 +186,19 @@ class Fighter extends AppModel {
                 $seuil = $cible['Fighter']['level'] - $joueur['Fighter']['level'] + 10;
                 $success = NULL;
                 if ($rand > $seuil) {
-                    $this->set('current_health', $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength']);
-                    $this->save();
                     pr('attaque reussie');
                     $success = 'succès';
+
+                    $currentHealthCible = $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength'];
+                    $this->set('current_health', $currentHealthCible);
+                    // Si la cible est morte
+                    if ($currentHealthCible == 0) {
+                        $success = $success . ', mort ' . $cible['Fighter']['name'];
+                        $this->killCharacter($idcible);
+                        pr($success);
+                    }
+
+                    $this->save();
                     $joueur = $this->read(null, $fighterId);
                     $this->set('xp', $joueur['Fighter']['xp'] + 1);
                     pr('Xp augmentée');
@@ -193,8 +219,8 @@ class Fighter extends AppModel {
             "name" => $nameEvent);
         // sauver la modif
         $this->save();
-        $cible_after = $this->read(null, $idcible);
-        pr($cible_after);
+        //$cible_after = $this->read(null, $idcible);
+        //pr($cible_after);
         return $eventArray;
     }
 
@@ -215,13 +241,14 @@ class Fighter extends AppModel {
         // Give new Id to row
         $id = $this->find('count');
         $id++;
-
+        $posx = -1;
+        $posy = -1;
         $data = array(
             'id' => $id,
             'player_id' => $playerID,
             'name' => $newName,
-            'coordinate_x' => -1,
-            'coordinate_y' => -1,
+            'coordinate_x' => $posx,
+            'coordinate_y' => $posy,
             'level' => 1,
             'xp' => 0,
             'skill_sight' => 1,
@@ -232,11 +259,23 @@ class Fighter extends AppModel {
             'guild_id' => NULL
         );
 
+        // Create corresponding Event        
+        $dateNow = date("Y-m-d H:i:s");
+        $nameEvent = 'Personnage ' . $newName . ' créé!';
+
+        $eventArray = array(
+            "coordinate_x" => $posx,
+            "coordinate_y" => $posy,
+            "date" => $dateNow,
+            "name" => $nameEvent);
+
         // prepare the model for adding a new entry
         $this->create();
 
         // save the data
         $this->save($data);
+
+        return $eventArray;
     }
 
     public function viewAllChars($playerID) {
@@ -281,8 +320,8 @@ class Fighter extends AppModel {
 
     private function killCharacter($fighterId) {
         $fighter = $this->findById($fighterId);
+        pr($fighter);
         $this->delete($fighter['Fighter']['id']);
-        //$this->save();
     }
 
 }

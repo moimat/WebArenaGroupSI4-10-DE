@@ -80,7 +80,9 @@ class ArenaController extends AppController {
             //$id = $this->request->data['viewchar']['id'];
             //}
             if (isset($this->request->data['lvlup'])) {
-                $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
+                $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
+                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                $this->Session->setFlash($eventArray["name"]);
             }
 
             if (isset($this->request->data['enter'])) {
@@ -96,7 +98,9 @@ class ArenaController extends AppController {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
             }
             if (isset($this->request->data['createchar'])) {
-                $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));
+                $eventArray = $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));
+                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                $this->Session->setFlash($eventArray["name"]);
             }
         }
     }
