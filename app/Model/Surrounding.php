@@ -25,7 +25,7 @@ class Surrounding extends AppModel {
         $this->save($data);
     }
 
-    public function createArena() {
+    public function createSurroundings() {
 
         // arena array
         $arenaArray = array();
@@ -61,5 +61,10 @@ class Surrounding extends AppModel {
         }
 
         return $arenaArray;
+    }
+    
+    public function killMonster($monsterId) {
+        $monster = $this->findById($monsterId);
+        $this->delete($monster['Surrounding']['id']);
     }
 }

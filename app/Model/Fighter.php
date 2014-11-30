@@ -159,6 +159,7 @@ class Fighter extends AppModel {
         $liste = $this->find('all');
         $posx = $joueur['Fighter']['coordinate_x'];
         $posy = $joueur['Fighter']['coordinate_y'];
+        $nameEvent = NULL;
 
         if ($direction == 'north') {
             $posx_cible = $posx;
@@ -177,6 +178,7 @@ class Fighter extends AppModel {
             $posy_cible = $posy;
         }
 
+        // Gestion attaque sur autre perso
         foreach ($liste as $key => $value) {
             if ($liste[$key]['Fighter']['coordinate_x'] == $posx_cible && $liste[$key]['Fighter']['coordinate_y'] == $posy_cible) {
                 $idcible = $liste[$key]['Fighter']['id'];
@@ -206,15 +208,38 @@ class Fighter extends AppModel {
                     pr('attaque échouée');
                     $success = 'echec';
                 }
+                $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
+            }
+        }
+
+        // Gestion attaque sur monstre
+        if ($nameEvent == NULL) {
+            $surrounding = ClassRegistry::init('Surrounding');
+            $surroundings = $surrounding->find('all');
+            // Pour chaque obstacle environnant
+            foreach ($surroundings as $key => $value) {
+
+                // Regarder sa position
+                $posSurroundingX = $surroundings[$key]['Surrounding']['coordinate_x'];
+                $posSurroundingY = $surroundings[$key]['Surrounding']['coordinate_y'];
+
+                // Regarder si l'obstacle est attaqué
+                if ($posx_cible == $posSurroundingX && $posy_cible == $posSurroundingY) {
+
+                    // Regarder s'il s'agit d'un monstre
+                    if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
+                        $surrounding->killMonster($surroundings[$key]['Surrounding']['id']);
+                        $nameEvent = $joueur['Fighter']['name'] . ' tue le monstre en ' . $posSurroundingX . ':' . $posSurroundingY;
+                    }
+                }
             }
         }
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
 
         $eventArray = array(
-            "coordinate_x" => $posx,
-            "coordinate_y" => $posy,
+            "coordinate_x" => $posx_cible,
+            "coordinate_y" => $posy_cible,
             "date" => $dateNow,
             "name" => $nameEvent);
         // sauver la modif
@@ -318,7 +343,7 @@ class Fighter extends AppModel {
         $this->save();
     }
 
-    private function killCharacter($fighterId) {
+    public function killCharacter($fighterId) {
         $fighter = $this->findById($fighterId);
         pr($fighter);
         $this->delete($fighter['Fighter']['id']);
