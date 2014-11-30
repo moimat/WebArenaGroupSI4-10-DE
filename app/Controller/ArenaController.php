@@ -120,7 +120,7 @@ class ArenaController extends AppController {
             if (isset($this->request->data['Refresh'])) {
                 $arenaArray = $this->Surrounding->createSurroundings();
                 $this->Tool->createTools($arenaArray);
-                $this->Fighter->initialiseFighter($idTest);
+                $this->Fighter->repositionActiveFighters();
             }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($idTest, $this->request->data['Fightermove']['direction']);

@@ -147,22 +147,21 @@ class Fighter extends AppModel {
             // Create corresponding Event  
             $nameEvent = 'Personnage ' . $name . ' est maintenant niveau ' . $level;
         } else {
-            
+
             $nameEvent = 'Echec Level Up Personnage ' . $name;
         }
-        
+
 
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
 
-            $eventArray = array(
-                "coordinate_x" => $posx,
-                "coordinate_y" => $posy,
-                "date" => $dateNow,
-                "name" => $nameEvent);
-            return $eventArray;
+        $eventArray = array(
+            "coordinate_x" => $posx,
+            "coordinate_y" => $posy,
+            "date" => $dateNow,
+            "name" => $nameEvent);
+        return $eventArray;
         $this->save();
-
     }
 
     public function doAttack($fighterId, $direction) {
@@ -327,12 +326,15 @@ class Fighter extends AppModel {
 
     public function initialiseFighter($fighterId) {
 
-        $surrounding = ClassRegistry::init('Surrounding');
-
-        $surroundings = $surrounding->find('all');
-        // Find current fighter
-        $this->read(null, $fighterId);
+        // Récupérer le tableau référençant l'ensemble des éléments de l'arène
         $arenaArray = array();
+        $surrounding = ClassRegistry::init('Surrounding');
+        $surroundings = $surrounding->find('all');
+
+        $tool = ClassRegistry::init('Tool');
+        $tools = $tool->find('all');
+
+        $fighters = $this->find('all');
 
         // Boucle surroundings
         foreach ($surroundings as $key => $value) {
@@ -342,6 +344,27 @@ class Fighter extends AppModel {
             $element = array($posX, $posY);
             array_push($arenaArray, $element);
         }
+
+        // Boucle tools
+        foreach ($tools as $key => $value) {
+            // Get array of tools positions
+            $posX = $tools[$key]['Tool']['coordinate_x'];
+            $posY = $tools[$key]['Tool']['coordinate_y'];
+            $element = array($posX, $posY);
+            array_push($arenaArray, $element);
+        }
+
+        // Boucle fighters
+        foreach ($fighters as $key => $value) {
+            // Get array of surroundings positions
+            $posX = $fighters[$key]['Fighter']['coordinate_x'];
+            $posY = $fighters[$key]['Fighter']['coordinate_y'];
+            $element = array($posX, $posY);
+            array_push($arenaArray, $element);
+        }
+
+        // Find current fighter
+        $this->read(null, $fighterId);
 
         // Generate non conflicting random positions of fighters
         do {
@@ -360,6 +383,16 @@ class Fighter extends AppModel {
         $fighter = $this->read(null, $fighterId);
         pr($fighter);
         $this->delete($fighter['Fighter']['id']);
+    }
+
+    public function repositionActiveFighters() {
+        $fighters = $this->find('all');
+
+        foreach ($fighters as $key => $value) {
+            if ($fighters[$key]['Fighter']['coordinate_x'] != -1 && $fighters[$key]['Fighter']['coordinate_y'] != -1){
+                $this->initialiseFighter($fighters[$key]['Fighter']['id']);
+            }
+        }
     }
 
 }

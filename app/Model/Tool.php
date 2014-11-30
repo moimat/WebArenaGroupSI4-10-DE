@@ -28,9 +28,6 @@ class Tool extends AppModel {
 
     public function createTools($arenaArray) {
 
-        // arena array
-        $arenaArray = array();
-
         // Delete previous datatable tools
         $this->deleteAll(array('1 = 1'));
 
