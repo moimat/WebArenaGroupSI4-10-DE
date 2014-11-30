@@ -1,8 +1,5 @@
 <?php $this->assign('title', 'Login');?>
 <h1>WebArena Login</h1>
-S'inscrire 
-Se connecter
-Récupérer son mot de passe
 
 <?php
 echo $this->Form->create('login',array('class'=>'form_inline formClass','role'=>'form'));

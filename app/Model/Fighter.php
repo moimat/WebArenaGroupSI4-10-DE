@@ -68,6 +68,7 @@ class Fighter extends AppModel {
         // Si le déplacement est possible
         if ($posx != 0 && $posy != 0) {
             $fighterMove = TRUE;
+            $fighterDeath=FALSE;
             $surrounding = ClassRegistry::init('Surrounding');
             $surroundings = $surrounding->find('all');
             $surroundingArray = array();
@@ -84,12 +85,14 @@ class Fighter extends AppModel {
                     // Regarder si il s'agit d'un piege
                     if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
                         $fighterMove = FALSE;
+                        $fighterDeath=TRUE;
                         $this->killCharacter($fighterId);
                         $nameEvent = $joueur['Fighter']['name'] . ' tué par piège en: ' . $posx . ':' . $posy;
                     }
                     // Regarder s'il s'agit d'un monstre
                     elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
                         $fighterMove = FALSE;
+                        $fighterDeath=TRUE;
                         $this->killCharacter($fighterId);
                         $nameEvent = $joueur['Fighter']['name'] . ' tué par monstre en: ' . $posx . ':' . $posy;
                     }
@@ -112,7 +115,8 @@ class Fighter extends AppModel {
                 "coordinate_y" => $posy,
                 "date" => $dateNow,
                 "name" => $nameEvent,
-                "fighterMove" => $fighterMove
+                "fighterMove" => $fighterMove,
+                "fighterDeath" => $fighterDeath
                     );
 
             // sauver le déplacement du perso
