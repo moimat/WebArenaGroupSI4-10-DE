@@ -116,11 +116,11 @@
                                 $quality = 'Grande';
                             }
                             if ($tools[$key]['Tool']['type'] == 'health') {
-                                $element = HEALTH_CELL . $quality . ' vie';
+                                $element = $element . HEALTH_CELL . $quality . ' vie';
                             } elseif ($tools[$key]['Tool']['type'] == 'sight') {
-                                $element = SIGHT_CELL . $quality . ' Vision';
+                                $element = $element . SIGHT_CELL . $quality . ' Vision';
                             } else {
-                                $element = STRENGTH_CELL . $quality . ' Epee';
+                                $element = $element . STRENGTH_CELL . $quality . ' Epee';
                             }
                         }
                     }
@@ -133,59 +133,62 @@
         ?>
     </tbody>
 </table>
+<div>
+    <?php echo $this->Form->end(); ?>
+    <?php echo $this->Form->create('PickUp', array('class' => 'form_inline formClass', 'role' => 'form')); ?>
+    <button id="tool" class="btn btn-primary" controller="Arena" action="sight" type=direction name=data[PickUp] value="refresh">
+        <span class="glyphicon glyphicon-gift"> Pick Tool</span> 
+    </button>
+    <?php echo $this->Form->end(); ?>
 
-<?php echo $this->Form->end();?>
-<?php echo $this->Form->create('PickUp', array('class' => 'form_inline formClass', 'role' => 'form'));?>
-<button id="tool" class="btn btn-primary" controller="Arena" action="sight" type=direction name=data[PickUp] value="refresh">
-    <span class="glyphicon glyphicon-gift"> Pick Tool</span> 
-</button>
-<?php echo $this->Form->end(); ?>
-
-<?php
-echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->label('Move:');
-?>
-<div class="btn-group">
-    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
-        <span class="glyphicon glyphicon-arrow-left"> West</span> 
-    </button>
-    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="east">
-        <span class="glyphicon glyphicon-arrow-right"> East</span> 
-    </button>
-    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=north>
-        <span class="glyphicon glyphicon-arrow-up"> North</span> 
-    </button>
-    <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=south>
-        <span class="glyphicon glyphicon-arrow-down"> South</span> 
-    </button>
+    <?php
+    echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
+    echo $this->Form->label('Move:');
+    ?>
+    <div class="btn-group">
+        <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="west">
+            <span class="glyphicon glyphicon-arrow-left"> West</span> 
+        </button>
+        <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value="east">
+            <span class="glyphicon glyphicon-arrow-right"> East</span> 
+        </button>
+        <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=north>
+            <span class="glyphicon glyphicon-arrow-up"> North</span> 
+        </button>
+        <button class="btn btn-warning" controller="Arena" action="sight" type=direction name=data[Fightermove][direction] value=south>
+            <span class="glyphicon glyphicon-arrow-down"> South</span> 
+        </button>
+    </div>
 </div>
 
-<?php echo $this->Form->create('Refresh', array('class' => 'form_inline formClass', 'role' => 'form'));
-?>
-<button id="refresh" class="btn btn-success" controller="Arena" action="sight" type=direction name=data[Refresh] value="refresh">
-    <span class="glyphicon glyphicon-refresh"> Refresh Arena</span> 
-</button>
-<?php echo $this->Form->end(); ?>
+<div>
+    <?php echo $this->Form->create('Refresh', array('class' => 'form_inline formClass', 'role' => 'form'));
+    ?>
+    <button id="refresh" class="btn btn-success" controller="Arena" action="sight" type=direction name=data[Refresh] value="refresh">
+        <span class="glyphicon glyphicon-refresh"> Regenerate Arena</span> 
+    </button>
+    <?php echo $this->Form->end(); ?>
 
-<?php
-echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
-echo $this->Form->label('Attack:');
-?>
-<div class="btn-group">
-    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="west">
-        <span class="glyphicon glyphicon-arrow-left"> West</span> 
-    </button>
-    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="east">
-        <span class="glyphicon glyphicon-arrow-right"> East</span> 
-    </button>
-    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=north>
-        <span class="glyphicon glyphicon-arrow-up"> North</span> 
-    </button>
-    <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=south>
-        <span class="glyphicon glyphicon-arrow-down"> South</span> 
-    </button>
+    <?php
+    echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
+    echo $this->Form->label('Attack:');
+    ?>
+    <div class="btn-group">
+        <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="west">
+            <span class="glyphicon glyphicon-arrow-left"> West</span> 
+        </button>
+        <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value="east">
+            <span class="glyphicon glyphicon-arrow-right"> East</span> 
+        </button>
+        <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=north>
+            <span class="glyphicon glyphicon-arrow-up"> North</span> 
+        </button>
+        <button class="btn btn-info" controller="Arena" action="sight" type=direction name=data[Fighteratk][direction] value=south>
+            <span class="glyphicon glyphicon-arrow-down"> South</span> 
+        </button>
+    </div>
+    <?php echo $this->Form->end(); ?>
 </div>
-<?php echo $this->Form->end(); ?>
 
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($currentFighter); ?>

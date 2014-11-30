@@ -110,8 +110,8 @@ class ArenaController extends AppController {
     }
 
     public function sight() {
-        $idTest = $this->Session->read('Enter');
-        if (!isset($idTest)) {
+        $currentFighterId = $this->Session->read('Enter');
+        if (!isset($currentFighterId)) {
             $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
         }
 
@@ -123,7 +123,7 @@ class ArenaController extends AppController {
                 $this->Fighter->repositionActiveFighters();
             }
             if (isset($this->request->data['Fightermove'])) {
-                $eventArray = $this->Fighter->doMove($idTest, $this->request->data['Fightermove']['direction']);
+                $eventArray = $this->Fighter->doMove($currentFighterId, $this->request->data['Fightermove']['direction']);
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash($eventArray["name"]);
@@ -134,17 +134,22 @@ class ArenaController extends AppController {
                 }
             }
             if (isset($this->request->data['Fighteratk'])) {
-                $eventArray = $this->Fighter->doAttack($idTest, $this->request->data['Fighteratk']['direction']);
+                $eventArray = $this->Fighter->doAttack($currentFighterId, $this->request->data['Fighteratk']['direction']);
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash('Une attaque a été réalisée.');
                 }
             }
+            if (isset($this->request->data['PickUp'])) {
+                $eventArray=$this->Fighter->pickUpTool($currentFighterId);
+                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                $this->Session->setFlash($eventArray["name"]);
+            }
         }
-        
+
         $this->set('tools', $this->Tool->find('all'));
         $this->set('fighters', $this->Fighter->find('all'));
-        $this->set('currentFighter', $this->Fighter->findById($idTest));
+        $this->set('currentFighter', $this->Fighter->findById($currentFighterId));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
 

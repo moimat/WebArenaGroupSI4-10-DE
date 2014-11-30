@@ -145,7 +145,7 @@ class Fighter extends AppModel {
             $this->set('xp', $xp);
 
             // Create corresponding Event  
-            $nameEvent = 'Personnage ' . $name . ' est maintenant niveau ' . $level;
+            $nameEvent = $name . ' est maintenant niveau ' . $level;
         } else {
 
             $nameEvent = 'Echec Level Up Personnage ' . $name;
@@ -298,7 +298,7 @@ class Fighter extends AppModel {
 
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = 'Personnage ' . $newName . ' créé!';
+        $nameEvent = $newName . ' créé';
 
         $eventArray = array(
             "coordinate_x" => $posx,
@@ -322,6 +322,63 @@ class Fighter extends AppModel {
           echo $allChars[$key]['Fighter']['name'];
           } */
         return $allChars;
+    }
+
+    public function pickUpTool($fighterId) {
+
+        // Récupérer le tableau référençant l'ensemble des tools
+        $arenaArray = array();
+        $tool = ClassRegistry::init('Tool');
+        $tools = $tool->find('all');
+        $bonus = '';
+        $type = '';
+
+        // Find current fighter
+        $fighter = $this->read(null, $fighterId);
+
+        // Find his positions
+        $posFighterX = $fighter['Fighter']['coordinate_x'];
+        $posFighterY = $fighter['Fighter']['coordinate_y'];
+
+        // Get tools positions
+        foreach ($tools as $key => $value) {
+            $posToolX = $tools[$key]['Tool']['coordinate_x'];
+            $posToolY = $tools[$key]['Tool']['coordinate_y'];
+
+            // If matching positions
+            if ($posFighterX == $posToolX && $posFighterY == $posToolY) {
+
+                // Set appropriate Bonus to fighter
+                $bonus = $tools[$key]['Tool']['bonus'];
+                $type = $tools[$key]['Tool']['type'];
+
+                if ($type == 'sight') {
+                    $this->set('skill_sight', $fighter['Fighter']['skill_sight'] + $bonus);
+                    $this->save();
+                } elseif ($type == 'strength') {
+                    $this->set('skill_strength', $fighter['Fighter']['skill_strength'] + $bonus);
+                    $this->save();
+                } elseif ($type == 'health') {
+                    $this->set('skill_health', $fighter['Fighter']['skill_health'] + $bonus);
+                    $this->set('current_health', $fighter['Fighter']['current_health'] + $bonus);
+                    $this->save();
+                }
+
+                $tool->deleteTool($tools[$key]['Tool']['id']);
+            }
+        }
+
+        // Create corresponding Event        
+        $dateNow = date("Y-m-d H:i:s");
+        $nameEvent = $fighter['Fighter']['name'] . ' a trouvé objet ' . $type . ' : +' . $bonus;
+
+        $eventArray = array(
+            "coordinate_x" => $posFighterX,
+            "coordinate_y" => $posFighterY,
+            "date" => $dateNow,
+            "name" => $nameEvent);
+
+        return $eventArray;
     }
 
     public function initialiseFighter($fighterId) {
@@ -389,7 +446,7 @@ class Fighter extends AppModel {
         $fighters = $this->find('all');
 
         foreach ($fighters as $key => $value) {
-            if ($fighters[$key]['Fighter']['coordinate_x'] != -1 && $fighters[$key]['Fighter']['coordinate_y'] != -1){
+            if ($fighters[$key]['Fighter']['coordinate_x'] != -1 && $fighters[$key]['Fighter']['coordinate_y'] != -1) {
                 $this->initialiseFighter($fighters[$key]['Fighter']['id']);
             }
         }

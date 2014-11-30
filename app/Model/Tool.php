@@ -64,7 +64,7 @@ class Tool extends AppModel {
         return $arenaArray;
     }
     
-    public function pickUpTool($toolId) {
+    public function deleteTool($toolId) {
         $tool = $this->findById($toolId);
         $this->delete($tool['Tool']['id']);
     }
