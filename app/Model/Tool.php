@@ -7,13 +7,14 @@
  * @author Nicolas
  */
 App::uses('AppModel', 'Model');
-class Surrounding extends AppModel {
+class Tool extends AppModel {
 
-    private function createSurrounding($id, $type, $randCoordX, $randCoordY) {
+    private function createTool($id, $type, $bonus, $randCoordX, $randCoordY) {
 
         $data = array(
             'id' => $id,
             'type' => $type,
+            'bonus' => $bonus,
             'coordinate_x' => $randCoordX,
             'coordinate_y' => $randCoordY
         );
@@ -25,24 +26,27 @@ class Surrounding extends AppModel {
         $this->save($data);
     }
 
-    public function createSurroundings() {
+    public function createTools($arenaArray) {
 
         // arena array
         $arenaArray = array();
 
-        // Delete previous datatable surroundings
+        // Delete previous datatable tools
         $this->deleteAll(array('1 = 1'));
 
-        // Repopulate surroundings datatable
-        for ($id = 1; $id <= 45; $id++) {
+        // Repopulate tools datatable
+        for ($id = 1; $id <= 9; $id++) {
 
             // Create appropriate surrounding
             if (($id % 3) == 0) {
-                $type = 'colonne'; // Create one column for every 10 cells
+                $type = 'sight'; // Create one column for every 10 cells
+                $bonus=$id/3;
             } elseif (($id % 3) == 1) {
-                $type = 'monstre'; // Create one invisible monster for every 10 cells
+                $type = 'strength'; // Create one invisible monster for every 10 cells
+                $bonus=$id/3+1;
             } else {
-                $type = 'piege'; // Create one invisible trap for every 10 cells
+                $type = 'health'; // Create one invisible trap for every 10 cells
+                $bonus=$id/3;
             }
             
              // Generate non conflicting random positions of surroundings
@@ -57,14 +61,14 @@ class Surrounding extends AppModel {
             array_push($arenaArray, $elementToAdd);
 
             // add surrounding element with type to database
-            $this->createSurrounding($id, $type, $randCoordX, $randCoordY);
+            $this->createTool($id, $type, $bonus, $randCoordX, $randCoordY);
         }
 
         return $arenaArray;
     }
     
-    public function killMonster($monsterId) {
-        $monster = $this->findById($monsterId);
-        $this->delete($monster['Surrounding']['id']);
+    public function pickUpTool($toolId) {
+        $tool = $this->findById($toolId);
+        $this->delete($tool['Tool']['id']);
     }
 }

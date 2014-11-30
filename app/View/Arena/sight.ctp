@@ -108,6 +108,29 @@
                         }
                     }
                 }
+
+                // Représentation tools sur le terrain
+                foreach ($tools as $key => $value) {
+                    // Afficher tour
+                    if ($tools[$key]['Tool']['coordinate_x'] == $i && $tools[$key]['Tool']['coordinate_y'] == $j) {
+                        if ($classDisplay == VISIBLE_CELL) {
+                            if ($tools[$key]['Tool']['bonus'] == 1) {
+                                $quality = 'Petite';
+                            } elseif ($tools[$key]['Tool']['bonus'] == 2) {
+                                $quality = 'Moyenne';
+                            } else {
+                                $quality = 'Grande';
+                            }
+                            if ($tools[$key]['Tool']['type'] == 'health') {
+                                $element = HEALTH_CELL . $quality . ' vie';
+                            } elseif ($tools[$key]['Tool']['type'] == 'sight') {
+                                $element = SIGHT_CELL . $quality . ' Vision';
+                            } else {
+                                $element = STRENGTH_CELL . $quality . ' Epee';
+                            }
+                        }
+                    }
+                }
                 $displayElement = '<td ' . $classDisplay . '>' . $element . '</td>';
                 echo $displayElement;
             }
@@ -155,6 +178,6 @@ echo $this->Form->label('Attack:');
         <span class="glyphicon glyphicon-arrow-down"> South</span> 
     </button>
 </div>
-<?php echo $this->Form->end();?>
+<?php echo $this->Form->end(); ?>
 <?php $this->assign('title', 'Sight'); ?>
 <?php pr($currentFighter); ?>

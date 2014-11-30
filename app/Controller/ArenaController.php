@@ -10,7 +10,7 @@ App::uses('CakeEmail', 'Network/Email');
  */
 class ArenaController extends AppController {
 
-    public $uses = array('Player', 'Fighter', 'Event', 'Surrounding');
+    public $uses = array('Player', 'Fighter', 'Event', 'Surrounding', 'Tool');
     public $components = array('Session');
 
     /**
@@ -118,8 +118,9 @@ class ArenaController extends AppController {
         if ($this->request->is('post')) {
             pr($this->request->data);
             if (isset($this->request->data['Refresh'])) {
-                $this->Surrounding->createSurroundings();
-                $this->Fighter->initialiseFighter($idTest); 
+                $arenaArray = $this->Surrounding->createSurroundings();
+                $this->Tool->createTools($arenaArray);
+                $this->Fighter->initialiseFighter($idTest);
             }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($idTest, $this->request->data['Fightermove']['direction']);
@@ -140,7 +141,8 @@ class ArenaController extends AppController {
                 }
             }
         }
-
+        
+        $this->set('tools', $this->Tool->find('all'));
         $this->set('fighters', $this->Fighter->find('all'));
         $this->set('currentFighter', $this->Fighter->findById($idTest));
         $this->set('surroundings', $this->Surrounding->find('all'));

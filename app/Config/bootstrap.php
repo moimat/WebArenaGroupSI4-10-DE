@@ -121,3 +121,6 @@ define("COLUMN_CELL", '<span class="glyphicon glyphicon-tower"></span>');
 define("WARNING_CELL", '<span class="glyphicon glyphicon-warning-sign"></span>');
 define("TRAP_CELL", '<span class="glyphicon glyphicon-remove-sign"></span>');
 define("MONSTER_CELL", '<span class="glyphicon glyphicon-certificate"></span>');
+define("HEALTH_CELL", '<span class="glyphicon glyphicon-heart"></span>');
+define("SIGHT_CELL", '<span class="glyphicon glyphicon-eye-open"></span>');
+define("STRENGTH_CELL", '<span class="glyphicon glyphicon-star"></span>');
