@@ -117,6 +117,10 @@ class ArenaController extends AppController {
 
         if ($this->request->is('post')) {
             pr($this->request->data);
+            if (isset($this->request->data['Refresh'])) {
+                $this->Surrounding->createSurroundings();
+                $this->Fighter->initialiseFighter($idTest); 
+            }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($idTest, $this->request->data['Fightermove']['direction']);
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
