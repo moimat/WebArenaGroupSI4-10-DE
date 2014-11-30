@@ -84,10 +84,13 @@ foreach ($raw as $key => $value) {
     </button>";
         echo $this->Form->end();
         
-        
         echo $this->Form->create('lvlup', array('class' => 'form_inline formClass', 'role' => 'form'));
-        echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
-        echo $this->Form->end(array('label' => 'Level up', 'div' => false, 'class' => 'btn btn-primary'));
+        echo"
+        <button class=\"btn btn-primary\" controller=\"Arena\" action=\"character\" type=id name=data[lvlup][id] value=\"$id\">
+        <span>Level Up</span> 
+    </button>";
+        echo $this->Form->end();
+        
         echo "        </div>
    </div>";
     }

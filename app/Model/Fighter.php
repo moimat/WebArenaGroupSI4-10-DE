@@ -132,25 +132,37 @@ class Fighter extends AppModel {
 
     public function lvlUp($fighterId) {
         $datas = $this->read(null, $fighterId);
-        $this->set('level', $datas['Fighter']['level'] + 1);
-        $level = $datas['Fighter']['level'] + 1;
         $name = $datas['Fighter']['name'];
         $posx = $datas['Fighter']['coordinate_x'];
         $posy = $datas['Fighter']['coordinate_y'];
+        $xp = $datas['Fighter']['xp'];
+        $level = $datas['Fighter']['level'];
+
+        if ($xp >= 4) {
+            $level = $level + 1;
+            $this->set('level', $level);
+            $xp = $xp - 4;
+            $this->set('xp', $xp);
+
+            // Create corresponding Event  
+            $nameEvent = 'Personnage ' . $name . ' est maintenant niveau ' . $level;
+        } else {
+            
+            $nameEvent = 'Echec Level Up Personnage ' . $name;
+        }
+        
 
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = 'Personnage ' . $name . ' est maintenant niveau ' . $level;
 
-        $eventArray = array(
-            "coordinate_x" => $posx,
-            "coordinate_y" => $posy,
-            "date" => $dateNow,
-            "name" => $nameEvent);
-
+            $eventArray = array(
+                "coordinate_x" => $posx,
+                "coordinate_y" => $posy,
+                "date" => $dateNow,
+                "name" => $nameEvent);
+            return $eventArray;
         $this->save();
 
-        return $eventArray;
     }
 
     public function doAttack($fighterId, $direction) {
@@ -194,9 +206,10 @@ class Fighter extends AppModel {
                     $currentHealthCible = $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength'];
                     $this->set('current_health', $currentHealthCible);
                     // Si la cible est morte
-                    if ($currentHealthCible == 0) {
+                    if ($currentHealthCible < 0) {
                         $success = $success . ', mort ' . $cible['Fighter']['name'];
                         $this->killCharacter($idcible);
+                        $this->save();
                         pr($success);
                     }
 
@@ -344,7 +357,7 @@ class Fighter extends AppModel {
     }
 
     public function killCharacter($fighterId) {
-        $fighter = $this->findById($fighterId);
+        $fighter = $this->read(null, $fighterId);
         pr($fighter);
         $this->delete($fighter['Fighter']['id']);
     }
