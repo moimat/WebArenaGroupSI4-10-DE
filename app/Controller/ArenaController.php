@@ -49,6 +49,10 @@ class ArenaController extends AppController {
         {
             $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
         }
+        /*elseif($this->request->params['action']=='sight')
+        {
+            $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
+        }*/
     }
 
     public function login() {
@@ -158,6 +162,7 @@ class ArenaController extends AppController {
                     $this->Session->setFlash($eventArray["name"]);
                 }
             }
+            $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
         }
 
         $this->set('tools', $this->Tool->find('all'));
