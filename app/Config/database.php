@@ -30,7 +30,6 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		
 		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',

@@ -41,7 +41,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
         echo $this->Html->script('jquery.jqplot');
         echo $this->Html->script('jqplot.pieRenderer');
-        echo $this->Html->script('jqplot.donutRenderer');  
+        echo $this->Html->script('jqplot.donutRenderer');
         echo $this->Html->script('jqplot.dateAxisRenderer.min');
         echo $this->Html->script('jqplot.canvasTextRenderer.min');
         echo $this->Html->script('jqplot.canvasAxisTickRenderer.min');
@@ -76,8 +76,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li>
-                                <?php echo $this->Html->link('<span></span> Accueil', '/', array('class' => 'glyphicon glyphicon-home', 'escape' => false)); ?>                                             
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'index') ) ? 'active' : 'inactive' ?>">
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-home"> Accueil </i>', array('controller' => 'Arena', 'action' => 'index'), array('escape' => false)); ?>                                             
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'sight') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Vision </i>', array('controller' => 'Arena', 'action' => 'sight'), array('escape' => false)); ?>

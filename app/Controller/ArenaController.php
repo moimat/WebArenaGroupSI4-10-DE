@@ -27,7 +27,8 @@ class ArenaController extends AppController {
      * @return void
      */
     public function index() {
-        
+        $this->set('fighters', $this->Fighter->find('all'));
+
     }
 
     public function beforeFilter() {
@@ -51,10 +52,6 @@ class ArenaController extends AppController {
         {
             $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
         }*/
-        if($this->request->params['action']=='halloffame')
-        {
-            $this->set('raw', $this->Fighter->find('all'));
-        }
     }
 
     public function login() {
