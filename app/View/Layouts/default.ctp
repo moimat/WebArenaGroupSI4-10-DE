@@ -118,28 +118,31 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <div class="navbar-header">
                         <a class="navbar-brand">
                             <span class="glyphicon glyphicon-book"></span>
-                            Projet WebArena Group SI4-10-DE
+                            Projet WebArena Group SI4-10 Options-ACDEF
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li>
-                                <?php echo $this->Html->link('<span></span> BOUCON Matthieu', 'mailto:boucon@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
+                                <?php echo $this->Html->link('<span></span> BOUCON', 'mailto:boucon@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
                             </li>
                             <li>
-                                <?php echo $this->Html->link('<span></span> ELKORJI Youssef', 'mailto:elkorji@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
+                                <?php echo $this->Html->link('<span></span> ELKORJI', 'mailto:elkorji@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
                             </li>
                             <li>
-                                <?php echo $this->Html->link('<span></span> GRIERE Nicolas', 'mailto:griere@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
+                                <?php echo $this->Html->link('<span></span> GRIERE', 'mailto:griere@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
                             </li>
                             <li>
-                                <?php echo $this->Html->link('<span></span> LY Pascal', 'mailto:ly@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
+                                <?php echo $this->Html->link('<span></span> LY', 'mailto:ly@ece.fr', array('class' => 'glyphicon glyphicon-envelope', 'escape' => false)); ?>
                             </li>
                             <li>
                                 <?php
                                 echo $this->Html->link($this->Html->image('github-icon.png', array('width' => '24', 'height' => '24')) . __(' Repository Log'), 'https://github.com/moimat/WebArenaGroupSI4-10-DE/commits/master', array('escape' => false));
                                 ?>
                             </li>
+                            <li><?php
+                                echo $this->Html->link(__(' Visit Website'),'http://matmatt.fr/WebArenaGroupSI4-10-DE/Arena');
+                                ?></li>
 
                         </ul>
                     </div>
