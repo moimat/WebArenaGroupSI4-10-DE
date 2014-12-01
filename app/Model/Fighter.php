@@ -139,9 +139,8 @@ class Fighter extends AppModel {
         $level = $data['Fighter']['level'];
         if ($xp >= 4) {
             $level = $level + 1;
-            //$this->read(null, $fighterId);
-            $this->set('level', $level);
             $xp = $xp - 4;
+            $this->set('level', $level);
             $this->set('xp', $xp);
             $this->save();
             // Create corresponding Event  
@@ -150,7 +149,6 @@ class Fighter extends AppModel {
 
             $nameEvent = 'Echec Level Up Personnage ' . $name;
         }
-
 
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
@@ -161,7 +159,6 @@ class Fighter extends AppModel {
             "date" => $dateNow,
             "name" => $nameEvent);
         return $eventArray;
-        //$this->save();
     }
 
     public function doAttack($fighterId, $direction) {
