@@ -172,7 +172,7 @@ class Fighter extends AppModel {
             $this->set('xp', $xp);
             $this->save();
             // Create corresponding Event  
-            $nameEvent = $name . ' est maintenant niveau ' . $data['Fighter']['level'];
+            $nameEvent = $name . ' est maintenant niveau ' . $level;
             if($skill==0)
             {
                 $this->set('skill_health',$data['Fighter']['skill_health']+3);
