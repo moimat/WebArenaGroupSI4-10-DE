@@ -91,6 +91,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'login') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Connexion </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
                             </li>
+                            <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'halloffame') ) ? 'active' : 'inactive' ?>">
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-star"> Statistiques </i>', array('controller' => 'Arena', 'action' => 'halloffame'), array('escape' => false)); ?>
+                            </li>
                             <li><?php echo $this->Form->create('deco', array('class' => 'form_inline formClass', 'role' => 'form')); ?>
                                 <button class="btn btn-danger" controller="Arena" action="login" type=direction name=data[deco] value="deco">
                                     <span class="glyphicon glyphicon-log-out"> Déconnexion</span> 
