@@ -110,6 +110,7 @@ class ArenaController extends AppController {
                 $eventArray = $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));
                 $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash($eventArray["name"]);
+                $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
             }
         }
     }
