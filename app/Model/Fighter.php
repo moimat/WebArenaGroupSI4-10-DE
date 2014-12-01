@@ -31,8 +31,10 @@ class Fighter extends AppModel {
         //@todo empêcher le joueur de sortir des limites du terrain
         //@todo empêcher le joueur de se déplacer sur une case occupée
         /// Observer la direction choisie, positions limites et persos ennemis du terrain
-        if ($direction == 'north') {
-            
+        $date1=new DateTime($joueur['Fighter']['next_action_time']);
+        $date2=new DateTime(date('y-m-d H:i:s',time()));
+        if ($date1<$date2){$this->set('next_action_time', date('y-m-d H:i:s',time()+10));
+        if ($direction == 'north'){
             $varn=$this->find('first', array('conditions' =>
                                 array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
                                     'coordinate_y' => $joueur['Fighter']['coordinate_y'] - 1)));
@@ -68,7 +70,7 @@ class Fighter extends AppModel {
                 $posx = $joueur['Fighter']['coordinate_x'] - 1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
-        }
+        }}
 
         // Si le déplacement est possible
         if ($posx != 0 && $posy != 0) {
@@ -136,7 +138,6 @@ class Fighter extends AppModel {
     }
 
     public function lvlUp($fighterId,$skill) {
-        pr($skill);
         $data = $this->read(null, $fighterId);
         $name = $data['Fighter']['name'];
         $posx = $data['Fighter']['coordinate_x'];
@@ -153,8 +154,8 @@ class Fighter extends AppModel {
             $nameEvent = $name . ' est maintenant niveau ' . $data['Fighter']['level'];
             if($skill==0)
             {
-                $this->set('current_health',$data['Fighter']['skill_health']);
                 $this->set('skill_health',$data['Fighter']['skill_health']+3);
+                $this->set('current_health',$data['Fighter']['skill_health']+3);
                 $this->save();
             }
             elseif($skill==1)
@@ -190,6 +191,7 @@ class Fighter extends AppModel {
         $posx = $joueur['Fighter']['coordinate_x'];
         $posy = $joueur['Fighter']['coordinate_y'];
         $nameEvent = NULL;
+ 
 
         if ($direction == 'north') {
             $posx_cible = $posx;
@@ -308,7 +310,7 @@ class Fighter extends AppModel {
             'skill_strength' => 1,
             'skill_health' => 3,
             'current_health' => 3,
-            'next_action_time' => '0000-00-00 00:00:00',
+            'next_action_time' => date('y-m-d H:i:s',time()+10),
             'guild_id' => NULL
         );
 

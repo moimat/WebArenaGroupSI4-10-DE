@@ -32,16 +32,23 @@ class ArenaController extends AppController {
         $this->set('myname', "Matthieu Boucon");
     }
 
-    public function beforeFilter() {
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
+    public function beforeFilter()
+    {
+        if($this->request->params['action'] == 'index')
+        {
+            $this->redirect(array('controller' => 'Arena', 'action' => 'index'));
+        }
+        elseif(!$this->Session->read('Connected') AND $this->request->params['action'] != 'login')
+        {
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
-        } else {
-            echo "success variable status :";
+        } 
+        else
+        {
             echo $this->Session->read('Connected');
         }
-        if (isset($this->request->data['deco'])) {
+        if (isset($this->request->data['deco']))
+        {
             $this->Session->delete('Connected');
-            //$this->Session->destroy();
             echo "déconécté";
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         }
@@ -49,10 +56,6 @@ class ArenaController extends AppController {
         {
             $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
         }
-        /*elseif($this->request->params['action']=='sight')
-        {
-            $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
-        }*/
     }
 
     public function login() {
