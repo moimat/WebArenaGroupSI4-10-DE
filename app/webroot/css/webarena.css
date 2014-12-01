@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 h1{
-  text-align:center;
+    text-align:center;
 }
 
 #content{
@@ -58,3 +58,16 @@ table.fixed td {
 #refresh{
     float:right;
 }
+
+.carousel-control{
+    background: none !important;
+    filter: none !important;
+    box-shadow:none;
+}
+.carouselClass{
+    width:50%;
+    height:10%;
+    margin:auto;
+    
+}
+

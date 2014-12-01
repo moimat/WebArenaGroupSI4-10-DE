@@ -32,33 +32,38 @@ class Fighter extends AppModel {
         //@todo empêcher le joueur de se déplacer sur une case occupée
         /// Observer la direction choisie, positions limites et persos ennemis du terrain
         if ($direction == 'north') {
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH && empty($this->find('first', array('conditions' =>
+            
+            $varn=$this->find('first', array('conditions' =>
                                 array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] - 1)))) == true) {
+                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] - 1)));
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH && empty($var) == true) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
                 $posy = $joueur['Fighter']['coordinate_y'] - 1;
             }
         } elseif ($direction == 'south') {
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH && empty($this->find('first', array('conditions' =>
+            $vars=$this->find('first', array('conditions' =>
                                 array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] + 1)))) == true) {
+                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] + 1)));
+            if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH && empty($vars) == true) {
                 $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
                 $posx = $joueur['Fighter']['coordinate_x'];
                 $posy = $joueur['Fighter']['coordinate_y'] + 1;
             }
         } elseif ($direction == 'east') {
-            if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST && empty($this->find('first', array('conditions' =>
+            $vare=$this->find('first', array('conditions' =>
                                 array('coordinate_x' => $joueur['Fighter']['coordinate_x'] + 1,
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])))) == true) {
+                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
+            if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST && empty($vare) == true) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
                 $posx = $joueur['Fighter']['coordinate_x'] + 1;
                 $posy = $joueur['Fighter']['coordinate_y'];
             }
         } elseif ($direction == 'west') {
-            if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST && empty($this->find('first', array('conditions' =>
+            $varw=$this->find('first', array('conditions' =>
                                 array('coordinate_x' => $joueur['Fighter']['coordinate_x'] - 1,
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])))) == true) {
+                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
+            if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST && empty($varw) == true) {
                 $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
                 $posx = $joueur['Fighter']['coordinate_x'] - 1;
                 $posy = $joueur['Fighter']['coordinate_y'];
