@@ -80,7 +80,7 @@ class ArenaController extends AppController {
             //$id = $this->request->data['viewchar']['id'];
             //}
             if (isset($this->request->data['lvlup'])) {
-                $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id']);
+                $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id'],$this->request->data['lvlup']['skillup']);
                 $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash($eventArray["name"]);
             }

@@ -130,7 +130,8 @@ class Fighter extends AppModel {
         }
     }
 
-    public function lvlUp($fighterId) {
+    public function lvlUp($fighterId,$skill) {
+        pr($skill);
         $data = $this->read(null, $fighterId);
         $name = $data['Fighter']['name'];
         $posx = $data['Fighter']['coordinate_x'];
@@ -145,6 +146,22 @@ class Fighter extends AppModel {
             $this->save();
             // Create corresponding Event  
             $nameEvent = $name . ' est maintenant niveau ' . $data['Fighter']['level'];
+            if($skill==0)
+            {
+                $this->set('current_health',$data['Fighter']['skill_health']);
+                $this->set('skill_health',$data['Fighter']['skill_health']+3);
+                $this->save();
+            }
+            elseif($skill==1)
+            {
+                $this->set('skill_sight',$data['Fighter']['skill_sight']+1);
+                $this->save();
+            }
+            elseif($skill==2)
+            {
+                $this->set('skill_strength',$data['Fighter']['skill_strength']+1);
+                $this->save();
+            }
         } else {
 
             $nameEvent = 'Echec Level Up Personnage ' . $name;
