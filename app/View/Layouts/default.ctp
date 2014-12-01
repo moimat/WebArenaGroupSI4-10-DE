@@ -34,10 +34,25 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css('bootstrap-theme.min.css');
         echo $this->Html->css('jquery.dataTables.min.css');
         echo $this->Html->css('webarena');
-        
-        echo $this->Html->script('jquery.min');
+
+        echo $this->Html->script('jquery');
         echo $this->Html->script('jquery.dataTables.min');
-       
+
+
+        echo $this->Html->script('jquery.jqplot');
+        echo $this->Html->script('jqplot.pieRenderer');
+        echo $this->Html->script('jqplot.donutRenderer');  
+        echo $this->Html->script('jqplot.dateAxisRenderer.min');
+        echo $this->Html->script('jqplot.canvasTextRenderer.min');
+        echo $this->Html->script('jqplot.canvasAxisTickRenderer.min');
+        echo $this->Html->script('jqplot.categoryAxisRenderer.min');
+        echo $this->Html->script('jqplot.barRenderer.min');
+        echo $this->Html->script('jqplot.pointLabels.min');
+        echo $this->Html->script('jqplot.cursor.min.js');
+        echo $this->Html->script('jqplot.highlighter.min');
+
+        echo $this->Html->css('jquery.jqplot');
+
         echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min');
         echo $this->Html->script('bootstrap.min');
         echo $this->Html->script('bootstrap');
