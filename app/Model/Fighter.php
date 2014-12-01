@@ -285,6 +285,10 @@ class Fighter extends AppModel {
         // Give new Id to row
         $id = $this->find('count');
         $id++;
+        while($this->find('first',array('conditions' => array('Fighter.id' => $id))))
+        {
+            $id++;
+        }
         $posx = -1;
         $posy = -1;
         $data = array(
