@@ -9,7 +9,6 @@ App::uses('CakeEmail', 'Network/Email');
  * @author ...
  */
 class ArenaController extends AppController {
-
     public $uses = array('Player', 'Fighter', 'Event', 'Surrounding', 'Tool');
     public $components = array('Session');
 
@@ -19,7 +18,7 @@ class ArenaController extends AppController {
      * @var array
      */
     public $helpers = array(
-        'DataTable.DataTable',
+        'DataTable.DataTable'
     );
 
     /**
@@ -29,7 +28,7 @@ class ArenaController extends AppController {
      */
     public function index() {
 
-        $this->set('myname', "Matthieu Boucon");
+        $this->layout='clean';
     }
 
     public function beforeFilter()
@@ -174,5 +173,10 @@ class ArenaController extends AppController {
         $this->set('currentFighter', $this->Fighter->findById($currentFighterId));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
+    
+    public function halloffame() {
+        $this->set('raw', $this->Fighter->find('all'));
+
+	}
 
 }
