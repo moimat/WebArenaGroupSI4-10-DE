@@ -124,3 +124,6 @@ define("MONSTER_CELL", '<span class="glyphicon glyphicon-certificate"></span>');
 define("HEALTH_CELL", '<span class="glyphicon glyphicon-heart"></span>');
 define("SIGHT_CELL", '<span class="glyphicon glyphicon-eye-open"></span>');
 define("STRENGTH_CELL", '<span class="glyphicon glyphicon-star"></span>');
+define("TIME_CELL", '<span class="glyphicon glyphicon-time"></span>');
+define("COORDINATE_X_CELL", '<span class="glyphicon glyphicon-resize-horizontal"></span>');
+define("COORDINATE_Y_CELL", '<span class="glyphicon glyphicon-resize-vertical"></span>');

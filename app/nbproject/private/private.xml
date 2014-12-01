@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/webroot/css/webarena.css</file>
+            <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/View/Arena/character.ctp</file>
             <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/Model/Tool.php</file>
+            <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/Model/Event.php</file>
             <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/View/Arena/sight.ctp</file>
             <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/Controller/ArenaController.php</file>
-            <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/Model/Surrounding.php</file>
+            <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/View/Arena/diary.ctp</file>
             <file>file:/C:/wamp/www/WebArenaGroupSI4-10-DE/app/Model/Fighter.php</file>
         </group>
     </open-files>
