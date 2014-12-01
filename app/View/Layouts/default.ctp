@@ -32,7 +32,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->css('bootstrap-theme.css');
         echo $this->Html->css('bootstrap-theme.css.map');
         echo $this->Html->css('bootstrap-theme.min.css');
+        echo $this->Html->css('jquery.dataTables.min.css');
         echo $this->Html->css('webarena');
+        
+        echo $this->Html->script('jquery.min');
+        echo $this->Html->script('jquery.dataTables.min');
+       
         echo $this->Html->script('http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min');
         echo $this->Html->script('bootstrap.min');
         echo $this->Html->script('bootstrap');
