@@ -10,6 +10,10 @@ $mvie=0;
 $mxp=0;
 $mlvl=0;
 $count=0;
+$countlv1=0;
+$countlv2=0;
+$countlv3=0;
+$countlv4=0;
 
 foreach ($raw as $key => $value) {
     
@@ -18,6 +22,18 @@ foreach ($raw as $key => $value) {
     $vie = $raw[$key]['Fighter']['skill_health'];
     $xp = $raw[$key]['Fighter']['xp'];
     $lvl = $raw[$key]['Fighter']['level'];
+    if($lvl<6){
+        $countlv1=$countlv1+1;
+    }
+    else if($lvl<11){
+        $countlv2=$countlv2+1;
+    }
+    else if($lvl<16){
+        $countlv3=$countlv3+1;
+    }
+    else if($lvl>15){
+        $countlv4=$countlv4+1;
+    }
     
     $mforce=$mforce+$force;
     $mvision=$mvision+$vision;
@@ -33,13 +49,13 @@ $mvi=$mvie/$count;
 $mx=$mxp/$count;
 $mlv=$mlvl/$count;
 
-echo "$mf $mvs $mvi $mx $mlv";
-
 echo"
 <div>
 <div id=\"chart1\" style=\"height:400px;width:900px; \"></div>
 
 <div id=\"chart2\" style=\"height:400px;width:900px; \"></div>
+
+<div id=\"chart3\" style=\"height:400px;width:900px; \"></div>
 
 <p><br><br><br></p>
 
@@ -99,9 +115,9 @@ echo"];
         // option on the series option.  Here a series option object
         // is specified for each series.
         series:[
-            {label:'Strength'},
-            {label:'Sight'},
-            {label:'Health'}
+            {label:'Force'},
+            {label:'Vision'},
+            {label:'Vie'}
         ],
         // Show the legend and put it outside the grid, but inside the
         // plot container, shrinking the grid to accomodate the legend.
@@ -141,6 +157,28 @@ $(document).ready(function(){
       xaxis:{renderer:$.jqplot.CategoryAxisRenderer},
       yaxis:{padMax:1.3}}
   });
+});
+
+$(document).ready(function(){
+  var data = [
+    ['Niveau 1-5', $countlv1],['Niveau 6-10', $countlv2], ['Niveau 11-15', $countlv3], 
+    ['Niveau 16+', $countlv4]
+  ];
+  var plot1 = jQuery.jqplot ('chart3', [data], 
+    { 
+    title: 'Répartition des Fighters selon leur niveau',
+      seriesDefaults: {
+        // Make this a pie chart.
+        renderer: jQuery.jqplot.PieRenderer, 
+        rendererOptions: {
+          // Put data labels on the pie slices.
+          // By default, labels show the percentage of the slice.
+          showDataLabels: true
+        }
+      }, 
+      legend: { show:true, location: 'e' }
+    }
+  );
 });
 </script>";
 ?>
