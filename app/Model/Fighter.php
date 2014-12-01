@@ -131,21 +131,21 @@ class Fighter extends AppModel {
     }
 
     public function lvlUp($fighterId) {
-        $datas = $this->read(null, $fighterId);
-        $name = $datas['Fighter']['name'];
-        $posx = $datas['Fighter']['coordinate_x'];
-        $posy = $datas['Fighter']['coordinate_y'];
-        $xp = $datas['Fighter']['xp'];
-        $level = $datas['Fighter']['level'];
-
+        $data = $this->read(null, $fighterId);
+        $name = $data['Fighter']['name'];
+        $posx = $data['Fighter']['coordinate_x'];
+        $posy = $data['Fighter']['coordinate_y'];
+        $xp = $data['Fighter']['xp'];
+        $level = $data['Fighter']['level'];
         if ($xp >= 4) {
             $level = $level + 1;
+            //$this->read(null, $fighterId);
             $this->set('level', $level);
             $xp = $xp - 4;
             $this->set('xp', $xp);
-
+            $this->save();
             // Create corresponding Event  
-            $nameEvent = $name . ' est maintenant niveau ' . $level;
+            $nameEvent = $name . ' est maintenant niveau ' . $data['Fighter']['level'];
         } else {
 
             $nameEvent = 'Echec Level Up Personnage ' . $name;
@@ -161,7 +161,7 @@ class Fighter extends AppModel {
             "date" => $dateNow,
             "name" => $nameEvent);
         return $eventArray;
-        $this->save();
+        //$this->save();
     }
 
     public function doAttack($fighterId, $direction) {
@@ -422,6 +422,7 @@ class Fighter extends AppModel {
         $this->read(null, $fighterId);
 
         // Generate non conflicting random positions of fighters
+  
         do {
             $randCoordX = rand(BORDER_WEST, BORDER_EAST);
             $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH);
