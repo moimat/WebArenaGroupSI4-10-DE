@@ -92,6 +92,15 @@ foreach ($raw as $key => $value) {
         </button>";
         echo $this->Form->end();//array('label' => 'Level Up', 'div' => false, 'class' => 'btn btn-primary'));
         
+        echo $this->Form->create('Upload', array('type' => 'file', 'class' => 'form_inline formClass', 'role' => 'form'));
+        //echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
+        echo $this->Form->input('Avatar', array('type' => 'file'));
+        echo"
+        <button class=\"btn btn-primary\" controller=\"Arena\" action=\"character\" type=id name=data[Upload][id] value=\"$id\">
+        <span>Upload avatar</span> 
+        </button>";
+        echo $this->Form->end();//array('label' => 'Upload image', 'div' => false, 'class' => 'btn btn-primary'));
+        
         echo "        </div>
    </div>";
     }
@@ -103,16 +112,16 @@ echo"
             <h2>
                 Actions
             </h2>";
-echo $this->Form->create('viewchar', array('class' => 'form_inline formClass', 'role' => 'form'));
+/*echo $this->Form->create('viewchar', array('class' => 'form_inline formClass', 'role' => 'form'));
 //echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));?>
 <button class="btn btn-info" controller="Arena" action="character" type=view name=data[viewchar][view] value="ok">View All Characters
 </button><?php
-echo $this->Form->end();//array('label' => 'View Character', 'div' => false, 'class' => 'btn btn-primary'));
+echo $this->Form->end();//array('label' => 'View Character', 'div' => false, 'class' => 'btn btn-primary'));*/
 
-echo $this->Form->create('Upload', array('type' => 'file', 'class' => 'form_inline formClass', 'role' => 'form'));
+/*echo $this->Form->create('Upload', array('type' => 'file', 'class' => 'form_inline formClass', 'role' => 'form'));
 echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));
 echo $this->Form->input('Avatar', array('type' => 'file'));
-echo $this->Form->end(array('label' => 'Upload image', 'div' => false, 'class' => 'btn btn-primary'));
+echo $this->Form->end(array('label' => 'Upload image', 'div' => false, 'class' => 'btn btn-primary'));*/
 
 echo $this->Form->create('createchar', array('class' => 'form_inline formClass', 'role' => 'form'));
 //echo $this->Form->input('id', array('label' => 'id', 'class' => 'form-control'));

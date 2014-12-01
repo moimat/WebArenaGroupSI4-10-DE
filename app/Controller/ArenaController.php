@@ -45,6 +45,10 @@ class ArenaController extends AppController {
             echo "déconécté";
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         }
+        if($this->request->params['action']=='character')
+        {
+            $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
+        }
     }
 
     public function login() {
@@ -75,7 +79,7 @@ class ArenaController extends AppController {
 
         if ($this->request->is('post')) {
             //if (isset($this->request->data['viewchar'])) {
-            $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
+            //$this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
             //$this->set('raw', $this->Fighter->findById($this->request->data['viewchar']['id']));
             //$id = $this->request->data['viewchar']['id'];
             //}
@@ -83,6 +87,7 @@ class ArenaController extends AppController {
                 $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id'],$this->request->data['lvlup']['skillup']);
                 $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash($eventArray["name"]);
+                $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
             }
 
             if (isset($this->request->data['enter'])) {
