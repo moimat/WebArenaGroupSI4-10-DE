@@ -27,8 +27,8 @@ class ArenaController extends AppController {
      * @return void
      */
     public function index() {
+        $this->set('fighters', $this->Fighter->find('all'));
 
-        $this->layout='clean';
     }
 
     public function beforeFilter() {

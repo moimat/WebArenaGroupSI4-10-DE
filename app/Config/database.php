@@ -11,7 +11,7 @@ class DATABASE_CONFIG {
 		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
-	);*/
+	);
     public $default = array(
                 'datasource' => 'Database/Mysql',
                 'persistent' => false,
@@ -22,19 +22,18 @@ class DATABASE_CONFIG {
 		'database' => 'matmattfphbdd',
 		'prefix' => '',
 		//'encoding' => 'utf8',
-	);
+	);*/
     
-    /*public $default = array(
+    public $default = array(
                 'datasource' => 'Database/Mysql',
                 'persistent' => false,
 		'host' => 'localhost',
 		'login' => 'root',
-		'password' => '291293',
-		
+		'password' => '',
 		'database' => 'webarena',
 		'prefix' => '',
 		//'encoding' => 'utf8',
-	);*/
+	);
 
 	public $test = array(
 		'datasource' => 'Database/Mysql',
