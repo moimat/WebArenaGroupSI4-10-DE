@@ -204,13 +204,6 @@ class Fighter extends AppModel {
 
                     $currentHealthCible = $cible['Fighter']['current_health'] - $joueur['Fighter']['skill_strength'];
                     $this->set('current_health', $currentHealthCible);
-                    // Si la cible est morte
-                    if ($currentHealthCible < 0) {
-                        $success = $success . ', mort ' . $cible['Fighter']['name'];
-                        $this->killCharacter($idcible);
-                        $this->save();
-                        pr($success);
-                    }
 
                     $this->save();
                     $joueur = $this->read(null, $fighterId);
@@ -439,6 +432,33 @@ class Fighter extends AppModel {
         $this->set('coordinate_x', $randCoordX);
         $this->set('coordinate_y', $randCoordY);
         $this->save();
+    }
+
+    public function eliminateDead() {
+        $fighters = $this->find('all');
+        $fighterDeadId = NULL;
+
+        foreach ($fighters as $key => $value) {
+            if ($fighters[$key]['Fighter']['current_health'] <= 0) {
+
+                // Create corresponding Event
+                $nameDead = $fighters[$key]['Fighter']['name'];
+                $posDeadX = $fighters[$key]['Fighter']['coordinate_x'];
+                $posDeadY = $fighters[$key]['Fighter']['coordinate_y'];
+                $dateNow = date("Y-m-d H:i:s");
+                $nameEvent = $nameDead . ' est mort en ' . $posDeadX . ':' . $posDeadY;
+
+                $eventArray = array(
+                    "coordinate_x" => $posDeadX,
+                    "coordinate_y" => $posDeadY,
+                    "date" => $dateNow,
+                    "name" => $nameEvent);
+                
+                $this->killCharacter($fighters[$key]['Fighter']['id']);
+
+                return $eventArray;
+            }
+        }
     }
 
     public function killCharacter($fighterId) {

@@ -124,7 +124,7 @@ class ArenaController extends AppController {
             }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($currentFighterId, $this->request->data['Fightermove']['direction']);
-                if ($eventArray != NULL) {
+                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash($eventArray["name"]);
                 }
@@ -135,14 +135,20 @@ class ArenaController extends AppController {
             }
             if (isset($this->request->data['Fighteratk'])) {
                 $eventArray = $this->Fighter->doAttack($currentFighterId, $this->request->data['Fighteratk']['direction']);
-                if ($eventArray != NULL) {
+                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash('Une attaque a été réalisée.');
+                    
+                    $eventArrayDead = $this->Fighter->eliminateDead();
+                    if ($eventArrayDead["coordinate_x"] != NULL && $eventArrayDead["coordinate_y"] != NULL) {
+                        $this->Event->createEvent($eventArrayDead["coordinate_x"], $eventArrayDead["coordinate_y"], $eventArrayDead["date"], $eventArrayDead["name"]);
+                        $this->Session->setFlash('Une comattant est mort.');
+                    }
                 }
             }
             if (isset($this->request->data['PickUp'])) {
                 $eventArray = $this->Fighter->pickUpTool($currentFighterId);
-                if ($eventArray != NULL) {
+                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash($eventArray["name"]);
                 }
