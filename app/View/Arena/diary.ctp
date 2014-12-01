@@ -6,7 +6,7 @@
 </script> 
 
 <div>
-    <h1>WebArena Events</h1>
+    <h1>Events</h1>
     <table id="event" class= "table table-striped table-bordered fixed">
         <thead>
             <tr>

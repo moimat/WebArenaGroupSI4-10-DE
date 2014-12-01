@@ -77,19 +77,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'index') ) ? 'active' : 'inactive' ?>">
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-home"> Accueil </i>', array('controller' => 'Arena', 'action' => 'index'), array('escape' => false)); ?>                                             
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-home"> Home </i>', array('controller' => 'Arena', 'action' => 'index'), array('escape' => false)); ?>                                             
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'sight') ) ? 'active' : 'inactive' ?>">
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Vision </i>', array('controller' => 'Arena', 'action' => 'sight'), array('escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-eye-open"> Arena </i>', array('controller' => 'Arena', 'action' => 'sight'), array('escape' => false)); ?>
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'character') ) ? 'active' : 'inactive' ?>">
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"> Personnage </i>', array('controller' => 'Arena', 'action' => 'character'), array('escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-user"> Fighter </i>', array('controller' => 'Arena', 'action' => 'character'), array('escape' => false)); ?>
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'diary') ) ? 'active' : 'inactive' ?>">
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Journal </i>', array('controller' => 'Arena', 'action' => 'diary'), array('escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-book"> Diary </i>', array('controller' => 'Arena', 'action' => 'diary'), array('escape' => false)); ?>
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'halloffame') ) ? 'active' : 'inactive' ?>">
-                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-star"> Statistiques </i>', array('controller' => 'Arena', 'action' => 'halloffame'), array('escape' => false)); ?>
+                                <?php echo $this->Html->link('<i class="glyphicon glyphicon-star"> Statistics </i>', array('controller' => 'Arena', 'action' => 'halloffame'), array('escape' => false)); ?>
                             </li>
                             <li class="<?php echo (!empty($this->params['action']) && ($this->params['action'] == 'login') ) ? 'active' : 'inactive' ?>">
                                 <?php echo $this->Html->link('<i class="glyphicon glyphicon-log-in"> Connexion </i>', array('controller' => 'Arena', 'action' => 'login'), array('escape' => false)); ?>
@@ -118,7 +118,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <div class="navbar-header">
                         <a class="navbar-brand">
                             <span class="glyphicon glyphicon-book"></span>
-                            Projet WebArena Group SI4-10 Options-ACDEF
+                            WebArena Project - Group SI4-10 - ACDEF
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
@@ -141,7 +141,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                                 ?>
                             </li>
                             <li><?php
-                                echo $this->Html->link(__(' Visit Website'),'http://matmatt.fr/WebArenaGroupSI4-10-DE/Arena');
+                                echo $this->Html->link('<span></span> Visit Website', 'http://matmatt.fr/WebArenaGroupSI4-10-DE/Arena', array('class' => 'glyphicon glyphicon-globe', 'escape' => false));
                                 ?></li>
 
                         </ul>

@@ -7,6 +7,7 @@
  * @author Nicolas
  */
 App::uses('AppModel', 'Model');
+
 class Surrounding extends AppModel {
 
     private function createSurrounding($id, $type, $randCoordX, $randCoordY) {
@@ -34,25 +35,25 @@ class Surrounding extends AppModel {
         $this->deleteAll(array('1 = 1'));
 
         // Repopulate surroundings datatable
-        for ($id = 1; $id <= 45; $id++) {
+        for ($id = 1; $id <= 31; $id++) {
 
             // Create appropriate surrounding
-            if (($id % 3) == 0) {
+            if ($id <= 15) {
                 $type = 'colonne'; // Create one column for every 10 cells
-            } elseif (($id % 3) == 1) {
-                $type = 'monstre'; // Create one invisible monster for every 10 cells
-            } else {
+            } elseif ($id > 15 && $id <= 30) {
                 $type = 'piege'; // Create one invisible trap for every 10 cells
+            } else {
+                $type = 'monstre'; // Create one invisible monster for the entire arena
             }
-            
-             // Generate non conflicting random positions of surroundings
+
+            // Generate non conflicting random positions of surroundings
             do {
                 $randCoordX = rand(BORDER_WEST, BORDER_EAST);
                 $randCoordY = rand(BORDER_NORTH, BORDER_SOUTH);
                 $elementToAdd = array($randCoordX, $randCoordY);
             } while (in_array($elementToAdd, $arenaArray));
-            
-            
+
+
             // add surrounding positions to array
             array_push($arenaArray, $elementToAdd);
 
@@ -62,9 +63,10 @@ class Surrounding extends AppModel {
 
         return $arenaArray;
     }
-    
+
     public function killMonster($monsterId) {
         $monster = $this->findById($monsterId);
         $this->delete($monster['Surrounding']['id']);
     }
+
 }

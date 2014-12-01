@@ -1,4 +1,7 @@
 <?php $this->assign('title', 'Hall Of Fame'); ?>
+<h1>Hall Of Fame</h1>
+
+<h2>Fighter Abilities</h2>
 <?php
 
 $mforce=0;

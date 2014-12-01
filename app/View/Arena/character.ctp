@@ -1,6 +1,6 @@
 <?php $this->assign('title', 'Character'); ?>
 
-<h1>WebArena Character </h1>
+<h1>Characters</h1>
 <?php
 echo"
 <div class=\"container\">";

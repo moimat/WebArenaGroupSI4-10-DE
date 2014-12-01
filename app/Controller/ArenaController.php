@@ -35,13 +35,13 @@ class ArenaController extends AppController {
         if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         } else {
-            echo "success variable status :";
-            echo $this->Session->read('Connected');
+            //echo "success variable status :";
+            //echo $this->Session->read('Connected');
         }
         if (isset($this->request->data['deco'])) {
             $this->Session->delete('Connected');
             //$this->Session->destroy();
-            echo "déconécté";
+            //echo "déconnecté";
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         }
         if($this->request->params['action']=='character')
