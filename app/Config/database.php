@@ -15,14 +15,26 @@ class DATABASE_CONFIG {
     public $default = array(
                 'datasource' => 'Database/Mysql',
                 'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'password' => '',
-		'database' => 'webarena',
+		'host' => 'matmattfphbdd.mysql.db',
+		'login' => 'matmattfphbdd',
+		'password' => 's8uGv8XdgTxh',
+		
+		'database' => 'matmattfphbdd',
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
+    
+    /*public $default = array(
+                'datasource' => 'Database/Mysql',
+                'persistent' => false,
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => '291293',
+		
+		'database' => 'webarena',
+		'prefix' => '',
+		//'encoding' => 'utf8',
+	);*/
 
 	public $test = array(
 		'datasource' => 'Database/Mysql',
