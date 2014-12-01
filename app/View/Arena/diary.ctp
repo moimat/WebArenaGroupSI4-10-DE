@@ -1,7 +1,13 @@
 <?php $this->assign('title', 'Diary'); ?>
+
+<script> $(document).ready(function(){
+    $('#event').DataTable();
+});
+</script> 
+
 <div>
     <h1>WebArena Events</h1>
-    <table class= "table table-striped table-bordered fixed">
+    <table id="event" class= "table table-striped table-bordered fixed">
         <thead>
             <tr>
                 <th>ID</th>
