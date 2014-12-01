@@ -124,7 +124,7 @@ class ArenaController extends AppController {
             }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($currentFighterId, $this->request->data['Fightermove']['direction']);
-                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
+                if ($eventArray != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash($eventArray["name"]);
                 }
@@ -135,15 +135,17 @@ class ArenaController extends AppController {
             }
             if (isset($this->request->data['Fighteratk'])) {
                 $eventArray = $this->Fighter->doAttack($currentFighterId, $this->request->data['Fighteratk']['direction']);
-                if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
+                if ($eventArray != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash('Une attaque a été réalisée.');
                 }
             }
             if (isset($this->request->data['PickUp'])) {
-                $eventArray=$this->Fighter->pickUpTool($currentFighterId);
-                $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
-                $this->Session->setFlash($eventArray["name"]);
+                $eventArray = $this->Fighter->pickUpTool($currentFighterId);
+                if ($eventArray != NULL) {
+                    $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
+                    $this->Session->setFlash($eventArray["name"]);
+                }
             }
         }
 

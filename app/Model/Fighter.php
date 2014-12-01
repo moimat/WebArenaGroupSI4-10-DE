@@ -330,8 +330,8 @@ class Fighter extends AppModel {
         $arenaArray = array();
         $tool = ClassRegistry::init('Tool');
         $tools = $tool->find('all');
-        $bonus = '';
-        $type = '';
+        $bonus = NULL;
+        $type = NULL;
 
         // Find current fighter
         $fighter = $this->read(null, $fighterId);
@@ -367,18 +367,23 @@ class Fighter extends AppModel {
                 $tool->deleteTool($tools[$key]['Tool']['id']);
             }
         }
+        if ($bonus != NULL && $type != NULL) {
 
-        // Create corresponding Event        
-        $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $fighter['Fighter']['name'] . ' a trouvé objet ' . $type . ' : +' . $bonus;
 
-        $eventArray = array(
-            "coordinate_x" => $posFighterX,
-            "coordinate_y" => $posFighterY,
-            "date" => $dateNow,
-            "name" => $nameEvent);
+            // Create corresponding Event        
+            $dateNow = date("Y-m-d H:i:s");
+            $nameEvent = $fighter['Fighter']['name'] . ' a trouvé objet ' . $type . ' : +' . $bonus;
 
-        return $eventArray;
+            $eventArray = array(
+                "coordinate_x" => $posFighterX,
+                "coordinate_y" => $posFighterY,
+                "date" => $dateNow,
+                "name" => $nameEvent);
+
+            return $eventArray;
+        } else {
+            return FALSE;
+        }
     }
 
     public function initialiseFighter($fighterId) {
