@@ -21,6 +21,7 @@
         <tbody>
             <?php
             // Display table in reverse order (most recent events first)
+            $events = array_reverse($events);
             foreach ($events as $key => $value) {
                 $eventDate = $value['Event']['date'];
                 $yesterday = date("Y-m-d H:i:s", strtotime("-1 day"));
