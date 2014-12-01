@@ -1,4 +1,4 @@
-<?php $this->assign('title', 'Diary');?>
+<?php $this->assign('title', 'Diary'); ?>
 
 <h1>WebArena Events</h1>
 <table class= "table table-striped table-bordered fixed">
@@ -14,16 +14,19 @@
 
     <tbody>
         <?php
-        
         // Display table in reverse order (most recent events first)
-        foreach (array_reverse($events) as $key => $value) {
-            echo '<tr>';
-                    echo '<td>'.$value['Event']['id'].'</td>';
-                    echo '<td>'.$value['Event']['name'].'</td>';
-                    echo '<td>'.$value['Event']['date'].'</td>';
-                    echo '<td>'.$value['Event']['coordinate_x'].'</td>';
-                    echo '<td>'.$value['Event']['coordinate_y'].'</td>';
-            echo '</tr>';
+        foreach ($events as $key => $value) {
+            $eventDate = $value['Event']['date'];
+            $yesterday = date("Y-m-d H:i:s", strtotime("-1 day"));
+            if (strtotime($eventDate) > strtotime($yesterday)) {
+                echo '<tr>';
+                echo '<td>' . $value['Event']['id'] . '</td>';
+                echo '<td>' . $value['Event']['name'] . '</td>';
+                echo '<td>' . $value['Event']['date'] . '</td>';
+                echo '<td>' . $value['Event']['coordinate_x'] . '</td>';
+                echo '<td>' . $value['Event']['coordinate_y'] . '</td>';
+                echo '</tr>';
+            }
         }
         ?>
     </tbody>

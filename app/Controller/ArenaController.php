@@ -142,7 +142,7 @@ class ArenaController extends AppController {
                     $eventArrayDead = $this->Fighter->eliminateDead();
                     if ($eventArrayDead["coordinate_x"] != NULL && $eventArrayDead["coordinate_y"] != NULL && $eventArrayDead["name"] != NULL) {
                         $this->Event->createEvent($eventArrayDead["coordinate_x"], $eventArrayDead["coordinate_y"], $eventArrayDead["date"], $eventArrayDead["name"]);
-                        $this->Session->setFlash('Une comattant est mort.');
+                        $this->Session->setFlash('Un combattant est mort.');
                     }
                 }
             }
