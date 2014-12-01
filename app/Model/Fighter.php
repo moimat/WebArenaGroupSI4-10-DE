@@ -23,7 +23,8 @@ class Fighter extends AppModel {
         ),
     );
 
-    public function doMove($fighterId, $direction) {
+    public function doMove($fighterId, $direction) 
+    {
         // récupérer la position et fixer l'id de travail
         $joueur = $this->read(null, $fighterId);
         $posx = 0;
@@ -33,64 +34,84 @@ class Fighter extends AppModel {
         /// Observer la direction choisie, positions limites et persos ennemis du terrain
         $date1=new DateTime($joueur['Fighter']['next_action_time']);
         $date2=new DateTime(date('y-m-d H:i:s',time()));
-        if ($date1<$date2){$this->set('next_action_time', date('y-m-d H:i:s',time()+10));
-        if ($direction == 'north'){
-            $varn=$this->find('first', array('conditions' =>
-                                array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] - 1)));
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH && empty($var) == true) {
-                $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
-                $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y'] - 1;
+        if ($date1<$date2)
+        {
+            if($date1->add(new DateInterval('PT20S'))<$date2)
+            $this->set('next_action_time', date('y-m-d H:i:s',time()-10));
+            elseif($date1->sub(new DateInterval('PT10S'))<$date2)
+            $this->set('next_action_time', date('y-m-d H:i:s',time()));
+            else $this->set('next_action_time', date('y-m-d H:i:s',time()+10));
+            if ($direction == 'north')
+            {
+                $varn=$this->find('first', array('conditions' =>
+                                           array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
+                                                 'coordinate_y' => $joueur['Fighter']['coordinate_y'] - 1)));
+                if ($joueur['Fighter']['coordinate_y'] != BORDER_NORTH && empty($var) == true)
+                {
+                    $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] - 1);
+                    $posx = $joueur['Fighter']['coordinate_x'];
+                    $posy = $joueur['Fighter']['coordinate_y'] - 1;
+                }
             }
-        } elseif ($direction == 'south') {
-            $vars=$this->find('first', array('conditions' =>
-                                array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'] + 1)));
-            if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH && empty($vars) == true) {
-                $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
-                $posx = $joueur['Fighter']['coordinate_x'];
-                $posy = $joueur['Fighter']['coordinate_y'] + 1;
+            elseif ($direction == 'south')
+            {
+                $vars=$this->find('first', array('conditions' =>
+                                           array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
+                                                 'coordinate_y' => $joueur['Fighter']['coordinate_y'] + 1)));
+                if ($joueur['Fighter']['coordinate_y'] != BORDER_SOUTH && empty($vars) == true)
+                {
+                    $this->set('coordinate_y', $joueur['Fighter']['coordinate_y'] + 1);
+                    $posx = $joueur['Fighter']['coordinate_x'];
+                    $posy = $joueur['Fighter']['coordinate_y'] + 1;
+                }
             }
-        } elseif ($direction == 'east') {
-            $vare=$this->find('first', array('conditions' =>
-                                array('coordinate_x' => $joueur['Fighter']['coordinate_x'] + 1,
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
-            if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST && empty($vare) == true) {
-                $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
-                $posx = $joueur['Fighter']['coordinate_x'] + 1;
-                $posy = $joueur['Fighter']['coordinate_y'];
+            elseif ($direction == 'east')
+            {
+                $vare=$this->find('first', array('conditions' =>
+                                           array('coordinate_x' => $joueur['Fighter']['coordinate_x'] + 1,
+                                                 'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
+                if ($joueur['Fighter']['coordinate_x'] != BORDER_EAST && empty($vare) == true)
+                {
+                    $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] + 1);
+                    $posx = $joueur['Fighter']['coordinate_x'] + 1;
+                    $posy = $joueur['Fighter']['coordinate_y'];
+                }
             }
-        } elseif ($direction == 'west') {
-            $varw=$this->find('first', array('conditions' =>
-                                array('coordinate_x' => $joueur['Fighter']['coordinate_x'] - 1,
-                                    'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
-            if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST && empty($varw) == true) {
-                $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
-                $posx = $joueur['Fighter']['coordinate_x'] - 1;
-                $posy = $joueur['Fighter']['coordinate_y'];
-            }
-        }}
+            elseif ($direction == 'west')
+            {
+                $varw=$this->find('first', array('conditions' =>
+                                           array('coordinate_x' => $joueur['Fighter']['coordinate_x'] - 1,
+                                                 'coordinate_y' => $joueur['Fighter']['coordinate_y'])));
+                if ($joueur['Fighter']['coordinate_x'] != BORDER_WEST && empty($varw) == true)
+                {
+                    $this->set('coordinate_x', $joueur['Fighter']['coordinate_x'] - 1);
+                    $posx = $joueur['Fighter']['coordinate_x'] - 1;
+                    $posy = $joueur['Fighter']['coordinate_y'];
+                }
+            }   
+        }
 
         // Si le déplacement est possible
-        if ($posx != 0 && $posy != 0) {
+        if ($posx != 0 && $posy != 0)
+        {
             $fighterMove = TRUE;
             $fighterDeath = FALSE;
             $surrounding = ClassRegistry::init('Surrounding');
             $surroundings = $surrounding->find('all');
             $surroundingArray = array();
-
             // Pour chaque obstacle environnant
-            foreach ($surroundings as $key => $value) {
-
+            foreach ($surroundings as $key => $value)
+            {
                 // Regarder sa position
                 $posSurroundingX = $surroundings[$key]['Surrounding']['coordinate_x'];
                 $posSurroundingY = $surroundings[$key]['Surrounding']['coordinate_y'];
 
                 // Regarder si le perso est sur la case de l'obstacle
-                if ($posx == $posSurroundingX && $posy == $posSurroundingY) {
+                if ($posx == $posSurroundingX && $posy == $posSurroundingY)
+                {
                     // Regarder si il s'agit d'un piege
-                    if ($surroundings[$key]['Surrounding']['type'] == 'piege') {
+                    if ($surroundings[$key]['Surrounding']['type'] == 'piege')
+                    {
                         $fighterMove = FALSE;
                         $fighterDeath = TRUE;
                         $this->killCharacter($fighterId);
@@ -192,7 +213,19 @@ class Fighter extends AppModel {
         $posy = $joueur['Fighter']['coordinate_y'];
         $nameEvent = NULL;
  
-
+        $date1=new DateTime($joueur['Fighter']['next_action_time']);
+        $date2=new DateTime(date('y-m-d H:i:s',time()));
+        if ($date1<$date2)
+        {
+            for($i=POINTS_ACTION-1;$i>0;$i--)
+            {
+                $timestamp=$i*RECUPERATION;
+                if($date1->add(new DateInterval('PT'.$timestamp.'S'))<$date2)
+                $this->set('next_action_time', date('y-m-d H:i:s',time()-$timestamp));
+            }
+                //elseif($date1->sub(new DateInterval('PT10S'))<$date2)
+                //$this->set('next_action_time', date('y-m-d H:i:s',time()));
+                //else $this->set('next_action_time', date('y-m-d H:i:s',time()+10));
         if ($direction == 'north') {
             $posx_cible = $posx;
             $posy_cible = $posy - 1;
@@ -273,6 +306,7 @@ class Fighter extends AppModel {
         //$cible_after = $this->read(null, $idcible);
         //pr($cible_after);
         return $eventArray;
+    }
     }
 
     public function fileUpload($id) {
