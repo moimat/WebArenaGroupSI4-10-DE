@@ -1,8 +1,52 @@
 <?php $this->assign('title', 'Hall Of Fame'); ?>
 <?php
 
+$mforce=0;
+$mvision=0;
+$mvie=0;
+$mxp=0;
+$mlvl=0;
+$count=0;
+
+foreach ($raw as $key => $value) {
+    
+    $force = $raw[$key]['Fighter']['skill_strength'];
+    $vision = $raw[$key]['Fighter']['skill_sight'];
+    $vie = $raw[$key]['Fighter']['skill_health'];
+    $xp = $raw[$key]['Fighter']['xp'];
+    $lvl = $raw[$key]['Fighter']['level'];
+    
+    $mforce=$mforce+$force;
+    $mvision=$mvision+$vision;
+    $mvie=$mvie+$vie;
+    $mxp=$mxp+$xp;
+    $mlvl=$mlvl+$lvl;
+    $count=$count+1;
+}
+
+$mf=$mforce/$count;
+$mvs=$mvision/$count;
+$mvi=$mvie/$count;
+$mx=$mxp/$count;
+$mlv=$mlvl/$count;
+
+echo "$mf $mvs $mvi $mx $mlv";
+
 echo"
+<div>
 <div id=\"chart1\" style=\"height:400px;width:900px; \"></div>
+
+<div id=\"chart2\" style=\"height:400px;width:900px; \"></div>
+
+<p><br><br><br></p>
+
+<style type=\"text/css\">
+#chart2 .jqplot-point-label {
+  border: 1.5px solid #aaaaaa;
+  padding: 1px 3px;
+  background-color: #eeccdd;
+}
+</style>
 
 <script>
 $(document).ready(function(){
@@ -41,6 +85,7 @@ foreach ($raw as $key => $value) {
 echo"];
      
     var plot1 = $.jqplot('chart1', [s1, s2, s3], {
+        title: 'Caractéristiques des fighters',
         // The \"seriesDefaults\" option is an options object that will
         // be applied to all series in the chart.
         seriesDefaults:{
@@ -77,6 +122,22 @@ echo"];
             }
         }
     });
+});
+
+$(document).ready(function(){
+  var line1 = [$mlv, $mf, $mvi, $mvs, $mx];
+  var plot3 = $.jqplot('chart2', [line1], {
+    title: 'Moyenne des caractéristiques de tous les fighters', 
+    seriesDefaults: {renderer: $.jqplot.BarRenderer},
+    series:[
+     {pointLabels:{
+        show: true,
+        labels:['Niveau', 'Force', 'Vie', 'Vue', 'Experience']
+      }}],
+    axes: {
+      xaxis:{renderer:$.jqplot.CategoryAxisRenderer},
+      yaxis:{padMax:1.3}}
+  });
 });
 </script>";
 ?>
