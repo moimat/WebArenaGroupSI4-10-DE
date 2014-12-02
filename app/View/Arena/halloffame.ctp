@@ -25,7 +25,7 @@ echo"
 <div id=\"chart4\" style=\"height:400px;width:900px; \"></div>
 
 <div>
-    <h1>Liste des Fighters</h1>
+    <h1>Fighters List</h1>
     <table id=\"list\" class= \"table table-striped table-bordered fixed\">
         <thead>
             <tr>
@@ -106,7 +106,7 @@ foreach ($raw as $key => $value) {
 echo"];
      
     var plot1 = $.jqplot('chart1', [s1, s2, s3], {
-        title: 'Caractéristiques des fighters',
+        title: 'Fighters Abilities',
         seriesDefaults:{
             renderer:$.jqplot.BarRenderer,
             rendererOptions: {fillToZero: true}
@@ -147,7 +147,7 @@ echo"];
 $(document).ready(function(){
   var line1 = [$mlv, $mf, $mvi, $mvs, $mx];
   var plot3 = $.jqplot('chart2', [line1], {
-    title: 'Moyenne des caractéristiques de tous les fighters', 
+    title: 'Average abilities of all fighters', 
     seriesDefaults: {renderer: $.jqplot.BarRenderer},
         animate: true,
         animateReplot: true,
@@ -170,12 +170,12 @@ $(document).ready(function(){
 
 $(document).ready(function(){
   var data = [
-    ['Niveau 1-5', $countlv1],['Niveau 6-10', $countlv2], ['Niveau 11-15', $countlv3], 
-    ['Niveau 16+', $countlv4]
+    ['Level 1-5', $countlv1],['Level 6-10', $countlv2], ['Level 11-15', $countlv3], 
+    ['Level 16+', $countlv4]
   ];
   var plot1 = jQuery.jqplot ('chart3', [data], 
     { 
-    title: 'Répartition des Fighters selon leur niveau',
+    title: 'Spread out of fighters according to level',
       seriesDefaults: {
         // Make this a pie chart.
         renderer: jQuery.jqplot.PieRenderer, 
@@ -202,7 +202,7 @@ foreach ($tab2 as $key => $value) {
     echo"[$jour2, $dep],";
 }echo"];
     plot1 = $.jqplot(\"chart4\", [s2, s1], {
-        title: 'Nombre d\'actions par jour',
+        title: 'Number of actions per day',
         animate: true,
         animateReplot: true,
         cursor: {
@@ -212,7 +212,7 @@ foreach ($tab2 as $key => $value) {
             showTooltip: false
         },
         series:[
-            {label:'Nombre d\'attaque',
+            {label:'Number of attacks',
             pointLabels: {
                     show: true
                 },
@@ -230,7 +230,7 @@ foreach ($tab2 as $key => $value) {
                 }
             },
   
-            {label:'Nombre de déplacement',
+            {label:'Number of moves',
             pointLabels: {
                     show: true
                 },
