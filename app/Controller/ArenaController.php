@@ -32,7 +32,7 @@ class ArenaController extends AppController {
     }
 
     public function beforeFilter() {
-        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login') {
+        if (!$this->Session->read('Connected') AND $this->request->params['action'] != 'login' AND $this->request->params['action']!='halloffame') {
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         } else {
             //echo "success variable status :";
