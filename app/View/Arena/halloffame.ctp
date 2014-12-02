@@ -24,7 +24,45 @@ echo"
 
 <div id=\"chart4\" style=\"height:400px;width:900px; \"></div>
 
+<div>
+    <h1>Liste des Fighters</h1>
+    <table id=\"list\" class= \"table table-striped table-bordered fixed\">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Experience</th>
+                <th>Vision</th>
+                <th>Force</th>
+                <th>Vie</th>
+                <th>Coordinate x</th>
+                <th>Coordinate y</th>
+            </tr>
+        </thead>
 
+        <tbody>
+";
+
+            foreach ($raw as $key => $value) {
+                
+                    echo '<tr>';
+                    echo '<td>'; echo $value['Fighter']['id'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['name'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['level'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['xp'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['skill_sight'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['skill_strength'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['skill_health'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['coordinate_x'];echo"</td>";
+                    echo '<td>'; echo $value['Fighter']['coordinate_y'];echo"</td>";
+                    echo '</tr>';
+            }
+            echo"
+        </tbody>
+    </table> 
+     <p><br><br></p>
+</div>
 <p><br><br><br></p>
 
 <style type=\"text/css\">
@@ -244,6 +282,9 @@ foreach ($tab2 as $key => $value) {
         }
     });
    
+});
+$(document).ready(function(){
+    $('#list').DataTable();
 });
 </script>";
 ?>

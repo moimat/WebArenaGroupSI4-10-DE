@@ -561,7 +561,7 @@ class Fighter extends AppModel {
         
         $moy = array(
             'mf' => $mf,
-            'mfs' => $mvs,
+            'mvs' => $mvs,
             'mvi' => $mvi,
             'mx' => $mx,
             'mlv' => $mlv,
