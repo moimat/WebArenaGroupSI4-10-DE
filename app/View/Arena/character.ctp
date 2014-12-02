@@ -71,7 +71,7 @@ foreach ($raw as $key => $value) {
                 </div>
             </div>
             <div class=\"progress\">
-            <div class=\"progress-bar progress-bar-success progress-bar-striped\" role=\"progressbar\" aria-valuenow=\"$xp\" aria-valuemin=\"0\" aria-valuemax=\"4\" style=\"width: $width_xp%\">";
+            <div class=\"progress-bar progress-bar-info progress-bar-striped\" role=\"progressbar\" aria-valuenow=\"$xp\" aria-valuemin=\"0\" aria-valuemax=\"4\" style=\"width: $width_xp%\">";
         echo "Experience : $xp / 4";
         echo"
                 </div>

@@ -173,8 +173,8 @@ class ArenaController extends AppController {
     
     public function halloffame() {
         $this->set('raw', $this->Fighter->find('all'));
-        $this->set('tab',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreAtk FROM events AS Event where name like '%attaque%' group by day(date) order by date;"));
-        $this->set('tab2',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreDep FROM events AS Event where name like '%déplace%' group by day(date) order by date;"));
+        $this->set('tab',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreAtk FROM events AS Event where name like '%atta%' group by day(date) order by date;"));
+        $this->set('tab2',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreDep FROM events AS Event where name like '%déplace%' or name like '%moves%' group by day(date) order by date;"));
         $this->set('moy',$this->Fighter->calculatemoy());
 	}
 
