@@ -327,7 +327,7 @@ class Fighter extends AppModel {
 
         // Create corresponding Event        
         $dateNow = date("Y-m-d H:i:s");
-        $nameEvent = $newName . ' créé';
+        $nameEvent = $newName . ' created';
 
         $eventArray = array(
             "coordinate_x" => $posx,

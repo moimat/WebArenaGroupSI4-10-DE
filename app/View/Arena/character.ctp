@@ -33,7 +33,7 @@ foreach ($raw as $key => $value) {
         </div>
         <div class=\"col-md-4 column\">
             <h2>
-                Caractéristiques
+                Abilities
             </h2>
             <div>
                 <span class=\"label label-success\">Level</span>";
@@ -66,7 +66,7 @@ foreach ($raw as $key => $value) {
 <div class=\"progress-bar progress-bar-success progress-bar-striped\" role=\"progressbar\" aria-valuenow=\"$current_health\" aria-valuemin=\"0\" aria-valuemax=\"$skill_health\" style=\"width: $width_health%\">";        
         $xp=strval($raw[$key]['Fighter']['xp']);
         $width_xp=($xp/4)*100;
-        echo "Vie : $current_health / $skill_health";
+        echo "Health : $current_health / $skill_health";
         echo"
                 </div>
             </div>
