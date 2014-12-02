@@ -48,8 +48,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->script('jqplot.categoryAxisRenderer.min');
         echo $this->Html->script('jqplot.barRenderer.min');
         echo $this->Html->script('jqplot.pointLabels.min');
-        echo $this->Html->script('jqplot.cursor.min.js');
+        echo $this->Html->script('jqplot.cursor.min');
         echo $this->Html->script('jqplot.highlighter.min');
+
 
         echo $this->Html->css('jquery.jqplot');
 
