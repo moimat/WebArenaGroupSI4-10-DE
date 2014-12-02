@@ -123,9 +123,9 @@ echo"];
                     show: true
                 },
         series:[
-            {label:'Force'},
-            {label:'Vision'},
-            {label:'Vie'}
+            {label:'Strength'},
+            {label:'Sight'},
+            {label:'Health'}
         ],
         legend: {
             show: true,
@@ -160,7 +160,7 @@ $(document).ready(function(){
     series:[
      {pointLabels:{
         show: true,
-        labels:['Niveau', 'Force', 'Vie', 'Vue', 'Experience']
+        labels:['Level', 'Strength', 'Health', 'Sight', 'Experience']
       }}],
     axes: {
       xaxis:{renderer:$.jqplot.CategoryAxisRenderer},

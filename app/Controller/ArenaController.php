@@ -115,6 +115,13 @@ class ArenaController extends AppController {
 
     public function diary() {
         $this->set('events', $this->Event->find('all'));
+        $currentFighterId=$this->Session->read('Enter');
+        if (!isset($currentFighterId)) {
+            $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
+        }
+        else{
+            $this->set('currentFighter', $this->Fighter->findById($currentFighterId));
+        }
     }
 
     public function sight() {
