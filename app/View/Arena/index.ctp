@@ -26,36 +26,33 @@
         <!-- Carousel
         ================================================== -->   
         <div id="myCarousel" class="carousel slide" style="width: 300px; margin: 0 auto">
-            <div class="carousel-inner" style="height:3000px ">
+            <div class="carousel-inner">
                 <?php
                 foreach ($fighters as $key => $value) {
                     $name = $fighters[$key]['Fighter']['name'];
                     $id = $fighters[$key]['Fighter']['id'];
-                    if($id==1){
+                    if ($id == 1) {
                         echo'<div class="item active">';
-                    }else{
+                    } else {
                         echo '<div class="item">';
                     }
-                    
+
                     echo $this->Html->image('Avatars/avatar-' . $id . '.jpg', array('alt' => 'CakePHP', 'width' => '20%', 'height' => '20%'));
-                    echo'<div class="carousel-caption"><h4>'.$name.'</h4></div>';
-                    echo '</div>';              
+                    echo'<div class="carousel-caption"><h4>' . $name . '</h4></div>';
+                    echo '</div>';
                 }
                 ?>
             </div> <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
 
             <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
         </div>
-
-
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <?php
-        echo $this->Html->script('docs.min');
-        echo $this->Html->script('jquery.min');
-        echo $this->Html->script('bootstrap.min');
-        ?>
-
     </body>
 </html>
+<!-- Bootstrap core JavaScript
+       ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<?php
+echo $this->Html->script('docs.min');
+echo $this->Html->script('jquery.min');
+echo $this->Html->script('bootstrap.min');
+?>
