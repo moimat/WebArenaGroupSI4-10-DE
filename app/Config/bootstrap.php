@@ -110,8 +110,8 @@ CakePlugin::load('DataTable');
 /*
  *¨PHP CONSTANTS
  */
-define("POINTS_ACTION",3);
-define("RECUPERATION",10);
+define("POINTS_ACTION",5);
+define("RECUPERATION",1);
 
 define("BORDER_WEST", 1);
 define("BORDER_EAST", 15);
