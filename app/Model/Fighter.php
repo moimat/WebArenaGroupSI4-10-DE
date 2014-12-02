@@ -101,19 +101,19 @@ class Fighter extends AppModel {
                         $fighterMove = FALSE;
                         $fighterDeath = TRUE;
                         $this->killCharacter($fighterId);
-                        $nameEvent = $joueur['Fighter']['name'] . ' tué par piège en: ' . $posx . ':' . $posy;
+                        $nameEvent = $joueur['Fighter']['name'] . ' killed by trap: ' . $posx . ':' . $posy;
                     }
                     // Regarder s'il s'agit d'un monstre
                     elseif ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
                         $fighterMove = FALSE;
                         $fighterDeath = TRUE;
                         $this->killCharacter($fighterId);
-                        $nameEvent = $joueur['Fighter']['name'] . ' tué par monstre en: ' . $posx . ':' . $posy;
+                        $nameEvent = $joueur['Fighter']['name'] . ' killed by monster: ' . $posx . ':' . $posy;
                     }
                     // S'il s'agit d'une colonne
                     else {
                         $fighterMove = FALSE;
-                        $nameEvent = $joueur['Fighter']['name'] . ' est bloqué par une colonne en: ' . $posx . ':' . $posy;
+                        $nameEvent = $joueur['Fighter']['name'] . ' blocked by column: ' . $posx . ':' . $posy;
                     }
                 }
             }
@@ -121,7 +121,7 @@ class Fighter extends AppModel {
             $dateNow = date("Y-m-d H:i:s");
 
             if ($fighterMove == TRUE) {
-                $nameEvent = $joueur['Fighter']['name'] . ' se déplace en: ' . $posx . ':' . $posy;
+                $nameEvent = $joueur['Fighter']['name'] . ' moves to: ' . $posx . ':' . $posy;
             }
 
             $eventArray = array(
@@ -158,7 +158,7 @@ class Fighter extends AppModel {
             $this->set('xp', $xp);
             $this->save();
             // Create corresponding Event  
-            $nameEvent = $name . ' est maintenant niveau ' . $level;
+            $nameEvent = $name . ' is now level ' . $level;
             if ($skill == 0) {
                 $this->set('skill_health', $data['Fighter']['skill_health'] + 3);
                 $this->set('current_health', $data['Fighter']['skill_health'] + 3);
@@ -172,7 +172,7 @@ class Fighter extends AppModel {
             }
         } else {
 
-            $nameEvent = 'Echec Level Up Personnage ' . $name;
+            $nameEvent = 'Failed to level up ' . $name;
         }
 
         // Create corresponding Event        
@@ -246,7 +246,7 @@ class Fighter extends AppModel {
                         pr('attaque échouée');
                         $success = 'echec';
                     }
-                    $nameEvent = $joueur['Fighter']['name'] . ' attaque ' . $cible['Fighter']['name'] . ':' . $success;
+                    $nameEvent = $joueur['Fighter']['name'] . ' attacks ' . $cible['Fighter']['name'] . ':' . $success;
                 }
             }
 
@@ -267,7 +267,7 @@ class Fighter extends AppModel {
                         // Regarder s'il s'agit d'un monstre
                         if ($surroundings[$key]['Surrounding']['type'] == 'monstre') {
                             $surrounding->killMonster($surroundings[$key]['Surrounding']['id']);
-                            $nameEvent = $joueur['Fighter']['name'] . ' tue le monstre en ' . $posSurroundingX . ':' . $posSurroundingY;
+                            $nameEvent = $joueur['Fighter']['name'] . ' killed a monster ' . $posSurroundingX . ':' . $posSurroundingY;
                         }
                     }
                 }
@@ -401,7 +401,7 @@ class Fighter extends AppModel {
 
             // Create corresponding Event        
             $dateNow = date("Y-m-d H:i:s");
-            $nameEvent = $fighter['Fighter']['name'] . ' a trouvé objet ' . $type . ' : +' . $bonus;
+            $nameEvent = $fighter['Fighter']['name'] . ' found an object ' . ' : +' . $bonus . ' ' . $type;
 
             $eventArray = array(
                 "coordinate_x" => $posFighterX,
@@ -483,7 +483,7 @@ class Fighter extends AppModel {
                 $posDeadX = $fighters[$key]['Fighter']['coordinate_x'];
                 $posDeadY = $fighters[$key]['Fighter']['coordinate_y'];
                 $dateNow = date("Y-m-d H:i:s");
-                $nameEvent = $nameDead . ' est mort en ' . $posDeadX . ':' . $posDeadY;
+                $nameEvent = $nameDead . ' is dead ' . $posDeadX . ':' . $posDeadY;
 
                 $eventArray = array(
                     "coordinate_x" => $posDeadX,
@@ -515,7 +515,7 @@ class Fighter extends AppModel {
     }
 
     public function calculatemoy() {
-        
+
         $fighters = $this->find('all');
         $mforce = 0;
         $mvision = 0;
@@ -558,7 +558,7 @@ class Fighter extends AppModel {
         $mvi = $mvie / $count;
         $mx = $mxp / $count;
         $mlv = $mlvl / $count;
-        
+
         $moy = array(
             'mf' => $mf,
             'mvs' => $mvs,
@@ -569,8 +569,8 @@ class Fighter extends AppModel {
             'lv2' => $countlv2,
             'lv3' => $countlv3,
             'lv4' => $countlv4
-                );
-        
+        );
+
         return $moy;
     }
 
