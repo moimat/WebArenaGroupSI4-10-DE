@@ -41,6 +41,11 @@ class ArenaController extends AppController {
         if ($this->Session->read('Connected') AND $this->request->params['action'] == 'login') {
             $this->redirect(array('controller' => 'Arena', 'action' => 'index'));
         }
+        
+        if (!$this->Session->read('Enter') AND $this->request->params['action'] == 'sight') {
+            $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
+        }
+        
         if (isset($this->request->data['deco'])) {
             $this->Session->delete('Connected');
             //$this->Session->destroy();
