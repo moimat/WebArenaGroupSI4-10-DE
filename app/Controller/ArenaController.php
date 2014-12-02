@@ -9,6 +9,7 @@ App::uses('CakeEmail', 'Network/Email');
  * @author ...
  */
 class ArenaController extends AppController {
+
     public $uses = array('Player', 'Fighter', 'Event', 'Surrounding', 'Tool');
     public $components = array('Session');
 
@@ -28,7 +29,6 @@ class ArenaController extends AppController {
      */
     public function index() {
         $this->set('fighters', $this->Fighter->find('all'));
-
     }
 
     public function beforeFilter() {
@@ -44,14 +44,13 @@ class ArenaController extends AppController {
             //echo "déconnecté";
             $this->redirect(array('controller' => 'Arena', 'action' => 'login'));
         }
-        if($this->request->params['action']=='character')
-        {
+        if ($this->request->params['action'] == 'character') {
             $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
         }
-        /*elseif($this->request->params['action']=='sight')
-        {
-            $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
-        }*/
+        /* elseif($this->request->params['action']=='sight')
+          {
+          $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
+          } */
     }
 
     public function login() {
@@ -87,7 +86,7 @@ class ArenaController extends AppController {
             //$id = $this->request->data['viewchar']['id'];
             //}
             if (isset($this->request->data['lvlup'])) {
-                $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id'],$this->request->data['lvlup']['skillup']);
+                $eventArray = $this->Fighter->lvlUp($this->request->data['lvlup']['id'], $this->request->data['lvlup']['skillup']);
                 $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                 $this->Session->setFlash($eventArray["name"]);
                 $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
@@ -125,12 +124,6 @@ class ArenaController extends AppController {
         }
 
         if ($this->request->is('post')) {
-            pr($this->request->data);
-            if (isset($this->request->data['Refresh'])) {
-                $arenaArray = $this->Surrounding->createSurroundings();
-                $this->Tool->createTools($arenaArray);
-                $this->Fighter->repositionActiveFighters();
-            }
             if (isset($this->request->data['Fightermove'])) {
                 $eventArray = $this->Fighter->doMove($currentFighterId, $this->request->data['Fightermove']['direction']);
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL) {
@@ -147,7 +140,7 @@ class ArenaController extends AppController {
                 if ($eventArray["coordinate_x"] != NULL && $eventArray["coordinate_y"] != NULL && $eventArray["name"] != NULL) {
                     $this->Event->createEvent($eventArray["coordinate_x"], $eventArray["coordinate_y"], $eventArray["date"], $eventArray["name"]);
                     $this->Session->setFlash('Une attaque a été réalisée.');
-                    
+
                     $eventArrayDead = $this->Fighter->eliminateDead();
                     if ($eventArrayDead["coordinate_x"] != NULL && $eventArrayDead["coordinate_y"] != NULL && $eventArrayDead["name"] != NULL) {
                         $this->Event->createEvent($eventArrayDead["coordinate_x"], $eventArrayDead["coordinate_y"], $eventArrayDead["date"], $eventArrayDead["name"]);
@@ -162,7 +155,7 @@ class ArenaController extends AppController {
                     $this->Session->setFlash($eventArray["name"]);
                 }
             }
-            $this->redirect(array('controller'=>'Arena', 'action'=>'sight', 'sight', '#'=>'anchor'));
+            $this->redirect(array('controller' => 'Arena', 'action' => 'sight', 'sight', '#' => 'anchor'));
         }
 
         $this->set('tools', $this->Tool->find('all'));
@@ -170,12 +163,12 @@ class ArenaController extends AppController {
         $this->set('currentFighter', $this->Fighter->findById($currentFighterId));
         $this->set('surroundings', $this->Surrounding->find('all'));
     }
-    
+
     public function halloffame() {
         $this->set('raw', $this->Fighter->find('all'));
-        $this->set('tab',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreAtk FROM events AS Event where name like '%atta%' group by day(date) order by date;"));
-        $this->set('tab2',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreDep FROM events AS Event where name like '%déplace%' or name like '%moves%' group by day(date) order by date;"));
-        $this->set('moy',$this->Fighter->calculatemoy());
-	}
+        $this->set('tab', $this->Event->query("SELECT day(date) As Jour,count(*) As NombreAtk FROM events AS Event where name like '%atta%' group by day(date) order by date;"));
+        $this->set('tab2', $this->Event->query("SELECT day(date) As Jour,count(*) As NombreDep FROM events AS Event where name like '%déplace%' or name like '%moves%' group by day(date) order by date;"));
+        $this->set('moy', $this->Fighter->calculatemoy());
+    }
 
 }

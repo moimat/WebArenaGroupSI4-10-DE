@@ -40,12 +40,6 @@
     </div>
 
     <div>
-        <?php echo $this->Form->create('Refresh', array('class' => 'form_inline formClass', 'role' => 'form'));
-        ?>
-        <button id="refresh" class="btn btn-success" controller="Arena" action="sight" type=direction name=data[Refresh] value="refresh">
-            <span class="glyphicon glyphicon-refresh"> Regenerate Arena</span> 
-        </button>
-        <?php echo $this->Form->end(); ?>
 
         <?php
         echo $this->Form->create('Fighteratk', array('class' => 'form_inline formClass', 'role' => 'form'));
@@ -164,7 +158,7 @@
                             if ($classDisplay == VISIBLE_CELL) {
                                 if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
                                     $element = COLUMN_CELL;
-                                    $tooltipTitle= 'Column'. ' : [' . $i . '][' . $j . ']';
+                                    $tooltipTitle = 'Column' . ' : [' . $i . '][' . $j . ']';
                                 }
                             }
                         }
@@ -184,13 +178,13 @@
                                 }
                                 if ($tools[$key]['Tool']['type'] == 'health') {
                                     $element = $element . HEALTH_CELL;
-                                    $tooltipTitle = $quality . ' Health Powerup'. ' : [' . $i . '][' . $j . ']';
+                                    $tooltipTitle = $quality . ' Health Powerup' . ' : [' . $i . '][' . $j . ']';
                                 } elseif ($tools[$key]['Tool']['type'] == 'sight') {
                                     $element = $element . SIGHT_CELL;
-                                    $tooltipTitle = $quality . ' Sight Powerup'. ' : [' . $i . '][' . $j . ']';
+                                    $tooltipTitle = $quality . ' Sight Powerup' . ' : [' . $i . '][' . $j . ']';
                                 } else {
                                     $element = $element . STRENGTH_CELL;
-                                    $tooltipTitle = $quality . ' Strength Powerup'. ' : [' . $i . '][' . $j . ']';
+                                    $tooltipTitle = $quality . ' Strength Powerup' . ' : [' . $i . '][' . $j . ']';
                                 }
                             }
                         }
