@@ -42,9 +42,13 @@ class ArenaController extends AppController {
             $this->redirect(array('controller' => 'Arena', 'action' => 'index'));
         }
         
-        if (!$this->Session->read('Enter') AND $this->request->params['action'] == 'sight') {
-            $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
+        if($this->Session->read('Enter')){
+           $id=$this->Session->read('Enter');
+           if(!$this->Fighter->findById($id)){
+               $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
+           }
         }
+        
         
         if (isset($this->request->data['deco'])) {
             $this->Session->delete('Connected');
