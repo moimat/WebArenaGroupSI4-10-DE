@@ -2,47 +2,17 @@
 <h1>Hall Of Fame</h1>
 
 <?php
-$mforce = 0;
-$mvision = 0;
-$mvie = 0;
-$mxp = 0;
-$mlvl = 0;
-$count = 0;
-$countlv1 = 0;
-$countlv2 = 0;
-$countlv3 = 0;
-$countlv4 = 0;
 
-foreach ($raw as $key => $value) {
+$mlv=strval($moy['mlv']);
+$mf=strval($moy['mf']);
+$mvi= strval($moy['mvi']);
+$mvs=strval($moy['mvs']);
+$mx=strval($moy['mx']);
 
-    $force = $raw[$key]['Fighter']['skill_strength'];
-    $vision = $raw[$key]['Fighter']['skill_sight'];
-    $vie = $raw[$key]['Fighter']['skill_health'];
-    $xp = $raw[$key]['Fighter']['xp'];
-    $lvl = $raw[$key]['Fighter']['level'];
-    if ($lvl < 6) {
-        $countlv1 = $countlv1 + 1;
-    } else if ($lvl < 11) {
-        $countlv2 = $countlv2 + 1;
-    } else if ($lvl < 16) {
-        $countlv3 = $countlv3 + 1;
-    } else if ($lvl > 15) {
-        $countlv4 = $countlv4 + 1;
-    }
-
-    $mforce = $mforce + $force;
-    $mvision = $mvision + $vision;
-    $mvie = $mvie + $vie;
-    $mxp = $mxp + $xp;
-    $mlvl = $mlvl + $lvl;
-    $count = $count + 1;
-}
-
-$mf = $mforce / $count;
-$mvs = $mvision / $count;
-$mvi = $mvie / $count;
-$mx = $mxp / $count;
-$mlv = $mlvl / $count;
+$countlv1=strval($moy['lv1']);
+$countlv2=strval($moy['lv2']);
+$countlv3=strval($moy['lv3']);
+$countlv4=strval($moy['lv4']);
 
 echo"
 <div class=graph>

@@ -104,7 +104,6 @@ class ArenaController extends AppController {
 
             if (isset($this->request->data['Upload'])) {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
-                $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
             }
             if (isset($this->request->data['createchar'])) {
                 $eventArray = $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));
@@ -176,7 +175,7 @@ class ArenaController extends AppController {
         $this->set('raw', $this->Fighter->find('all'));
         $this->set('tab',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreAtk FROM events AS Event where name like '%attaque%' group by day(date) order by date;"));
         $this->set('tab2',$this->Event->query("SELECT day(date) As Jour,count(*) As NombreDep FROM events AS Event where name like '%déplace%' group by day(date) order by date;"));
-
+        $this->set('moy',$this->Fighter->calculatemoy());
 	}
 
 }
