@@ -4,11 +4,20 @@
     <a name="anchor"></a>
     <div>
         <?php echo $this->Form->end(); ?>
-        <?php echo $this->Form->create('PickUp', array('class' => 'form_inline formClass', 'role' => 'form')); ?>
-        <button id="tool" class="btn btn-primary" controller="Arena" action="sight" type=direction name=data[PickUp] value="refresh">
-            <span class="glyphicon glyphicon-gift"> Pick Tool</span> 
-        </button>
-        <?php echo $this->Form->end(); ?>
+        <?php
+        foreach ($tools as $key => $value) {
+            // Afficher le bouton pour ramasser l'objet si on est sur la case
+            if ($tools[$key]['Tool']['coordinate_x'] == $currentFighter['Fighter']['coordinate_x'] && $tools[$key]['Tool']['coordinate_y'] == $currentFighter['Fighter']['coordinate_y']) {
+                echo $this->Form->create('PickUp', array('class' => 'form_inline formClass', 'role' => 'form'));
+                ?>
+                <button id="tool" class="btn btn-primary" controller="Arena" action="sight" type=direction name=data[PickUp] value="refresh">
+                    <span class="glyphicon glyphicon-gift"> Pick Tool</span> 
+                </button>
+                <?php
+                echo $this->Form->end();
+            }
+        }
+        ?>
 
         <?php
         echo $this->Form->create('Fightermove', array('class' => 'form_inline formClass', 'role' => 'form'));
@@ -80,6 +89,7 @@
                     $distanceX = 0;
                     $distanceY = 0;
                     $surroundingNextCell = false;
+                    $tooltipTitle = '';
 
                     /*
                      * Griser cases pas à portée de vue du combattant
@@ -110,7 +120,8 @@
                     foreach ($fighters as $key => $value) {
                         if ($classDisplay == VISIBLE_CELL) {
                             if ($fighters[$key]['Fighter']['coordinate_x'] == $i && $fighters[$key]['Fighter']['coordinate_y'] == $j) {
-                                $element = FIGHTER_CELL . $fighters[$key]['Fighter']['name'];
+                                $element = FIGHTER_CELL;
+                                $tooltipTitle = $fighters[$key]['Fighter']['name'] . ' : [' . $i . '][' . $j . ']';
                             }
                         }
                     }
@@ -153,6 +164,7 @@
                             if ($classDisplay == VISIBLE_CELL) {
                                 if ($surroundings[$key]['Surrounding']['type'] == 'colonne') {
                                     $element = COLUMN_CELL;
+                                    $tooltipTitle= 'Column'. ' : [' . $i . '][' . $j . ']';
                                 }
                             }
                         }
@@ -160,27 +172,31 @@
 
                     // Représentation tools sur le terrain
                     foreach ($tools as $key => $value) {
-                        // Afficher tour
+                        // Afficher tool
                         if ($tools[$key]['Tool']['coordinate_x'] == $i && $tools[$key]['Tool']['coordinate_y'] == $j) {
                             if ($classDisplay == VISIBLE_CELL) {
                                 if ($tools[$key]['Tool']['bonus'] == 1) {
-                                    $quality = 'Petite';
+                                    $quality = 'Small';
                                 } elseif ($tools[$key]['Tool']['bonus'] == 2) {
-                                    $quality = 'Moyenne';
+                                    $quality = 'Medium';
                                 } else {
-                                    $quality = 'Grande';
+                                    $quality = 'Big';
                                 }
                                 if ($tools[$key]['Tool']['type'] == 'health') {
-                                    $element = $element . HEALTH_CELL . $quality . ' vie';
+                                    $element = $element . HEALTH_CELL;
+                                    $tooltipTitle = $quality . ' Health Powerup'. ' : [' . $i . '][' . $j . ']';
                                 } elseif ($tools[$key]['Tool']['type'] == 'sight') {
-                                    $element = $element . SIGHT_CELL . $quality . ' Vision';
+                                    $element = $element . SIGHT_CELL;
+                                    $tooltipTitle = $quality . ' Sight Powerup'. ' : [' . $i . '][' . $j . ']';
                                 } else {
-                                    $element = $element . STRENGTH_CELL . $quality . ' Epee';
+                                    $element = $element . STRENGTH_CELL;
+                                    $tooltipTitle = $quality . ' Strength Powerup'. ' : [' . $i . '][' . $j . ']';
                                 }
                             }
                         }
                     }
-                    $displayElement = '<td ' . $classDisplay . '>' . $element . '</td>';
+                    $tooltip = 'data-toggle="tooltip" data-placement="bottom" title="' . $tooltipTitle . '" ';
+                    $displayElement = '<td ' . $tooltip . $classDisplay . '>' . $element . '</td>';
                     echo $displayElement;
                 }
                 echo '</tr>';

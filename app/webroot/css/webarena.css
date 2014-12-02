@@ -68,12 +68,17 @@ table.fixed td {
     width:50%;
     height:10%;
     margin:auto;
-    
+
 }
 
 div.graph{
     width:65%;
     margin-left:auto;
     margin-right:auto;
+}
+
+td {
+    align:center; 
+    valign:middle;
 }
 
