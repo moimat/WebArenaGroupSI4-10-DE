@@ -104,6 +104,7 @@ class ArenaController extends AppController {
 
             if (isset($this->request->data['Upload'])) {
                 $this->Fighter->fileUpload($this->request->data['Upload']['id']);
+                $this->set('raw', $this->Fighter->viewAllChars($this->Session->read('Connected')));
             }
             if (isset($this->request->data['createchar'])) {
                 $eventArray = $this->Fighter->createCharacter($this->request->data['createchar']['name'], $this->Session->read('Connected'));

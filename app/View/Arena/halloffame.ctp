@@ -89,10 +89,6 @@ foreach ($raw as $key => $value) {
 $sh,";
 }
 echo"];
-    
-    // Can specify a custom tick Array.
-    // Ticks should match up one for each y value (category) in the series.
-    
     var ticks = [";
 foreach ($raw as $key => $value) {
     $name = $raw[$key]['Fighter']['name'];
@@ -103,15 +99,11 @@ echo"];
      
     var plot1 = $.jqplot('chart1', [s1, s2, s3], {
         title: 'Caractéristiques des fighters',
-        // The \"seriesDefaults\" option is an options object that will
-        // be applied to all series in the chart.
         seriesDefaults:{
             renderer:$.jqplot.BarRenderer,
             rendererOptions: {fillToZero: true}
         },
-        // Turns on animatino for all series in this plot.
         animate: true,
-        // Will animate plot on calls to plot1.replot({resetAxes:true})
         animateReplot: true,
         cursor: {
             show: true,
@@ -119,9 +111,6 @@ echo"];
             looseZoom: true,
             showTooltip: false
         },  
-        // Custom labels for the series are specified with the \"label\"
-        // option on the series option.  Here a series option object
-        // is specified for each series.
         pointLabels: {
                     show: true
                 },
@@ -130,22 +119,15 @@ echo"];
             {label:'Vision'},
             {label:'Vie'}
         ],
-        // Show the legend and put it outside the grid, but inside the
-        // plot container, shrinking the grid to accomodate the legend.
-        // A value of \"outside\" would not shrink the grid and allow
-        // the legend to overflow the container.
         legend: {
             show: true,
             placement: 'outsideGrid'
         },
         axes: {
-            // Use a category axis on the x axis and use our custom ticks.
             xaxis: {
                 renderer: $.jqplot.CategoryAxisRenderer,
                 ticks: ticks
             },
-            // Pad the y axis just a little so bars can get close to, but
-            // not touch, the grid boundaries.  1.2 is the default padding.
             yaxis: {
                 pad: 1.05,
                 tickOptions: {formatString: '$%d'}
@@ -159,9 +141,7 @@ $(document).ready(function(){
   var plot3 = $.jqplot('chart2', [line1], {
     title: 'Moyenne des caractéristiques de tous les fighters', 
     seriesDefaults: {renderer: $.jqplot.BarRenderer},
-    // Turns on animatino for all series in this plot.
         animate: true,
-        // Will animate plot on calls to plot1.replot({resetAxes:true})
         animateReplot: true,
         cursor: {
             show: true,
@@ -192,8 +172,6 @@ $(document).ready(function(){
         // Make this a pie chart.
         renderer: jQuery.jqplot.PieRenderer, 
         rendererOptions: {
-          // Put data labels on the pie slices.
-          // By default, labels show the percentage of the slice.
           showDataLabels: true
         }
       }, 
@@ -217,9 +195,7 @@ foreach ($tab2 as $key => $value) {
 }echo"];
     plot1 = $.jqplot(\"chart4\", [s2, s1], {
         title: 'Nombre d\'actions par jour',
-        // Turns on animatino for all series in this plot.
         animate: true,
-        // Will animate plot on calls to plot1.replot({resetAxes:true})
         animateReplot: true,
         cursor: {
             show: true,
@@ -235,10 +211,7 @@ foreach ($tab2 as $key => $value) {
             renderer: $.jqplot.BarRenderer,
             showHighlight: false,
             yaxis: 'y2axis',
-            rendererOptions: {
-                    // Speed up the animation a little bit.
-                    // This is a number of milliseconds.  
-                    // Default for bar series is 3000.  
+            rendererOptions: { 
                     animation: {
                         speed: 2500
                     },
@@ -264,8 +237,6 @@ foreach ($tab2 as $key => $value) {
             pad: 0
         },
         axes: {
-            // These options will set up the x axis like a category axis.
-            
             xaxis: {
                 tickInterval: 1,
                 drawMajorGridlines: false,

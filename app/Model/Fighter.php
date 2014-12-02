@@ -12,6 +12,8 @@
  * @author matthieu
  */
 App::uses('AppModel', 'Model');
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
 
 class Fighter extends AppModel {
 
@@ -312,9 +314,8 @@ class Fighter extends AppModel {
     public function fileUpload($id) {
 
         $repertoire = "img/Avatars/";
-
         $image = $repertoire . 'avatar-' . $id . '.jpg';
-
+        
         if (move_uploaded_file($_FILES['data']['tmp_name']['Upload']['Avatar'], WWW_ROOT . $image)) {
             echo "The file " . basename($_FILES["data"]["name"]['Upload']['Avatar']) . " has been uploaded.";
         } else {
