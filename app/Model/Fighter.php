@@ -33,15 +33,22 @@ class Fighter extends AppModel {
         //@todo empêcher le joueur de sortir des limites du terrain
         //@todo empêcher le joueur de se déplacer sur une case occupée
         /// Observer la direction choisie, positions limites et persos ennemis du terrain
-        $date1 = new DateTime($joueur['Fighter']['next_action_time']);
-        $date2 = new DateTime(date('y-m-d H:i:s', time()));
-        if ($date1 < $date2) {
-            if ($date1->add(new DateInterval('PT20S')) < $date2)
-                $this->set('next_action_time', date('y-m-d H:i:s', time() - 10));
-            elseif ($date1->sub(new DateInterval('PT10S')) < $date2)
-                $this->set('next_action_time', date('y-m-d H:i:s', time()));
-            else
-                $this->set('next_action_time', date('y-m-d H:i:s', time() + 10));
+        $date1=new DateTime($joueur['Fighter']['next_action_time']);
+        $datebuff=$date1;
+        $date2=new DateTime(date('y-m-d H:i:s',time()));
+        if ($date1<$date2)
+        {
+            for($i=POINTS_ACTION;$i>0;$i--)
+            {
+                $timestamp1=$i*RECUPERATION;
+                $timestamp2=($i-1)*RECUPERATION;
+                if($datebuff->add(new DateInterval('PT'.$timestamp1.'S'))<$date2){
+                $this->set('next_action_time', date('y-m-d H:i:s',time()-$timestamp2));
+                break;}
+                $datebuff=$date1;
+            }if($date1->add(new DateInterval('PT'.RECUPERATION.'S'))>$date2)
+             $this->set('next_action_time', date('y-m-d H:i:s',time()+RECUPERATION));
+
             if ($direction == 'north') {
                 $varn = $this->find('first', array('conditions' =>
                     array('coordinate_x' => $joueur['Fighter']['coordinate_x'],
@@ -194,17 +201,22 @@ class Fighter extends AppModel {
         $posy = $joueur['Fighter']['coordinate_y'];
         $nameEvent = NULL;
 
-        $date1 = new DateTime($joueur['Fighter']['next_action_time']);
-        $date2 = new DateTime(date('y-m-d H:i:s', time()));
-        if ($date1 < $date2) {
-            for ($i = POINTS_ACTION - 1; $i > 0; $i--) {
-                $timestamp = $i * RECUPERATION;
-                if ($date1->add(new DateInterval('PT' . $timestamp . 'S')) < $date2)
-                    $this->set('next_action_time', date('y-m-d H:i:s', time() - $timestamp));
-            }
-            //elseif($date1->sub(new DateInterval('PT10S'))<$date2)
-            //$this->set('next_action_time', date('y-m-d H:i:s',time()));
-            //else $this->set('next_action_time', date('y-m-d H:i:s',time()+10));
+        $date1=new DateTime($joueur['Fighter']['next_action_time']);
+        $datebuff=$date1;
+        $date2=new DateTime(date('y-m-d H:i:s',time()));
+        if ($date1<$date2)
+        {
+            for($i=POINTS_ACTION;$i>0;$i--)
+            {
+                $timestamp1=$i*RECUPERATION;
+                $timestamp2=($i-1)*RECUPERATION;
+                if($datebuff->add(new DateInterval('PT'.$timestamp1.'S'))<$date2){
+                $this->set('next_action_time', date('y-m-d H:i:s',time()-$timestamp2));
+                break;}
+                $datebuff=$date1;
+            }if($date1->add(new DateInterval('PT'.RECUPERATION.'S'))>$date2)
+             $this->set('next_action_time', date('y-m-d H:i:s',time()+RECUPERATION));
+
             if ($direction == 'north') {
                 $posx_cible = $posx;
                 $posy_cible = $posy - 1;
