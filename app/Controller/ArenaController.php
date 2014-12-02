@@ -125,8 +125,8 @@ class ArenaController extends AppController {
     }
 
     public function sight() {
-        $arenaArray = $this->Surrounding->createSurroundings();
-        $this->Tool->createTools($arenaArray);
+        
+        
         $currentFighterId = $this->Session->read('Enter');
         if (!isset($currentFighterId)) {
             $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
