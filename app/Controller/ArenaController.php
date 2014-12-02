@@ -45,6 +45,7 @@ class ArenaController extends AppController {
         if($this->Session->read('Enter')){
            $id=$this->Session->read('Enter');
            if(!$this->Fighter->findById($id)){
+               $this->Session->write('Enter',FALSE);
                $this->redirect(array('controller' => 'Arena', 'action' => 'character'));
            }
         }
